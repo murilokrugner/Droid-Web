@@ -1,0 +1,61 @@
+.containerSignIn {
+    height: 100%;
+    width: 100%;
+    background: var(--blue-twitter); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 200px;
+}
+
+.containerForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--blue-twitter);     
+}
+
+.containerForm img {
+    height: 220px;
+    width: 220px;
+    border-radius: 50%;
+}
+
+.containerForm form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+.containerForm form input {
+    background: var(--title);
+    border: 0;
+    border-radius: 4px;
+    height: 44px;
+    padding: 0 15px;
+    color: #fff;
+    margin: 0 0 10px;
+}
+
+.containerForm form span {
+    color: var(--red);
+    align-self: flex-start;
+    margin: 0 0 10px;
+    font-weight: bold;
+}
+
+.containerForm form button {
+    margin: 5px 0 0;
+    height: 44px;
+    background: var(--green);
+    font-weight: bold;
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: filter 0.2s;
+}
