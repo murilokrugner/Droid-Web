@@ -1,0 +1,35 @@
+.NavBarContainer {
+    background: var(--white);
+
+    display: flex;
+    flex-direction: column;
+    
+    width: 300px;
+    height: 100%;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 20px;
+
+    
+}
+
+.NavBarContainer nav {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: space-around;
+
+    height: 280px;
+
+    padding: 20px;
+
+    margin-bottom: 450px;
+
+}
+
+.NavBarContainer nav a {
+    font-size: 18px;
+}

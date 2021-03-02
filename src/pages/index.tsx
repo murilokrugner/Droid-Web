@@ -1,5 +1,8 @@
 import Head from 'next/head'
-import SignIn from '../components/SignIn';
+import SignIn from './SignIn';
+import Dashboard from './Dashboard';
+import Registers from './Registers';
+
 import { AuthProvider } from '../context/AuthContext'
 
 import styles from '../styles/pages/Home.module.css';
@@ -16,16 +19,21 @@ export default function Home(props: HomeProps) {
     <AuthProvider
       signed={props.signed}
     >
-      <div className={styles.container}>
+      <div>
         <Head>
           <title>Início | Droid</title>
-        </Head>
+        </Head> 
 
-        {!props.signed && (
+        {!props.signed ? (
           <SignIn />
+        ) : (
+          <>          
+            <Dashboard />
+          </>
         )}
 
-       <ToastContainer autoClose={3000} />       
+       <ToastContainer autoClose={3000} />         
+       
       </div>
       
     </AuthProvider>

@@ -6,6 +6,8 @@ import Cookies from 'js-cookie';
 
 import api from '../services/api';
 
+import { useRouter } from 'next/router'
+
 interface AuthContextData {
     handleSubmit: (data: object) => void;
     token: string;
@@ -25,6 +27,8 @@ interface AuthProviderProps {
 export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children, ...rest }: AuthProviderProps) {
+    const router = useRouter()
+
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState({});
     const [token, setToken] = useState('');
@@ -34,8 +38,8 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
         try {
             setLoading(true);
 
-            const response = await api.post('/users', {
-                email: data.email,
+            const response = await api.post('/sessions', {
+                nickname: data.email,
                 password: data.password,
             });
     
@@ -51,6 +55,8 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
             setUser(user);
             setLoading(false);
             setSigned(true);
+
+            router.push('/Dashboard');
 
         } catch (error) {
             toast.error('Falha na autenticação, verifique seus dados');

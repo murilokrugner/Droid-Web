@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    
 }
 
 :root {
@@ -31,7 +32,7 @@
 }
     
 body {
-    background: var(--background);
+    background: var(--blue-twitter);
     color: var(--text);
 }
 
