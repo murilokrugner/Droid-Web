@@ -10,6 +10,13 @@ export default function NavBar() {
                     Droid Assistencia Técnica                    
                 </h1>
 
+                <div className={styles.Nav}>
+                    <Link href="/Dashboard"><a>Home</a></Link> 
+                    <Link href="/Registers/"><a>Cadastros</a></Link> 
+                    <Link href="/Clients/"><a>Clientes</a></Link>
+                    <Link href="/OrdersServices/"><a>Ordem de serviço</a></Link>
+                </div>
+
                 <div className={styles.Profile}>
                     <img src="/profile.png" alt="profile" />
                     <strong>Matheus Andreta</strong>

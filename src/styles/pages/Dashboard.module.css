@@ -1,3 +1,4 @@
 .containerDashboard {
-    
+    display: flex;
+    flex-direction: column;
 }

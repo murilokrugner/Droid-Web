@@ -1,4 +1,4 @@
-import {createContext, useState, ReactNode, useEffect} from 'react';
+import {createContext, useState, ReactNode } from 'react';
 
 import { toast } from 'react-toastify';
 
@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 
 import api from '../services/api';
 
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 interface AuthContextData {
     handleSubmit: (data: object) => void;
@@ -27,7 +27,7 @@ interface AuthProviderProps {
 export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children, ...rest }: AuthProviderProps) {
-    const router = useRouter()
+    const router = useRouter();
 
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState({});
@@ -64,16 +64,6 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
             return;
         }
     }
-
-    useEffect(() => {
-        const response = Cookies.get('token');
-
-        if (!response) {
-            setSigned(false);
-        } else {
-            setSigned(true);
-        }
-    }, []);
 
     return (
         <AuthContext.Provider 

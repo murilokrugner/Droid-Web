@@ -7,7 +7,7 @@ export default function Registers() {
     return(
         <div>
             <Header />
-            <NavBar />
+
         </div>
     );
 }

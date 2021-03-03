@@ -1,0 +1,15 @@
+.Container {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.Container h2 {
+    margin-top: 20px;
+
+    font-size: 44px;
+
+    margin-bottom: 20px;
+}
