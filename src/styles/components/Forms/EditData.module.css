@@ -51,14 +51,3 @@
     font-size: 16px;
     transition: filter 0.2s;
 }
-
-.ContainerSelect {
-    display: flex;
-    flex-direction: column;
-
-    justify-content: space-around;
-
-
-    height: 180px;
-
-}

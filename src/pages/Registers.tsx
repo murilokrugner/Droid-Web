@@ -6,10 +6,10 @@ import NavBar from '../components/NavBar';
 import { useRouter } from 'next/router';
 
 export default function Registers() {
-    const router = useRouter()
+    const router = useRouter();
 
     function routing(url) {
-        router.push('Devices/CreateDevice');
+        router.push('Devices/ListDevices');
     }
 
     return(
