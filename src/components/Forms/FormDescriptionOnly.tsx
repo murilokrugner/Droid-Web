@@ -1,11 +1,13 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 
 import api from '../../services/api';
-
+import { AuthContext } from '../../context/AuthContext';
 import styles from '../../styles/components/Forms/FormDescriptionOnly.module.css';
 import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 import ReactSelect from 'react-select';
+
+import { useRouter } from 'next/router';
 
 import Loading from '../Loading';
 
@@ -17,12 +19,19 @@ const schema = Yup.object().shape({
 
 
 export default function FormDescriptionOnly({ address }) {
+    const router = useRouter();
+
+    const { token } = useContext(AuthContext);
+
     const brandRef = useRef(null);
     const groupRef = useRef(null);
 
     const [loading, setLoading] = useState(true);
 
     const [code, setCode] = useState(0);
+    const [loadingCode, setLoadingCode] = useState(true);
+    
+    const [loadingBrandGroup, setLoadingBrandGroup] = useState(true);
 
     const [brands, setBrands] = useState([]);
     const [brand, setBrand] = useState();
@@ -30,59 +39,70 @@ export default function FormDescriptionOnly({ address }) {
     const [groups, setGroups] = useState([]);
     const [group, setGroup] = useState();
 
-    useEffect(() => {  
-        async function loadBrands() {
-            const response = await api.get('brands?company=1', {
-                headers: { Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0ODEzODc4LCJleHAiOjE2MTU0MTg2Nzh9.g5ZIghKcm9OBqwpKiSL-LITnueHo4OdT1mgA8mI07QU'}` }
-            });
+    async function loadBrands() {
+        const response = await api.get('brands?company=1', {
+            headers: { Authorization: `Bearer ${token}` }
+        });
 
-            setBrands(response.data);
-            
-        }
+        setBrands(response.data);
 
-        async function loadGroups() {   
-            const response = await api.get('groups?company=1', {
-                headers: { Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0ODEzODc4LCJleHAiOjE2MTU0MTg2Nzh9.g5ZIghKcm9OBqwpKiSL-LITnueHo4OdT1mgA8mI07QU'}` }
-            });
+        setLoading(false);
+        
+    }
 
-            setGroups(response.data);
+    async function loadGroups() {   
+        const response = await api.get('groups?company=1', {
+            headers: { Authorization: `Bearer ${token}` }
+        });
 
-            setLoading(false);
-        }
+        setGroups(response.data);      
+        
+        setLoadingBrandGroup(false);
+    }
 
-        async function loadCode() {
-            const response = await api.get(`device-code?company=1`, {
-                headers: { Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0ODEzODc4LCJleHAiOjE2MTU0MTg2Nzh9.g5ZIghKcm9OBqwpKiSL-LITnueHo4OdT1mgA8mI07QU'}` }
-            });
+    async function loadCode() {
+        const response = await api.get(`device-code?company=1`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
 
-            setCode(response.data);
+        setCode(response.data + 1);
 
-            setLoading(false);
-        };
+        setLoadingCode(false);
 
-        if (address === 'devices') {            
-            loadBrands();
-            loadGroups();
+        
+    };
+
+    useEffect(() => {      
+        if (token) {
             loadCode();
         }
 
-    }, []);
+        if (address === 'devices' && token) {            
+            loadBrands();
+            loadGroups(); 
+                                        
+        } else {
+            setLoadingBrandGroup(false);
+            setLoading(false);
+        }
+
+    }, [token]);
 
     async function handleSubmit(data) {
         
         if (data.description === '') {
-            toast.error('Informe um descrição');
+            toast.warn('Informe um descrição');
             return;
         }
 
         if (address === 'devices') {
             if (brand === undefined) {
-                toast.error('Selecione uma marca');
+                toast.warn('Selecione uma marca');
                 return;
             }
     
             if (group === undefined) {
-                toast.error('Selecione um grupo');
+                toast.warn('Selecione um grupo');
                 return;
             }
         }
@@ -97,15 +117,22 @@ export default function FormDescriptionOnly({ address }) {
                     group_id: group.value,
                     company_id: 1,
                 }, {
-                    headers: { Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0ODEzODc4LCJleHAiOjE2MTU0MTg2Nzh9.g5ZIghKcm9OBqwpKiSL-LITnueHo4OdT1mgA8mI07QU'}` }
+                    headers: { Authorization: `Bearer ${token}` }
                 });
-    
+
                 setLoading(false);
     
                 toast.success('Cadastro realizado com sucesso!');
+
+                router.back();
     
-            } catch (error) {
-                console.log(error);
+            } catch (error) {   
+                if (error.response.status) {
+                    toast.info('Já existe um aparelho cadastrado com esse nome');
+                    setLoading(false);
+                    return
+                }         
+
                 toast.error('Erro ao realizar o cadastro');
                 setLoading(false);
             }
@@ -117,7 +144,7 @@ export default function FormDescriptionOnly({ address }) {
                     description: data.description,
                     company_id: 1,
                 }, {
-                    headers: { Authorization: `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjE0ODEzODc4LCJleHAiOjE2MTU0MTg2Nzh9.g5ZIghKcm9OBqwpKiSL-LITnueHo4OdT1mgA8mI07QU'}` }
+                    headers: { Authorization: `Bearer ${token}` }
                 });
     
                 setLoading(false);
@@ -134,7 +161,7 @@ export default function FormDescriptionOnly({ address }) {
 
     return (
         <div className={styles.Container}>
-            {loading ? (
+            {loading && loadingCode && loadingBrandGroup ? (
                 <>
                     <Loading />
                 </>

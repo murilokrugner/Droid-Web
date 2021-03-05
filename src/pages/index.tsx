@@ -6,8 +6,6 @@ import SignIn from './SignIn';
 import Dashboard from './Dashboard';
 import Registers from './Registers';
 
-import { AuthProvider } from '../context/AuthContext'
-
 import styles from '../styles/pages/Home.module.css';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -34,7 +32,7 @@ export default function Home(props: HomeProps) {
   console.log(signed);
 
   return (
-    <AuthProvider
+    <>
       signed={props.signed}
     >
       <div>
@@ -54,6 +52,6 @@ export default function Home(props: HomeProps) {
        
       </div>
       
-    </AuthProvider>
+    </>
   )
 }

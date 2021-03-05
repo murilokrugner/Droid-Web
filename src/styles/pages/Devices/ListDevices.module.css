@@ -16,3 +16,12 @@
 
     margin-top: 25px;
 }
+
+.buttonAdd {
+    display: flex;
+    margin-top: 40px;
+
+    width: 700px;
+
+    justify-content: flex-end;
+}

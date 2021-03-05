@@ -1,61 +1,208 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 
 import api from '../../services/api';
-
-import styles from '../../styles/components/Forms/EditData.module.css';
+import { AuthContext } from '../../context/AuthContext';
+import styles from '../../styles/components/Forms/FormDescriptionOnly.module.css';
 import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
+import ReactSelect from 'react-select';
+
+import { useRouter } from 'next/router';
+
+import Loading from '../Loading';
+
+import { toast } from 'react-toastify';
 
 const schema = Yup.object().shape({
     description: Yup.string().required('A descrição é obrigatória'),
   });
 
-export default function EditData({ address }) {
-    const [loadingScreen, setLoadingScreen] = useState(false);
-    const [loading, setLoading] = useState(false);
 
-    const [data, setData] = useState(0);
+export default function EditData() {
+    const router = useRouter();
 
-    useEffect(() => {
-        async function loadData() {
-            const response = await api.get(`/${address}?id=${1}`);
+    const id = router.query.id;
 
-            setData(response.data);
+    const addressEdit = router.query.address;
 
-            setLoadingScreen(false);
-        };
+    const { token } = useContext(AuthContext);
 
-    }, );
+    const brandRef = useRef(null);
+    const groupRef = useRef(null);
+
+    const [loading, setLoading] = useState(true);
+    const [loadingCode, setLoadingCode] = useState(true);    
+    const [loadingBrandGroup, setLoadingBrandGroup] = useState(true);
+
+    const [code, setCode] = useState(0);
+    const [description, setDescription] = useState('');
+    const [brand, setBrand] = useState();
+    const [group, setGroup] = useState();
+
+    const [brands, setBrands] = useState([]);
+    const [groups, setGroups] = useState([]);
+    
+
+    async function loadBrands() {
+        const response = await api.get('brands?company=1', {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        setBrands(response.data);
+
+        setLoading(false);
+        
+    }
+
+    async function loadGroups() {   
+        const response = await api.get('groups?company=1', {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        setGroups(response.data);      
+        
+        setLoadingBrandGroup(false);
+    }
+
+    async function loadData() {
+        const response = await api.get(`get-${addressEdit}-code?company=1&id=${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        setCode(response.data.id);
+
+        setDescription(response.data.description);
+
+        setGroup([
+            {
+                'value': response.data.group.id,
+                'label': response.data.group.description
+            }
+        ]);
+
+        setBrand([
+            {
+                'value': response.data.id,
+                'label': response.data.brand.description
+            }
+        ]);
+
+        setLoadingCode(false);
+
+        
+    };
+
+    useEffect(() => {      
+        if (token) {
+            loadData();
+        }
+
+        if (addressEdit === 'devices' && token) {            
+            loadBrands();
+            loadGroups(); 
+                                        
+        } else {
+            setLoadingBrandGroup(false);
+            setLoading(false);
+        }
+
+    }, [token]);
 
     async function handleSubmit(data) {
-        try {
-            setLoading(true);
+        
+        if (data.description === '') {
+            toast.warn('Informe um descrição');
+            return;
+        }
 
-            const response = await api.post(`${address}`, {
-                description: data.description,
-            });
+        if (addressEdit === 'devices') {
+            if (brand === undefined) {
+                toast.warn('Selecione uma marca');
+                return;
+            }
+    
+            if (group === undefined) {
+                toast.warn('Selecione um grupo');
+                return;
+            }
+        }
 
-            setLoading(false);
-        } catch (error) {
-            console.log(error);
-            setLoading(false);
+        if (addressEdit === 'devices') {
+            try {
+                setLoading(true);
+    
+                const response = await api.put(`${addressEdit}?company=1&id=${id}`, {
+                    description: data.description,
+                    brand_id: brand.value,
+                    group_id: group.value,
+                }, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+                setLoading(false);
+    
+                toast.success('Alteração realizada com sucesso');
+
+                router.back();
+    
+            } catch (error) {   
+                if (error.response.status) {
+                    toast.info('Já existe um aparelho cadastrado com esse nome');
+                    setLoading(false);
+                    return
+                }         
+
+                toast.error('Erro ao realizar o cadastro');
+                setLoading(false);
+            }
         }
     }
 
     return (
         <div className={styles.Container}>
-            {loadingScreen ? (
-                <></>
+            {loading || loadingCode || loadingBrandGroup ? (
+                <>
+                    <Loading />
+                </>
             ) : (
                 <div className={styles.containerForm}>
     
-                    <Form schema={schema} onSubmit={handleSubmit}>
-                    <Input name="code" type="text" placeholder="Código" value={data.id} disabled />
+                    <Form onSubmit={handleSubmit}>
+                    <Input name="code" type="text" placeholder="Código" value={code} disabled />
                     <Input
-                        name="Description"
+                        name="description"
                         type="text"
+                        value={description}
                         placeholder="Descrição do aparelho"
                     />
+
+                    {addressEdit === 'devices' && (
+                        <div className={styles.ContainerSelect}>
+                            <ReactSelect    
+                                name={brand}
+                                value={brand}
+                                defaultValue={brand}
+                                onChange={value => setBrand(value)}
+                                placeholder={'Marca'}                    
+                                ref={brandRef}
+                                options={brands}
+                                isClearable={true}
+                                isLoading={loading}
+                            />
+
+                            <ReactSelect   
+                                name={group} 
+                                value={group}
+                                onChange={value => setGroup(value)}
+                                placeholder={'Grupo'}                    
+                                ref={groupRef}
+                                options={groups}
+                                isClearable={true}
+                                isLoading={loading}
+                            />
+                        </div>
+                    )}
+                    
                     <button type="submit">{loading ? 'Carregando...' : 'Gravar'}</button>
 
                     </Form>

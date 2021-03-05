@@ -37,3 +37,13 @@
 
     background: #fff;
 }
+
+.ContainerNavigation {
+    display: flex;
+
+    margin-top: 160px;
+
+    width: 750px;
+
+    justify-content: space-between;
+}

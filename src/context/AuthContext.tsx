@@ -1,4 +1,4 @@
-import {createContext, useState, ReactNode } from 'react';
+import {createContext, useState, ReactNode, useEffect } from 'react';
 
 import { toast } from 'react-toastify';
 
@@ -33,6 +33,15 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
     const [user, setUser] = useState({});
     const [token, setToken] = useState('');
     const [signed, setSigned] = useState(false);
+    
+    useEffect(() => {
+        const response = Cookies.get('token');
+
+        if (response) {
+            setToken(response);
+            api.defaults.headers.Authorization = `Bearer ${token}`;
+        }
+    }, []);
 
     async function handleSubmit(data) {
         try {

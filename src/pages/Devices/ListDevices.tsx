@@ -4,14 +4,23 @@ import Header from '../../components/Header';
 
 import ListData from '../../components/Forms/ListData';
 
+import { useRouter } from 'next/router';
+
 export default function ListDevices() {
+    const router = useRouter();
+
     return (
         <div className={styles.Container}>
             <Header />
 
             <h2>Aparelhos</h2>   
 
+            <div className={styles.buttonAdd}>
+                <button type="button" onClick={() => {router.push('CreateDevice')}}>Novo Aparelho</button>
+            </div>
+
             <ListData address={'devices'}/>
+
         </div>
     );
 }
