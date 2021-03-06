@@ -9,7 +9,7 @@ export default function Registers() {
     const router = useRouter();
 
     function routing(url) {
-        router.push('Devices/ListDevices');
+        router.push(url);
     }
 
     return(
@@ -17,23 +17,14 @@ export default function Registers() {
             <Header /> 
 
             <div className={styles.ContainerBox}>
-                <button type="submit" onClick={() => {routing('Devices')}}>                                                
+                <button type="submit" onClick={() => {routing('Devices/ListDevices')}}>                                                
                     <strong>Aparelhos</strong>  
                 </button>
-                <button type="submit">                                                
-                    <strong>Aparelhos</strong>  
+                <button type="submit" onClick={() => {routing('Groups/ListGroups')}}>                                                
+                    <strong>Grupos</strong>  
                 </button>
-                <button type="submit">                                                
-                    <strong>Aparelhos</strong>  
-                </button>
-                <button type="submit">                                                
-                    <strong>Aparelhos</strong>  
-                </button>
-                <button type="submit">                                                
-                    <strong>Aparelhos</strong>  
-                </button>
-                <button type="submit">                                                
-                    <strong>Aparelhos</strong>  
+                <button type="submit" onClick={() => {routing('Brands/ListBrands')}}>                                                
+                    <strong>Marcas</strong>  
                 </button>
             </div>
         </div>

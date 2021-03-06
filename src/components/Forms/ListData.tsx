@@ -51,13 +51,31 @@ export default function ListData({ address }) {
     }, [token, page]);
 
     function handleNavigationEdit(id) {
-        router.push({
-            pathname: 'EditDevice',
-            query: {
-                id: id,
-                address: 'devices',
-            }
-        });
+        if (address === 'brands') {
+            router.push({
+                pathname: 'EditBrand',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        } else if (address === 'groups') {
+            router.push({
+                pathname: 'EditGroup',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        } else if (address === 'devices') {
+            router.push({
+                pathname: 'EditDevice',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        }
     }
 
     function nextPage() {
@@ -118,13 +136,35 @@ export default function ListData({ address }) {
                     <>
                         {data.map(item => (
                             <>
-                                <div className={styles.ContainerData}>            
-                                    <strong>{item.id}</strong>
-                                    <strong>{item.description}</strong>
-                                    <div className={styles.Buttons}>
-                                        <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>Editar</button>
-                                        <button type="submit" onClick={() => {handleDelete(item.id, item.description)}}>Excluir</button>
-                                    </div>            
+                                <div className={styles.ContainerData}>   
+                                    {address === 'brands' || address === 'groups' ? (
+                                        <strong>{item.value}</strong>
+                                    ) : (
+                                        <strong>{item.id}</strong>
+                                    )}         
+                                    
+                                    {address === 'brands' || address === 'groups' ? (
+                                        <>
+                                        <strong>{item.label}</strong>
+
+                                        <div className={styles.Buttons}>
+                                            <button type="submit" onClick={() => {handleNavigationEdit(item.value)}}>Editar</button>
+                                            <button type="submit" onClick={() => {handleDelete(item.value, item.label)}}>Excluir</button>
+                                        </div> 
+                                        
+                                        </>
+                                    ) : (
+                                        <>
+                                        <strong>{item.description ? item.description : item.first_name}</strong>
+
+                                        <div className={styles.Buttons}>
+                                            <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>Editar</button>
+                                            <button type="submit" onClick={() => {handleDelete(item.id, item.description ? item.description : item.first_name)}}>Excluir</button>
+                                        </div> 
+                                        
+                                        </>
+                                    )}
+                                               
                                     </div>                            
                                 <div className={styles.Line} />
                             </>                    

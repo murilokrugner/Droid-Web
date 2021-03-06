@@ -50,6 +50,8 @@ export default function FormDescriptionOnly({ address }) {
         
     }
 
+    console.log(address);
+
     async function loadGroups() {   
         const response = await api.get('groups?company=1', {
             headers: { Authorization: `Bearer ${token}` }
@@ -61,7 +63,7 @@ export default function FormDescriptionOnly({ address }) {
     }
 
     async function loadCode() {
-        const response = await api.get(`device-code?company=1`, {
+        const response = await api.get(`${address}-code?company=1`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -150,6 +152,8 @@ export default function FormDescriptionOnly({ address }) {
                 setLoading(false);
     
                 toast.success('Cadastro realizado com sucesso!');
+
+                router.back();
     
             } catch (error) {
                 console.log(error);
@@ -173,7 +177,7 @@ export default function FormDescriptionOnly({ address }) {
                     <Input
                         name="description"
                         type="text"
-                        placeholder="Descrição do aparelho"
+                        placeholder="Descrição"
                     />
 
                     {address === 'devices' && (

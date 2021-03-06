@@ -29,6 +29,7 @@ export default function EditData() {
 
     const brandRef = useRef(null);
     const groupRef = useRef(null);
+    const descriptionRef = useRef(null);    
 
     const [loading, setLoading] = useState(true);
     const [loadingCode, setLoadingCode] = useState(true);    
@@ -73,19 +74,21 @@ export default function EditData() {
 
         setDescription(response.data.description);
 
-        setGroup([
-            {
-                'value': response.data.group.id,
-                'label': response.data.group.description
-            }
-        ]);
-
-        setBrand([
-            {
-                'value': response.data.id,
-                'label': response.data.brand.description
-            }
-        ]);
+        if (addressEdit === 'devices') {
+            setGroup([
+                {
+                    'value': response.data.group.id,
+                    'label': response.data.group.description
+                }
+            ]);
+    
+            setBrand([
+                {
+                    'value': response.data.id,
+                    'label': response.data.brand.description
+                }
+            ]);
+        }
 
         setLoadingCode(false);
 
@@ -155,6 +158,32 @@ export default function EditData() {
                 toast.error('Erro ao realizar o cadastro');
                 setLoading(false);
             }
+        } else {
+            try {
+                setLoading(true);
+    
+                const response = await api.put(`${addressEdit}?company=1&id=${id}`, {
+                    description: data.description,
+                }, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+                setLoading(false);
+    
+                toast.success('Alteração realizada com sucesso');
+
+                router.back();
+    
+            } catch (error) {   
+                if (error.response.status) {
+                    toast.info('Já existe um registro cadastrado com esse nome');
+                    setLoading(false);
+                    return
+                }         
+
+                toast.error('Erro ao realizar o cadastro');
+                setLoading(false);
+            }
         }
     }
 
@@ -168,12 +197,15 @@ export default function EditData() {
                 <div className={styles.containerForm}>
     
                     <Form onSubmit={handleSubmit}>
-                    <Input name="code" type="text" placeholder="Código" value={code} disabled />
+                    <Input name="code" type="text" placeholder="Código" value={code}  disabled />
                     <Input
                         name="description"
                         type="text"
                         value={description}
-                        placeholder="Descrição do aparelho"
+                        onChange={value => setDescription(value[0])}
+                        defaultValue={description}
+                        placeholder="Descrição"
+                        ref={descriptionRef}
                     />
 
                     {addressEdit === 'devices' && (
