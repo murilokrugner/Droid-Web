@@ -3,6 +3,8 @@
     flex-direction: column;
 
     align-items: center;
+
+    margin: 15px;
 }
 
 .containerForm {
@@ -60,5 +62,16 @@
 
 
     height: 180px;
+
+}
+
+.ContainerSelect2 {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-around;
+
+
+    height: 100px;
 
 }
