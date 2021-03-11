@@ -75,6 +75,14 @@ export default function ListData({ address }) {
                     address: address,
                 }
             });
+        } else if (address === 'clients') {
+            router.push({
+                pathname: 'EditClient',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
         }
     }
 

@@ -9,8 +9,6 @@ import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 import ReactSelect from 'react-select';
 
-import { cnpj as validateCnpj, cpf as validateCpf } from 'cpf-cnpj-validator';
-
 import { useRouter } from 'next/router';
 
 import Loading from '../../Loading';
@@ -33,17 +31,36 @@ const schema = Yup.object().shape({
     city: Yup.string().required('A cidade é obrigatória'),
   });
 
-export default function FormClient({ address }) {
+export default function EditDataClient() {
     const router = useRouter();
+
+    const addressEdit = router.query.address;
+
+    const id = router.query.id;
 
     const { token } = useContext(AuthContext);
 
     const typeDocumentRef = useRef(null);
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const [code, setCode] = useState(0);
-    const [loadingCode, setLoadingCode] = useState(false);
+    const [first_name, setFirstName] = useState('');
+    const [last_name, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [mobile_phone, setMobilePhone] = useState('');
+    const [document, setDocument] = useState('');
+    const [rg, setRg] = useState('');
+    const [addressDescription, setAddressDescription] = useState('');
+    const [number_address, setNumberAddress] = useState('');
+    const [point_address, setPointAddress] = useState('');
+    const [neighborhood_address, setNeighborhoodAddress] = useState('');
+    const [cep_address, setCepAddress] = useState('');
+    const [state_address, setStateAddress] = useState('');
+    const [city, setCity] = useState('');
+
+    const [loadingCode, setLoadingCode] = useState(true);
 
     const [typeDocument, setTypeDocument] = useState([
         {
@@ -63,13 +80,27 @@ export default function FormClient({ address }) {
         },
     );
     
-    async function loadCode() {
-        const response = await api.get(`${address}-code?company=1`, {
+    async function loadData() {
+        const response = await api.get(`get-${addressEdit}-code?company=1&id=${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
-        setCode(response.data + 1);
-
+        setCode(response.data.id);
+        setFirstName(response.data.first_name);
+        setLastName(response.data.last_name);
+        setEmail(response.data.email);
+        setPhone(response.data.phone);
+        setMobilePhone(response.data.mobile_phone);
+        setDocument(response.data.document);
+        setRg(response.data.rg);
+        setAddressDescription(response.data.address);
+        setNumberAddress(response.data.number_address);
+        setPointAddress(response.data.point_address);
+        setNeighborhoodAddress(response.data.neighborhood_address);
+        setCepAddress(response.data.cep_address);
+        setStateAddress(response.data.state_address);
+        setCity(response.data.city);
+        
         setLoadingCode(false);
         setLoading(false);
 
@@ -78,25 +109,13 @@ export default function FormClient({ address }) {
 
     useEffect(() => {      
         if (token) {
-            loadCode();
+            loadData();
         }
 
 
     }, [token, selectTypeDocument]);
 
-    async function handleSubmit(data) {
-        if (selectTypeDocument.value === 'CPF') {
-            if (validateCpf.isValid(data.document) === false) {
-                toast.info('O CPF digitado não existe');
-                return;
-            }
-        } else {
-            if (validateCnpj.isValid(data.document) === false) {
-                toast.info('O CNPJ digitado não existe');
-                return;
-            }
-        }
-
+    async function handleSubmit(data) {    
         try {
             const getAddress = await apiZipcode.get(`${data.cep_address}/json`);
 
@@ -108,14 +127,11 @@ export default function FormClient({ address }) {
         const getAddress = await apiZipcode.get(`${data.cep_address}/json`);
             
         try {
-            const response = await api.post(`${address}?company=1`, {
-                company_id: 1,
+            const response = await api.put(`${addressEdit}?company=1&id=${id}`, {
                 first_name: data.first_name, 
                 last_name: data.last_name, 
-                email: data.email,
                 phone: data.phone,
                 mobile_phone: data.mobile_phone,
-                document: data.document,
                 rg: data.document2,
                 address: data.address,
                 number_address: data.number_address,
@@ -129,17 +145,11 @@ export default function FormClient({ address }) {
                 headers: { Authorization: `Bearer ${token}` }  
             });
 
-            toast.success('Cadastro realizado com sucesso!');
+            toast.success('Cadastro atualizado com sucesso!');
 
             router.back();
 
-        } catch (error) {
-            if (error.response.status === 400) {
-                toast.info('Já existe um cliente cadastrado com esse CPF/CNPJ');
-                setLoading(false);
-                return
-            }         
-
+        } catch (error) {       
             toast.error('Erro ao realizar o cadastro');
             setLoading(false);
         }
@@ -157,31 +167,6 @@ export default function FormClient({ address }) {
     
                     <Form onSubmit={handleSubmit} >
                     <Input name="code" type="text" placeholder="Código" value={code} disabled />
-                    <Input
-                        name="first_name"
-                        type="text"
-                        placeholder="Primeiro Nome"
-                    />
-                    <Input
-                        name="last_name"
-                        type="text"
-                        placeholder="Último Nome"
-                    /> 
-                    <Input
-                        name="email"
-                        type="text"
-                        placeholder="E-mail"
-                    /> 
-                    <Input
-                        name="phone"
-                        type="text"
-                        placeholder="Telefone"
-                    /> 
-                    <Input
-                        name="mobile_phone"
-                        type="text"
-                        placeholder="Celular"
-                    /> 
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectTypeDocument} 
@@ -195,17 +180,58 @@ export default function FormClient({ address }) {
                             
                         />
                     </div>
+                    <Input
+                        name="first_name"
+                        type="text"
+                        placeholder="Primeiro Nome"
+                        value={first_name}
+                        onChange={value => setFirstName(value[0])}
+                    />
+                    <Input
+                        name="last_name"
+                        type="text"
+                        placeholder="Último Nome"
+                        value={last_name}
+                        onChange={value => setLastName(value[0])}
+                    /> 
+                    <Input
+                        name="email"
+                        type="text"
+                        placeholder="E-mail"
+                        value={email}
+                        onChange={value => setEmail(value[0])}
+                        disabled
+                    /> 
+                    <Input
+                        name="phone"
+                        type="text"
+                        placeholder="Telefone"
+                        value={phone}
+                        onChange={value => setPhone(value[0])}
+                    /> 
+                    <Input
+                        name="mobile_phone"
+                        type="text"
+                        placeholder="Celular"
+                        value={mobile_phone}
+                        onChange={value => setMobilePhone(value[0])}
+                    />                     
                     {selectTypeDocument.value === 'CPF' || selectTypeDocument === 'CPF' ? (
                         <>
                             <Input
                                 name="document"
                                 type="text"
                                 placeholder="CPF"
+                                value={document}
+                                onChange={value => setDocument(value[0])}
+                                disabled
                             /> 
                             <Input
                                 name="document2"
                                 type="text"
                                 placeholder="RG"
+                                value={rg}
+                                onChange={value => setRg(value[0])}
                             /> 
 
                         </>
@@ -215,11 +241,16 @@ export default function FormClient({ address }) {
                                 name="document"
                                 type="text"
                                 placeholder="CNPJ"
+                                value={document}
+                                onChange={value => setDocument(value[0])}
+                                disabled
                             /> 
                             <Input
                                 name="document2"
                                 type="text"
                                 placeholder="IE"
+                                value={rg}
+                                onChange={value => setRg(value[0])}
                             /> 
                         </>
                     )}                    
@@ -227,37 +258,53 @@ export default function FormClient({ address }) {
                         name="address"
                         type="text"
                         placeholder="Endereço"
+                        value={addressDescription}
+                        onChange={value => setAddressDescription(value[0])}
                     /> 
                     <Input
                         name="number_address"
                         type="text"
                         placeholder="Número"
+                        value={number_address}
+                        onChange={value => setNumberAddress(value[0])}
                     /> 
                     <Input
                         name="neighborhood_address"
                         type="text"
                         placeholder="Bairro"
+                        value={neighborhood_address}
+                        onChange={value => setNeighborhoodAddress(value[0])}
                     /> 
                     <Input
                         name="point_address"
                         type="text"
                         placeholder="Ponto de Referencia"
+                        value={point_address}
+                        onChange={value => setPointAddress(value[0])}
                     /> 
                     <Input
                         name="cep_address"
                         type="text"
                         placeholder="CEP"
+                        value={cep_address}
+                        onChange={value => setCepAddress(value[0])}
                     /> 
-                  {/* <Input
+                  <Input
                         name="state_address"
                         type="text"
                         placeholder="Estado"
+                        value={state_address}
+                        onChange={value => setStateAddress(value[0])}
+                        disabled
                     /> 
                     <Input
                         name="city"
                         type="text"
                         placeholder="Cidade"
-                  /> */}                    
+                        value={city}
+                        onChange={value => setCity(value[0])}
+                        disabled
+                  />                   
                     
                     <button type="submit">{loading ? 'Carregando...' : 'Gravar'}</button>
 
