@@ -29,12 +29,8 @@ export default function Home(props: HomeProps) {
     }
 }, [props.signed]);
 
-  console.log(signed);
-
   return (
     <>
-      signed={props.signed}
-    >
       <div>
         <Head>
           <title>Início | Droid</title>

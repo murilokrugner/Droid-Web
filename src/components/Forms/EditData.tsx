@@ -25,7 +25,7 @@ export default function EditData() {
 
     const addressEdit = router.query.address;
 
-    const { token } = useContext(AuthContext);
+    const { token, company } = useContext(AuthContext);
 
     const brandRef = useRef(null);
     const groupRef = useRef(null);
@@ -45,7 +45,7 @@ export default function EditData() {
     
 
     async function loadBrands() {
-        const response = await api.get('brands?company=1', {
+        const response = await api.get(`brands?${company}=1`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -56,7 +56,7 @@ export default function EditData() {
     }
 
     async function loadGroups() {   
-        const response = await api.get('groups?company=1', {
+        const response = await api.get(`groups?${company}=1`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -66,7 +66,7 @@ export default function EditData() {
     }
 
     async function loadData() {
-        const response = await api.get(`get-${addressEdit}-code?company=1&id=${id}`, {
+        const response = await api.get(`get-${addressEdit}-code?${company}=1&id=${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -134,7 +134,7 @@ export default function EditData() {
             try {
                 setLoading(true);
     
-                const response = await api.put(`${addressEdit}?company=1&id=${id}`, {
+                const response = await api.put(`${addressEdit}?${company}=1&id=${id}`, {
                     description: data.description,
                     brand_id: brand.value,
                     group_id: group.value,
@@ -162,7 +162,7 @@ export default function EditData() {
             try {
                 setLoading(true);
     
-                const response = await api.put(`${addressEdit}?company=1&id=${id}`, {
+                const response = await api.put(`${addressEdit}?${company}=1&id=${id}`, {
                     description: data.description,
                 }, {
                     headers: { Authorization: `Bearer ${token}` }

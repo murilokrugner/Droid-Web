@@ -10,10 +10,13 @@ import { useRouter } from 'next/router';
 
 interface AuthContextData {
     handleSubmit: (data: object) => void;
+    handleExit: (data: object) => void;
+    getCompany: (data: object) => void;
     token: string;
     user: object;
     loading: boolean;
     signed: boolean;
+    company: number;
 }
 
 interface AuthProviderProps {
@@ -22,6 +25,7 @@ interface AuthProviderProps {
     token: string;
     loading: boolean;
     signed: boolean;
+    company: number;
 }
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -33,6 +37,7 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
     const [user, setUser] = useState({});
     const [token, setToken] = useState('');
     const [signed, setSigned] = useState(false);
+    const [company, setCompany] = useState(0);
     
     useEffect(() => {
         const response = Cookies.get('token');
@@ -42,6 +47,16 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
             api.defaults.headers.Authorization = `Bearer ${token}`;
         }
     }, []);
+
+    async function handleExit() {
+        setSigned(false);
+
+        const response = Cookies.remove('token');
+
+        router.push({
+            pathname: '/',
+        });
+    }
 
     async function handleSubmit(data) {
         try {
@@ -74,14 +89,21 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
         }
     }
 
+    async function getCompany(id) {
+        setCompany(id[0].value);
+    }
+
     return (
         <AuthContext.Provider 
             value={{             
-                handleSubmit,  
+                handleSubmit, 
+                handleExit, 
                 token,
                 user,
                 loading,   
-                signed,                        
+                signed,  
+                getCompany,
+                company,                     
               }}
             >
 

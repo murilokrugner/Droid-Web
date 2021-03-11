@@ -38,7 +38,7 @@ export default function EditDataClient() {
 
     const id = router.query.id;
 
-    const { token } = useContext(AuthContext);
+    const { token, company } = useContext(AuthContext);
 
     const typeDocumentRef = useRef(null);
 
@@ -81,7 +81,7 @@ export default function EditDataClient() {
     );
     
     async function loadData() {
-        const response = await api.get(`get-${addressEdit}-code?company=1&id=${id}`, {
+        const response = await api.get(`get-${addressEdit}-code?${company}=1&id=${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -127,7 +127,7 @@ export default function EditDataClient() {
         const getAddress = await apiZipcode.get(`${data.cep_address}/json`);
             
         try {
-            const response = await api.put(`${addressEdit}?company=1&id=${id}`, {
+            const response = await api.put(`${addressEdit}?${company}=1&id=${id}`, {
                 first_name: data.first_name, 
                 last_name: data.last_name, 
                 phone: data.phone,

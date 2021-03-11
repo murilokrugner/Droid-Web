@@ -21,7 +21,7 @@ const schema = Yup.object().shape({
 export default function FormDescriptionOnly({ address }) {
     const router = useRouter();
 
-    const { token } = useContext(AuthContext);
+    const { token, company } = useContext(AuthContext);
 
     const brandRef = useRef(null);
     const groupRef = useRef(null);
@@ -40,7 +40,7 @@ export default function FormDescriptionOnly({ address }) {
     const [group, setGroup] = useState();
 
     async function loadBrands() {
-        const response = await api.get('brands?company=1', {
+        const response = await api.get(`brands?${company}=1`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -53,7 +53,7 @@ export default function FormDescriptionOnly({ address }) {
     console.log(address);
 
     async function loadGroups() {   
-        const response = await api.get('groups?company=1', {
+        const response = await api.get(`groups?${company}=1`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -63,7 +63,7 @@ export default function FormDescriptionOnly({ address }) {
     }
 
     async function loadCode() {
-        const response = await api.get(`${address}-code?company=1`, {
+        const response = await api.get(`${address}-code?${company}=1`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -117,7 +117,7 @@ export default function FormDescriptionOnly({ address }) {
                     description: data.description,
                     brand_id: brand.value,
                     group_id: group.value,
-                    company_id: 1,
+                    ${company}_id: 1,
                 }, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
@@ -144,7 +144,7 @@ export default function FormDescriptionOnly({ address }) {
     
                 const response = await api.post(`${address}`, {
                     description: data.description,
-                    company_id: 1,
+                    ${company}_id: 1,
                 }, {
                     headers: { Authorization: `Bearer ${token}` }
                 });

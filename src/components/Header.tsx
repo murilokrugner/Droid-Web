@@ -1,8 +1,18 @@
+import { useContext } from 'react';
+
 import styles from '../styles/components/Header.module.css';
 
 import Link from 'next/link'
 
+import { AuthContext } from '../context/AuthContext';
+
 export default function NavBar() {
+    const { handleExit } = useContext(AuthContext);
+
+    async function enterExit() {
+        handleExit(); 
+    }
+
     return (
         <div className={styles.HeaderContainer}>
             <div>
@@ -15,6 +25,7 @@ export default function NavBar() {
                     <Link href="/Registers/"><a>Cadastros</a></Link> 
                     <Link href="/Clients/ListClients"><a>Clientes</a></Link>
                     <Link href="/OrdersServices/"><a>Ordem de serviço</a></Link>
+                    <button type="submit" onClick={enterExit}>Sair</button>
                 </div>
 
                 <div className={styles.Profile}>

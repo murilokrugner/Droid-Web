@@ -36,7 +36,7 @@ const schema = Yup.object().shape({
 export default function FormClient({ address }) {
     const router = useRouter();
 
-    const { token } = useContext(AuthContext);
+    const { token, company } = useContext(AuthContext);
 
     const typeDocumentRef = useRef(null);
 
@@ -64,7 +64,7 @@ export default function FormClient({ address }) {
     );
     
     async function loadCode() {
-        const response = await api.get(`${address}-code?company=1`, {
+        const response = await api.get(`${address}-code?${company}=1`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -108,8 +108,8 @@ export default function FormClient({ address }) {
         const getAddress = await apiZipcode.get(`${data.cep_address}/json`);
             
         try {
-            const response = await api.post(`${address}?company=1`, {
-                company_id: 1,
+            const response = await api.post(`${address}?${company}=1`, {
+                ${company}_id: 1,
                 first_name: data.first_name, 
                 last_name: data.last_name, 
                 email: data.email,
