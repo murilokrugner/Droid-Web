@@ -64,7 +64,7 @@ export default function FormClient({ address }) {
     );
     
     async function loadCode() {
-        const response = await api.get(`${address}-code?${company}=1`, {
+        const response = await api.get(`${address}-code?company=${company}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -108,7 +108,7 @@ export default function FormClient({ address }) {
         const getAddress = await apiZipcode.get(`${data.cep_address}/json`);
             
         try {
-            const response = await api.post(`${address}?${company}=1`, {
+            const response = await api.post(`${address}?company=${company}`, {
                 ${company}_id: 1,
                 first_name: data.first_name, 
                 last_name: data.last_name, 

@@ -24,7 +24,7 @@ export default function NavBar() {
                     <Link href="/Dashboard"><a>Home</a></Link> 
                     <Link href="/Registers/"><a>Cadastros</a></Link> 
                     <Link href="/Clients/ListClients"><a>Clientes</a></Link>
-                    <Link href="/OrdersServices/"><a>Ordem de serviço</a></Link>
+                    <Link href="/Orders/ListOrders"><a>Ordem de serviço</a></Link>
                     <button type="submit" onClick={enterExit}>Sair</button>
                 </div>
 

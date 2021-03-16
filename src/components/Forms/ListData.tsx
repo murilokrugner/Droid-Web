@@ -30,7 +30,7 @@ export default function ListData({ address }) {
     async function loadData() {
         setLoading(true);
 
-        const response = await api.get(`${address}?${company}=1&page=${page}`, {
+        const response = await api.get(`${address}?company=${company}&page=${page}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -112,7 +112,7 @@ export default function ListData({ address }) {
                   label: 'Sim',
                   onClick: async () => {
                     try {
-                        const response = await api.delete(`${address}?${company}=1&id=${id}`, {
+                        const response = await api.delete(`${address}?company=${company}&id=${id}`, {
                             headers: { Authorization: `Bearer ${token}` }
                         });
 

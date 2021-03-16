@@ -40,7 +40,7 @@ export default function FormDescriptionOnly({ address }) {
     const [group, setGroup] = useState();
 
     async function loadBrands() {
-        const response = await api.get(`brands?${company}=1`, {
+        const response = await api.get(`brands?company=${company}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -53,7 +53,7 @@ export default function FormDescriptionOnly({ address }) {
     console.log(address);
 
     async function loadGroups() {   
-        const response = await api.get(`groups?${company}=1`, {
+        const response = await api.get(`groups?company=${company}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -63,7 +63,7 @@ export default function FormDescriptionOnly({ address }) {
     }
 
     async function loadCode() {
-        const response = await api.get(`${address}-code?${company}=1`, {
+        const response = await api.get(`${address}-code?company=${company}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
 
