@@ -109,7 +109,7 @@ export default function FormClient({ address }) {
             
         try {
             const response = await api.post(`${address}?company=${company}`, {
-                ${company}_id: 1,
+                company_id: 1,
                 first_name: data.first_name, 
                 last_name: data.last_name, 
                 email: data.email,

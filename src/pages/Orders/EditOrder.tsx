@@ -8,8 +8,8 @@ export default function EditGroup() {
     return(
         <div className={styles.Container}>
             <Header />
-            <h2>Editar grupo</h2>
-            <EditData address={'groups'} />
+            <h2>Editar O.S.</h2>
+            <EditData address={'orders'} />
         </div>
     );
 };

@@ -16,7 +16,7 @@ export default function ListOrders() {
             <h2>Ordens de serviço</h2>   
 
             <div className={styles.buttonAdd}>
-                <button type="button" onClick={() => {router.push('CreateOrder')}}>Nova Marca</button>
+                <button type="button" onClick={() => {router.push('CreateOrder')}}>Nova O.S.</button>
             </div>
 
             <ListData address={'orders'}/>

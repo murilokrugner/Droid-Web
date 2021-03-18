@@ -117,7 +117,7 @@ export default function FormDescriptionOnly({ address }) {
                     description: data.description,
                     brand_id: brand.value,
                     group_id: group.value,
-                    ${company}_id: 1,
+                    company_id: 1,
                 }, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
@@ -144,7 +144,7 @@ export default function FormDescriptionOnly({ address }) {
     
                 const response = await api.post(`${address}`, {
                     description: data.description,
-                    ${company}_id: 1,
+                    company_id: 1,
                 }, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
