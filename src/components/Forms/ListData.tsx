@@ -43,8 +43,6 @@ export default function ListData({ address }) {
         setLoading(false);
     };
 
-    console.log(data);
-
     useEffect(() => {  
         if (token) {
             loadData();
@@ -80,6 +78,14 @@ export default function ListData({ address }) {
         } else if (address === 'clients') {
             router.push({
                 pathname: 'EditClient',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        } else if (address === 'positions') {
+            router.push({
+                pathname: 'EditPosition',
                 query: {
                     id: id,
                     address: address,
@@ -147,13 +153,13 @@ export default function ListData({ address }) {
                         {data.map(item => (
                             <>
                                 <div className={styles.ContainerData}>   
-                                    {address === 'brands' || address === 'groups' ? (
+                                    {address === 'brands' || address === 'groups' || address === 'positions' ? (
                                         <strong>{item.value}</strong>
                                     ) : (
                                         <strong>{item.id}</strong>
                                     )}         
                                     
-                                    {address === 'brands' || address === 'groups' ? (
+                                    {address === 'brands' || address === 'groups' || address === 'positions' ? (
                                         <>
                                         <strong>{item.label}</strong>
 

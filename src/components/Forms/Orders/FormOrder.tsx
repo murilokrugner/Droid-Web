@@ -18,19 +18,18 @@ import Loading from '../../Loading';
 import { toast } from 'react-toastify';
 
 const schema = Yup.object().shape({
-    first_name: Yup.string().required('O primeiro nome é obrigatório'),
-    last_name: Yup.string().required('O ultimo nome é obrigatório'),
-    email: Yup.string().email().required('O e-mail é obrigatorio'),
-    phone: Yup.string().required('O telefone é obrigatorio'),
-    mobile_phone: Yup.string().required('O celular é obrigatorio'),
-    document: Yup.string().required('O documento é obrigatorio'),
-    rg: Yup.string().required('O documento é obrigatorio'),
-    address: Yup.string().required('O endereço é obrigatorio'),
-    number_address: Yup.string().required('O número é obrigatorio'),
-    neighborhood_address: Yup.string().required('O bairro é obrigatorio'),
-    cep_address: Yup.string().required('O CEP é obrigatorio'),
-    state_address: Yup.string().required('O estado é obrigatorio'),
-    city: Yup.string().required('A cidade é obrigatória'),
+    description: Yup.string().required('obrigatório'),
+    made_by: Yup.string().email().required('obrigatorio'),
+    entry_date: Yup.string().required('obrigatorio'),
+    password_device: Yup.string().required('obrigatorio'),
+    imei: Yup.string().required('obrigatorio'),
+    damaged: Yup.string().required('obrigatorio'),
+    accessories: Yup.string().required('obrigatorio'),
+    defect_problem: Yup.string().required('obrigatorio'),
+    comments: Yup.string().required('obrigatorio'),
+    delivery_forecast: Yup.string().required('obrigatória'),
+    delivery_forecast_hour: Yup.string().required('obrigatória'),
+    value: Yup.string().required('obrigatória'),
   });
 
 export default function FormOrder({ address }) {
@@ -145,6 +144,23 @@ export default function FormOrder({ address }) {
     async function handleSubmit(data) {           
         try {
             const response = await api.post(`${address}?company=${company}`, {
+                description: data.description,
+                employee_id: employees.value,
+                made_by: data.madeBy,
+                client_id: clients.value,
+                entry_date: data.entry_date,
+                password_device: data.password_device,
+                device_id: devices.value,
+                imei: data.imei,
+                damaged: data.damaged,
+                accessories: data.accessories,
+                defect_problem: data.defect_problem,
+                comments: data.service_performed,
+                delivery_forecast: data.delivery_forecast,
+                delivery_forecast_hour: data.delivery_forecast_hour,
+                value: data.value,
+                status: status.value,
+                company_id: company,
                                            
             }, {
                 headers: { Authorization: `Bearer ${token}` }  
@@ -170,7 +186,7 @@ export default function FormOrder({ address }) {
             ) : (
                 <div className={styles.containerForm}>
     
-                    <Form onSubmit={handleSubmit} >
+                    <Form onSubmit={handleSubmit} schema={schema}>
                     <Input name="code" type="text" placeholder="Código" value={code} disabled />
                     <Input
                         name="description"
@@ -247,7 +263,7 @@ export default function FormOrder({ address }) {
                         placeholder="Acessorios"
                     />
                     <Input
-                        name="defect problem"
+                        name="defect_problem"
                         type="text"
                         placeholder="Defeito"
                     />

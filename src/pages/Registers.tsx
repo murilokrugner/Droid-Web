@@ -26,6 +26,15 @@ export default function Registers() {
                 <button type="submit" onClick={() => {routing('Brands/ListBrands')}}>                                                
                     <strong>Marcas</strong>  
                 </button>
+                <button type="submit" onClick={() => {routing('Positions/ListPositions')}}>                                                
+                    <strong>Cargos</strong>  
+                </button>
+                <button type="submit" onClick={() => {routing('Users/ListUsers')}}>                                                
+                    <strong>Usuários</strong>  
+                </button>
+                <button type="submit" onClick={() => {routing('Employees/ListEmployees')}}>                                                
+                    <strong>Funcionarios</strong>  
+                </button>
             </div>
         </div>
     );
