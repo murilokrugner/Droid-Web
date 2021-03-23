@@ -43,6 +43,8 @@ export default function FormUser({ address }) {
         setLoading(false); 
     };
 
+    console.log(code);
+
     useEffect(() => {      
         if (token) {
             loadCode();
@@ -51,10 +53,21 @@ export default function FormUser({ address }) {
 
     }, [token]);
 
-    async function handleSubmit(data) {        
+    async function handleSubmit(data) {  
+        if (data.password !== data.password2) {
+            toast.error('As senhas não são iguais');
+            return;
+        }  
+        
+        if (data.password.lenght <= 6) {
+            toast.error('Senha muito curta, é necessario uma senha com no minimo 6 digitos');
+            return;
+        }
+
+        console.log(data);
+
         try {
             const response = await api.post(`${address}?company=${company}`, {
-                company_id: 1,
                 nickname: data.nickname,
                 password: data.password,                            
             }, {
@@ -90,15 +103,20 @@ export default function FormUser({ address }) {
                     <Form onSubmit={handleSubmit} >
                     <Input name="code" type="text" placeholder="Código" value={code} disabled />
                     <Input
-                        name="nick_name"
+                        name="nickname"
                         type="text"
-                        placeholder="Primeiro Nome"
+                        placeholder="Nome do Usuário"
                     />
                     <Input
                         name="password"
-                        type="text"
-                        placeholder="Último Nome"
+                        type="password"
+                        placeholder="Senha"
                     /> 
+                    <Input
+                        name="password2"
+                        type="password"
+                        placeholder="Confirmar Senha"
+                    />
                                         
                     <button type="submit">{loading ? 'Carregando...' : 'Gravar'}</button>
 

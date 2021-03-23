@@ -141,7 +141,9 @@ export default function FormOrder({ address }) {
 
     }, [token, selectTypeDocument]);
 
-    async function handleSubmit(data) {           
+    async function handleSubmit(data) { 
+        setLoading(true);
+
         try {
             const response = await api.post(`${address}?company=${company}`, {
                 description: data.description,
@@ -167,6 +169,8 @@ export default function FormOrder({ address }) {
             });
 
             toast.success('O.S. criada com sucesso!');
+
+            setLoading(false);
 
             router.back();
 

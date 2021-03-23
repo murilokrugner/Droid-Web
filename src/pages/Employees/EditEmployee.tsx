@@ -1,6 +1,6 @@
 import styles from '../../styles/pages/Devices/EditDevice.module.css';
 
-import EditData from "../../components/Forms/EditData";
+import EditDataEmployee from "../../components/Forms/Employees/EditDataEmployee";
 
 import Header from '../../components/Header';
 
@@ -9,7 +9,7 @@ export default function EditEmployee() {
         <div className={styles.Container}>
             <Header />
             <h2>Editar funcionario</h2>
-            <EditData address={'employees'} />
+            <EditDataEmployee address={'employees'} />
         </div>
     );
 };

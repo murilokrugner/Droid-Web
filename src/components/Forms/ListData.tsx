@@ -17,8 +17,6 @@ import { toast } from 'react-toastify';
 export default function ListData({ address }) {
     const { token, company } = useContext(AuthContext);
 
-    console.log(company);
-
     const router = useRouter();
 
     const [loading, setLoading] = useState(true);
@@ -86,6 +84,22 @@ export default function ListData({ address }) {
         } else if (address === 'positions') {
             router.push({
                 pathname: 'EditPosition',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        } else if (address === 'users') {
+            router.push({
+                pathname: 'EditUser',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        } else if (address === 'employees') {
+            router.push({
+                pathname: 'EditEmployee',
                 query: {
                     id: id,
                     address: address,
@@ -171,12 +185,25 @@ export default function ListData({ address }) {
                                         </>
                                     ) : (
                                         <>
-                                        <strong>{item.description ? item.description : item.first_name}</strong>
+                                        {address === 'users' ? (
+                                            <>
+                                                <strong>{item.nickname}</strong>
 
-                                        <div className={styles.Buttons}>
-                                            <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>Editar</button>
-                                            <button type="submit" onClick={() => {handleDelete(item.id, item.description ? item.description : item.first_name)}}>Excluir</button>
-                                        </div> 
+                                                <div className={styles.Buttons}>
+                                                    <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>Editar</button>
+                                                    <button type="submit" onClick={() => {handleDelete(item.id, item.nickname)}}>Excluir</button>
+                                                </div> 
+                                            </>
+                                        ) : (
+                                            <>
+                                                <strong>{item.description ? item.description : item.first_name}</strong>
+
+                                                <div className={styles.Buttons}>
+                                                    <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>Editar</button>
+                                                    <button type="submit" onClick={() => {handleDelete(item.id, item.description ? item.description : item.first_name)}}>Excluir</button>
+                                                </div> 
+                                            </>
+                                        )}
                                         
                                         </>
                                     )}
