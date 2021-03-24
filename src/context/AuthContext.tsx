@@ -17,6 +17,7 @@ interface AuthContextData {
     loading: boolean;
     signed: boolean;
     company: number;
+    company_name: string;
 }
 
 interface AuthProviderProps {
@@ -26,6 +27,7 @@ interface AuthProviderProps {
     loading: boolean;
     signed: boolean;
     company: number;
+    company_name: string;
 }
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -38,6 +40,7 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
     const [token, setToken] = useState('');
     const [signed, setSigned] = useState(false);
     const [company, setCompany] = useState(0);
+    const [company_name, setCompanyName] = useState('');
     
     useEffect(() => {
         const response = Cookies.get('token');
@@ -91,6 +94,7 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
 
     async function getCompany(id) {
         setCompany(id[0].value);
+        setCompanyName(id[0].label)
     }
 
     return (
@@ -103,7 +107,8 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
                 loading,   
                 signed,  
                 getCompany,
-                company,                     
+                company,  
+                company_name,                   
               }}
             >
 

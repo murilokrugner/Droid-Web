@@ -39,11 +39,19 @@ export default function FormEmployee({ address }) {
     const { token, company } = useContext(AuthContext);
 
     const typeDocumentRef = useRef(null);
+    const positionRef = useRef(null);
+    const userRef = useRef(null);
 
     const [loading, setLoading] = useState(false);
 
     const [code, setCode] = useState(0);
     const [loadingCode, setLoadingCode] = useState(false);
+
+    const [selectPosition, setSelectPosition] = useState();
+    const [position, setPosition] = useState([]);
+
+    const [user, setUser] = useState([]);
+    const [selectUser, setSelectUser] = useState();
 
     const [typeDocument, setTypeDocument] = useState([
         {
@@ -76,9 +84,33 @@ export default function FormEmployee({ address }) {
         
     };
 
+    async function loadUsers() {
+        const response = await api.get(`list-users?company=${company}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        setUser(response.data);
+
+        setLoadingCode(false);
+        setLoading(false);        
+    };
+
+    async function loadPositions() {
+        const response = await api.get(`positions?company=${company}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        setPosition(response.data);
+
+        setLoadingCode(false);
+        setLoading(false);        
+    };
+
     useEffect(() => {      
         if (token) {
             loadCode();
+            loadPositions();
+            loadUsers();
         }
 
 
@@ -117,8 +149,7 @@ export default function FormEmployee({ address }) {
                 email: data.email,
                 phone: data.phone,
                 mobile_phone: data.mobile_phone,
-                document: data.document,
-                rg: data.document2,
+                document: data.document,                
                 address: data.address,
                 number_address: data.number_address,
                 point_address: data.point_address,
@@ -126,7 +157,10 @@ export default function FormEmployee({ address }) {
                 cep_address: getAddress.data.cep,
                 state_address: getAddress.data.uf,
                 city: getAddress.data.localidade,
-                type_document: selectTypeDocument.value === 'CPF' ? 1 : 2,                             
+                type_document: selectTypeDocument.value === 'CPF' ? 1 : 2,   
+                user_id: selectUser.value,
+                position_id: selectPosition.value,    
+                rg: data.document2,                      
             }, {
                 headers: { Authorization: `Bearer ${token}` }  
             });
@@ -194,6 +228,32 @@ export default function FormEmployee({ address }) {
                             placeholder={'Tipo do documento'}                    
                             ref={typeDocumentRef}
                             options={typeDocument}
+                            isClearable={false}
+                            isLoading={loading}
+                            
+                        />
+                    </div>
+                    <div className={styles.ContainerSelect2}>
+                        <ReactSelect   
+                            name={selectPosition} 
+                            value={selectPosition}
+                            onChange={value => setSelectPosition(value)}
+                            placeholder={'Cargo'}                    
+                            ref={positionRef}
+                            options={position}
+                            isClearable={false}
+                            isLoading={loading}
+                            
+                        />
+                    </div>
+                    <div className={styles.ContainerSelect2}>
+                        <ReactSelect   
+                            name={selectUser} 
+                            value={selectUser}
+                            onChange={value => setSelectUser(value)}
+                            placeholder={'Usuário'}                    
+                            ref={userRef}
+                            options={user}
                             isClearable={false}
                             isLoading={loading}
                             

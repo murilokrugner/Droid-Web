@@ -41,6 +41,8 @@ export default function ListData({ address }) {
         setLoading(false);
     };
 
+    console.log(data);
+
     useEffect(() => {  
         if (token) {
             loadData();
@@ -105,7 +107,15 @@ export default function ListData({ address }) {
                     address: address,
                 }
             });
-        }
+        }  else if (address === 'orders') {
+            router.push({
+                pathname: 'EditOrder',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        }        
     }
 
     function nextPage() {

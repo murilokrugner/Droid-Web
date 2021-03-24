@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { AuthContext } from '../context/AuthContext';
 
 export default function NavBar() {
-    const { handleExit } = useContext(AuthContext);
+    const { handleExit, user, company_name } = useContext(AuthContext);
 
     async function enterExit() {
         handleExit(); 
@@ -17,7 +17,7 @@ export default function NavBar() {
         <div className={styles.HeaderContainer}>
             <div>
                 <h1>
-                    Droid Assistencia Técnica                    
+                    {company_name}                   
                 </h1>
 
                 <div className={styles.Nav}>
@@ -30,7 +30,7 @@ export default function NavBar() {
 
                 <div className={styles.Profile}>
                     <img src="/profile.png" alt="profile" />
-                    <strong>Matheus Andreta</strong>
+                    <strong>{user.nickname}</strong>
                 </div>
             </div>
         </div>

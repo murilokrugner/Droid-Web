@@ -34,6 +34,8 @@ export default function SignIn() {
       console.log(company);
       getCompany(company);
       handleSubmit(data);
+
+      console.log(company);
     }
   
     return (
