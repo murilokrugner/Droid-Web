@@ -22,12 +22,12 @@ const schema = Yup.object().shape({
     made_by: Yup.string().required('obrigatorio'),
     entry_date: Yup.string().required('obrigatorio'),
     password_device: Yup.string().required('obrigatorio'),
-    imei: Yup.string().required('obrigatorio'),
+  //  imei: Yup.string().required('obrigatorio'),
     damaged: Yup.string().required('obrigatorio'),
-    accessories: Yup.string().required('obrigatorio'),
-    defect_problem: Yup.string().required('obrigatorio'),
+//    accessories: Yup.string().required('obrigatorio'),
+  //  defect_problem: Yup.string().required('obrigatorio'),
     comments: Yup.string().required('obrigatorio'),
-    service_performed: Yup.string().required('obrigatorio'),
+//    service_performed: Yup.string().required('obrigatorio'),
     delivery_forecast: Yup.string().required('obrigatória'),
     delivery_forecast_hour: Yup.string().required('obrigatória'),
     value: Yup.string().required('obrigatória'),
@@ -234,7 +234,8 @@ export default function FormOrder({ address }) {
                     <Input
                         name="entry_date"
                         type="text"
-                        placeholder="Entry Date"
+                        placeholder="Data de entrada"
+                        disabled
                     /> 
                     <Input
                         name="password_device"
@@ -262,7 +263,7 @@ export default function FormOrder({ address }) {
                     <Input
                         name="damaged"
                         type="text"
-                        placeholder="Damaged"
+                        placeholder="Defeito"
                     />
                     <Input
                         name="accessories"
@@ -272,28 +273,23 @@ export default function FormOrder({ address }) {
                     <Input
                         name="defect_problem"
                         type="text"
-                        placeholder="Defeito"
+                        placeholder="Defeito/ Problema apresentado"
                     />
                     <Input
                         name="service_performed"
                         type="text"
-                        placeholder="Service Performed"
+                        placeholder="Serviço realizado"
                     />
                     <Input
                         name="delivery_forecast"
                         type="text"
-                        placeholder="Delivery"
+                        placeholder="Data de entrega"
                     />
                     <Input
                         name="delivery_forecast_hour"
                         type="text"
-                        placeholder="Delivery Hour"
-                    />
-                    <Input
-                        name="service_performed"
-                        type="text"
-                        placeholder="service_performed"
-                    />                    
+                        placeholder="Horario de entrega"
+                    />                   
                     <Input
                         name="value"
                         type="text"

@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^1.6.14",
     "@rocketseat/unform": "^1.6.2",
     "axios": "^0.21.1",
     "cpf-cnpj-validator": "^1.0.3",

@@ -162,6 +162,16 @@ export default function ListData({ address }) {
           });           
         }
 
+    async function handlePrinter(id) {
+        router.push({
+            pathname: 'PrinterOrder',
+            query: {
+                id: id,
+                address: address,
+            }
+        });
+    }
+
     return(
         <> 
         { loading ? (
@@ -214,6 +224,17 @@ export default function ListData({ address }) {
                                                 </div> 
                                             </>
                                         )}
+
+                                        <>
+                                            {address === 'orders' && (
+                                               <>
+                                                <div className={styles.Buttons}>
+                                                    <button type="submit" onClick={() => {handlePrinter(item.id)}}>Imprimir</button>                                                    
+                                                </div>
+                                               </> 
+                                            )}
+                                        </>
+
                                         
                                         </>
                                     )}
