@@ -3,6 +3,8 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import api from '../../../services/api';
 import apiZipcode from '../../../services/apiZipcode';
 
+import { format } from 'date-fns'
+
 import { AuthContext } from '../../../context/AuthContext';
 import styles from '../../../styles/components/Forms/FormDescriptionOnly.module.css';
 import * as Yup from 'yup';
@@ -36,6 +38,8 @@ const schema = Yup.object().shape({
 export default function FormOrder({ address }) {
     const router = useRouter();
 
+    const idClient = router.query.id;
+
     const { token, company } = useContext(AuthContext);
 
     const typeDeviceRef = useRef(null);
@@ -49,6 +53,8 @@ export default function FormOrder({ address }) {
     const [loadingCode, setLoadingCode] = useState(false);
 
     const [loadingSave, setLoadingSave] = useState(false);
+
+    const [currentDate, setCurrentDate] = useState(format(new Date(), 'dd/MM/yyyy'));
 
     const [devices, setDevices] = useState([]);
     const [clients, setClients] = useState([]);
@@ -151,7 +157,7 @@ export default function FormOrder({ address }) {
                 description: data.description,
                 employee_id: employees.value,
                 made_by: data.madeBy,
-                client_id: clients.value,
+                client_id: idClient,
                 entry_date: data.entry_date,
                 password_device: data.password_device,
                 device_id: devices.value,
@@ -217,8 +223,10 @@ export default function FormOrder({ address }) {
                         name="madeBy"
                         type="text"
                         placeholder="Data da O.S."
+                        value={currentDate}
+                        disabled
                     /> 
-                    <div className={styles.ContainerSelect2}>
+                   {/** <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectClient} 
                             value={selectClient}
@@ -230,11 +238,12 @@ export default function FormOrder({ address }) {
                             isLoading={loading}
                             
                         />
-                    </div>
+                    </div> */}
                     <Input
                         name="entry_date"
                         type="text"
-                        placeholder="Data de entrada"
+                        placeholder="Data de entrada"                    
+                        value={currentDate}
                         disabled
                     /> 
                     <Input
@@ -275,7 +284,7 @@ export default function FormOrder({ address }) {
                         type="text"
                         placeholder="Defeito/ Problema apresentado"
                     />
-                    <Input
+                   {/**  <Input
                         name="service_performed"
                         type="text"
                         placeholder="Serviço realizado"
@@ -294,7 +303,7 @@ export default function FormOrder({ address }) {
                         name="value"
                         type="text"
                         placeholder="Valor"
-                    />
+                    /> */}
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectStatus} 
