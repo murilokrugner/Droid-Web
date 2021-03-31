@@ -15,7 +15,7 @@ import Loading from '../../../components/Loading';
 
 import { toast } from 'react-toastify';
 
-export default function EditDataOrder() {
+export default function FinishedOrder() {
     const router = useRouter();
 
     const addressEdit = router.query.address;
@@ -174,39 +174,25 @@ export default function EditDataOrder() {
         setLoadingSave(true);
 
         try {
-            const response = await api.put(`${addressEdit}`, {
-                id: code,
-                description: data.description,
-                employee_id: employees.value,
-                made_by: data.madeBy,
-                client_id: clients.value,
-                entry_date: data.entry_date,
-                password_device: data.password_device,
-                device_id: devices.value,
-                imei: data.imei,
-                damaged: data.damaged,
-                accessories: data.accessories,
-                defect_problem: data.defect_problem,
-                comments: data.service_performed,
-               /* service_performed: data.service_performed,
+            const response = await api.put(`${addressEdit}-finished?id=${code}`, {
+                service_performed: data.service_performed,
                 delivery_forecast: data.delivery_forecast,
                 delivery_forecast_hour: data.delivery_forecast_hour,                
-                value: data.value,*/
-                status: selectStatus.value,
-                company: company,
+                value: data.value,
+                status: 'FINALIZADO',
                                            
             }, {
                 headers: { Authorization: `Bearer ${token}` }  
             });
 
-            toast.success('O.S. editada com sucesso!');
+            toast.success('O.S. finalizada com sucesso!');
 
             setLoadingSave(false);
 
             router.back();
 
         } catch (error) {            
-            toast.error('Erro ao editar a O.S.');
+            toast.error('Erro ao finalizar O.S.');
             setLoadingSave(false);
         }
         
@@ -228,6 +214,7 @@ export default function EditDataOrder() {
                         placeholder="Descrição"
                         value={description}
                         onChange={value => setDescription(value[0])}
+                        disabled
                     /> 
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
@@ -239,6 +226,7 @@ export default function EditDataOrder() {
                             options={employees}
                             isClearable={false}
                             isLoading={loading}
+                            disabled
                             
                         />
                     </div>
@@ -248,6 +236,7 @@ export default function EditDataOrder() {
                         placeholder="Data da O.S."
                         value={made_by}
                         onChange={value => setMadeBy(value[0])}
+                        disabled
                     /> 
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
@@ -259,7 +248,7 @@ export default function EditDataOrder() {
                             options={clients}
                             isClearable={false}
                             isLoading={loading}
-                            
+                            disabled
                         />
                     </div>
                     <Input
@@ -268,6 +257,7 @@ export default function EditDataOrder() {
                         placeholder="Data de entrada"
                         value={entry_date}
                         onChange={value => setEntryDate(value[0])}
+                        disabled
                     /> 
                     <Input
                         name="password_device"
@@ -275,6 +265,7 @@ export default function EditDataOrder() {
                         placeholder="Senha do aparelho"
                         value={password_device}
                         onChange={value => setPasswordDevice(value[0])}
+                        disabled
                     /> 
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
@@ -286,6 +277,7 @@ export default function EditDataOrder() {
                             options={devices}
                             isClearable={false}
                             isLoading={loading}
+                            disabled
                             
                         />
                     </div>
@@ -295,6 +287,7 @@ export default function EditDataOrder() {
                         placeholder="IMEI"
                         value={imei}
                         onChange={value => setImei(value[0])}
+                        disabled
                     />
                     <Input
                         name="accessories"
@@ -302,6 +295,7 @@ export default function EditDataOrder() {
                         placeholder="Acessorios"
                         value={accessroes}
                         onChange={value => setAcessories(value[0])}
+                        disabled
                     />
                     <Input
                         name="defect_problem"
@@ -309,57 +303,40 @@ export default function EditDataOrder() {
                         placeholder="Defeito/ Problema apresentado"
                         value={defect_problem}
                         onChange={value => setDefectProblem(value[0])}
+                        disabled
                     />
-                  {/**  <Input
+                    <Input
                         name="service_performed"
                         type="text"
-                        placeholder="Service Performed"
+                        placeholder="Serviço realizado"
                         value={service_performed}
                         onChange={value => setServicePerformed(value[0])}
                     />
                     <Input
                         name="delivery_forecast"
                         type="text"
-                        placeholder="Delivery"
+                        placeholder="Data de entrega"
                         value={delivery_forecast}
                         onChange={value => setDeliveryForecast(value[0])}
                     />
                     <Input
                         name="delivery_forecast_hour"
                         type="text"
-                        placeholder="Delivery Hour"
+                        placeholder="Hora de entrega"
                         value={delivery_forecast_hour}
                         onChange={value => setDeliveryForecastHour(value[0])}
-                    />
-                    <Input
-                        name="service_performed"
-                        type="text"
-                        placeholder="service_performed"
-                        value={service_performed}
-                        onChange={value => setServicePerformed(value[0])}
-                    />                    
+                    />                  
                     <Input
                         name="value"
                         type="text"
                         placeholder="Valor"
                         value={value}
                         onChange={value => setValue(value[0])}
-                    />*/} 
-                    <div className={styles.ContainerSelect2}>
-                        <ReactSelect   
-                            name={selectStatus} 
-                            value={selectStatus}
-                            onChange={value => setSelectStatus(value)}
-                            placeholder={'Status'}                    
-                            ref={typeStatusRef}
-                            options={status}
-                            isClearable={false}
-                            isLoading={loading}
-                            
-                        />
-                    </div>                 
+                    />
+ 
+                              
                     
-                    <button type="submit">{loading ? 'Carregando...' : 'Gravar'}</button>
+                    <button type="submit">{loading ? 'Carregando...' : 'Finalizar'}</button>
 
                 </Form> 
                 </div>               

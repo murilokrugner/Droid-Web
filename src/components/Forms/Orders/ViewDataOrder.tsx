@@ -3,6 +3,8 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import api from '../../../services/api';
 import apiZipcode from '../../../services/apiZipcode';
 
+import { format } from 'date-fns'
+
 import { AuthContext } from '../../../context/AuthContext';
 import styles from '../../../styles/components/Forms/FormDescriptionOnly.module.css';
 import * as Yup from 'yup';
@@ -15,7 +17,7 @@ import Loading from '../../../components/Loading';
 
 import { toast } from 'react-toastify';
 
-export default function EditDataOrder() {
+export default function ViewDataOrder() {
     const router = useRouter();
 
     const addressEdit = router.query.address;
@@ -117,20 +119,21 @@ export default function EditDataOrder() {
             }
         ]);
 
+        setMadeBy(response.data.made_by.slice(8, 10) + '/' 
+            +  response.data.made_by.slice(5, 7) + '/' 
+                + response.data.made_by.slice(0, 4)); 
+
+
         setSelectClient([
             {
                 'value': response.data.client.id,
                 'label': response.data.client.first_name,
             }
         ]);
-        setMadeBy(response.data.made_by.slice(8, 10) + '/' 
-            +  response.data.made_by.slice(5, 7) + '/' 
-                + response.data.made_by.slice(0, 4)); 
 
         setEntryDate(response.data.entry_date.slice(8, 10) + '/' 
             +  response.data.entry_date.slice(5, 7) + '/' 
                 + response.data.entry_date.slice(0, 4)); 
-
 
         setPasswordDevice(response.data.password_device);
         setSelectDevice([
@@ -169,49 +172,7 @@ export default function EditDataOrder() {
 
 
     }, [token]);
-
-    async function handleSubmit(data) { 
-        setLoadingSave(true);
-
-        try {
-            const response = await api.put(`${addressEdit}`, {
-                id: code,
-                description: data.description,
-                employee_id: employees.value,
-                made_by: data.madeBy,
-                client_id: clients.value,
-                entry_date: data.entry_date,
-                password_device: data.password_device,
-                device_id: devices.value,
-                imei: data.imei,
-                damaged: data.damaged,
-                accessories: data.accessories,
-                defect_problem: data.defect_problem,
-                comments: data.service_performed,
-               /* service_performed: data.service_performed,
-                delivery_forecast: data.delivery_forecast,
-                delivery_forecast_hour: data.delivery_forecast_hour,                
-                value: data.value,*/
-                status: selectStatus.value,
-                company: company,
-                                           
-            }, {
-                headers: { Authorization: `Bearer ${token}` }  
-            });
-
-            toast.success('O.S. editada com sucesso!');
-
-            setLoadingSave(false);
-
-            router.back();
-
-        } catch (error) {            
-            toast.error('Erro ao editar a O.S.');
-            setLoadingSave(false);
-        }
-        
-    }
-        
+      
     return (
         <div className={styles.Container}>
             {loading && loadingCode ? (
@@ -220,8 +181,8 @@ export default function EditDataOrder() {
                 </>
             ) : (
         <div className={styles.containerForm}>
-            <Form onSubmit={handleSubmit}>
-                <Input name="code" type="text" placeholder="Código" value={code} disabled />
+            <Form>
+            <Input name="code" type="text" placeholder="Código" value={code} disabled />
                     <Input
                         name="description"
                         type="text"
@@ -239,6 +200,7 @@ export default function EditDataOrder() {
                             options={employees}
                             isClearable={false}
                             isLoading={loading}
+                            
                             
                         />
                     </div>
@@ -310,41 +272,42 @@ export default function EditDataOrder() {
                         value={defect_problem}
                         onChange={value => setDefectProblem(value[0])}
                     />
-                  {/**  <Input
+                    <>
+                    {selectStatus[0].value === 'FINALIZADO' && (
+                        <>
+                            <Input
                         name="service_performed"
                         type="text"
-                        placeholder="Service Performed"
+                        placeholder="Serviço realizado"
                         value={service_performed}
                         onChange={value => setServicePerformed(value[0])}
-                    />
-                    <Input
-                        name="delivery_forecast"
-                        type="text"
-                        placeholder="Delivery"
-                        value={delivery_forecast}
-                        onChange={value => setDeliveryForecast(value[0])}
-                    />
-                    <Input
-                        name="delivery_forecast_hour"
-                        type="text"
-                        placeholder="Delivery Hour"
-                        value={delivery_forecast_hour}
-                        onChange={value => setDeliveryForecastHour(value[0])}
-                    />
-                    <Input
-                        name="service_performed"
-                        type="text"
-                        placeholder="service_performed"
-                        value={service_performed}
-                        onChange={value => setServicePerformed(value[0])}
-                    />                    
-                    <Input
-                        name="value"
-                        type="text"
-                        placeholder="Valor"
-                        value={value}
-                        onChange={value => setValue(value[0])}
-                    />*/} 
+                        />
+                        <Input
+                            name="delivery_forecast"
+                            type="text"
+                            placeholder="Data de entrega"
+                            value={delivery_forecast}
+                            onChange={value => setDeliveryForecast(value[0])}
+                        />
+                        <Input
+                            name="delivery_forecast_hour"
+                            type="text"
+                            placeholder="Horario de entrega"
+                            value={delivery_forecast_hour}
+                            onChange={value => setDeliveryForecastHour(value[0])}
+                        />
+                  
+                        <Input
+                            name="value"
+                            type="text"
+                            placeholder="Valor"
+                            value={value}
+                            onChange={value => setValue(value[0])}
+                        />
+                   
+                        </>
+                    )}
+                  </>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectStatus} 
@@ -358,8 +321,7 @@ export default function EditDataOrder() {
                             
                         />
                     </div>                 
-                    
-                    <button type="submit">{loading ? 'Carregando...' : 'Gravar'}</button>
+
 
                 </Form> 
                 </div>               

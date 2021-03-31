@@ -1,15 +1,15 @@
 import styles from '../../styles/pages/Devices/EditDevice.module.css';
 
-import EditDataOrder from "../../components/Forms/Orders/EditDataOrder";
+import ViewDataOrder from "../../components/Forms/Orders/ViewDataOrder";
 
 import Header from '../../components/Header';
 
-export default function EditOrder() {
+export default function ViewGroup() {
     return(
         <div className={styles.Container}>
             <Header />
-            <h2>Editar O.S.</h2>
-            <EditDataOrder address={'orders'} />
+            <h2>Visualizar O.S.</h2>
+            <ViewDataOrder address={'orders'} />
         </div>
     );
 };

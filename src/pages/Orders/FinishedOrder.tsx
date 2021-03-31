@@ -1,6 +1,6 @@
 import styles from '../../styles/pages/Devices/EditDevice.module.css';
 
-import EditDataOrder from "../../components/Forms/Orders/EditDataOrder";
+import FinishedOrder from "../../components/Forms/Orders/FinishedOrder";
 
 import Header from '../../components/Header';
 
@@ -8,8 +8,8 @@ export default function EditOrder() {
     return(
         <div className={styles.Container}>
             <Header />
-            <h2>Editar O.S.</h2>
-            <EditDataOrder address={'orders'} />
+            <h2>Finalizar O.S.</h2>
+            <FinishedOrder address={'orders'} />
         </div>
     );
 };

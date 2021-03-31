@@ -55,6 +55,7 @@ export default function FormOrder({ address }) {
     const [loadingSave, setLoadingSave] = useState(false);
 
     const [currentDate, setCurrentDate] = useState(format(new Date(), 'dd/MM/yyyy'));
+    const [currentDateSave, setCurrentDateSave] = useState(format(new Date(), 'yyyy-MM-dd'));
 
     const [devices, setDevices] = useState([]);
     const [clients, setClients] = useState([]);
@@ -155,21 +156,20 @@ export default function FormOrder({ address }) {
         try {
             const response = await api.post(`${address}?company=${company}`, {
                 description: data.description,
-                employee_id: employees.value,
-                made_by: data.madeBy,
+                employee_id: selectEmployye.value,
+                made_by: currentDateSave,
                 client_id: idClient,
-                entry_date: data.entry_date,
+                entry_date: currentDateSave,
                 password_device: data.password_device,
-                device_id: devices.value,
+                device_id: selectDevice.value,
                 imei: data.imei,
-                damaged: data.damaged,
                 accessories: data.accessories,
                 defect_problem: data.defect_problem,
                 comments: data.service_performed,
-                service_performed: data.service_performed,
+            /*    service_performed: data.service_performed,
                 delivery_forecast: data.delivery_forecast,
                 delivery_forecast_hour: data.delivery_forecast_hour,                
-                value: data.value,
+                value: data.value,*/
                 status: selectStatus.value,
                 company_id: company,
                                            
@@ -181,6 +181,7 @@ export default function FormOrder({ address }) {
 
             setLoadingSave(false);
 
+            router.back();
             router.back();
 
         } catch (error) {            
@@ -268,11 +269,6 @@ export default function FormOrder({ address }) {
                         name="imei"
                         type="text"
                         placeholder="IMEI"
-                    />
-                    <Input
-                        name="damaged"
-                        type="text"
-                        placeholder="Defeito"
                     />
                     <Input
                         name="accessories"

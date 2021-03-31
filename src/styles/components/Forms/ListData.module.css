@@ -6,16 +6,33 @@
     align-items: center;
 
     width: 800px;
+    height: 60px;
 
-    
+    background-color: #fff;
+    border-radius: 10px;
 
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .ContainerData strong {
-    font-size: 25px;
+    font-size: 22px;
 
+    color: #000;
+ 
+}
+
+.ContainerData button {
+    margin: 5px 0 0;
+    height: 44px;
+    width: 80px;
+    background: #fff;
+    font-weight: bold;
     color: #fff;
+    border: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background 0.2s
+    
 }
 
 .Buttons {
@@ -27,6 +44,14 @@
     width: 200px;
 
     align-items: center;
+
+    
+}
+
+.Buttons img {
+    width: 30px;
+    height: 30px;
+
 }
 
 .Line {
@@ -41,9 +66,60 @@
 .ContainerNavigation {
     display: flex;
 
-    margin-top: 160px;
+    margin-top: 50px;
+    margin-bottom: 20px;
 
     width: 750px;
 
     justify-content: space-between;
+}
+
+.ContainerNavigation button {
+    margin: 5px 0 0;
+    height: 40px;
+    width: 100px;
+    background: #2E30C5;
+    font-weight: bold;
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background 0.2s
+}
+
+.ContainerStatus {
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50px;
+
+    background-color: #3FE04E;
+}
+
+.ContainerStatusFinished {
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50px;
+
+    background-color: #E00905;
+}
+
+
+.ContainerStatusProgress {
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50px;
+
+    background-color: #0000A1;
+}
+
+.ContainerStatusWaiting {
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50px;
+
+    background-color: #FFF15F;
 }

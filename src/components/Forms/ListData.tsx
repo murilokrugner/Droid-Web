@@ -14,6 +14,11 @@ import Loading from '../Loading';
 
 import { toast } from 'react-toastify';
 
+import EditIcon from '../../assets/icons/edit.png';
+import PrinterIcon from '../../assets/icons/printer.png';
+import TrashIcon from '../../assets/icons/trash.png';
+
+
 export default function ListData({ address }) {
     const { token, company } = useContext(AuthContext);
 
@@ -172,6 +177,84 @@ export default function ListData({ address }) {
         });
     }
 
+    async function handleNavigationView(id) {
+        if (address === 'brands') {
+            router.push({
+                pathname: 'EditBrand',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        } else if (address === 'groups') {
+            router.push({
+                pathname: 'EditGroup',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        } else if (address === 'devices') {
+            router.push({
+                pathname: 'EditDevice',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        } else if (address === 'clients') {
+            router.push({
+                pathname: 'EditClient',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        } else if (address === 'positions') {
+            router.push({
+                pathname: 'EditPosition',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        } else if (address === 'users') {
+            router.push({
+                pathname: 'EditUser',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        } else if (address === 'employees') {
+            router.push({
+                pathname: 'EditEmployee',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        }  else if (address === 'orders') {
+            router.push({
+                pathname: 'ViewOrder',
+                query: {
+                    id: id,
+                    address: address,
+                }
+            });
+        } 
+    }
+
+    async function handleFinished(id) {
+        router.push({
+            pathname: 'FinishedOrder',
+            query: {
+                id: id,
+                address: address,
+            }
+        });
+    }
+
     return(
         <> 
         { loading ? (
@@ -190,16 +273,41 @@ export default function ListData({ address }) {
                                     {address === 'brands' || address === 'groups' || address === 'positions' ? (
                                         <strong>{item.value}</strong>
                                     ) : (
-                                        <strong>{item.id}</strong>
+                                        <>
+                                            {address === 'orders' && (
+                                                <>
+                                                    {item.status === 'NÃO INICIADO' && (
+                                                        <div className={styles.ContainerStatus}></div>
+                                                    )}
+                                                    {item.status === 'FINALIZADO' && (
+                                                        <div className={styles.ContainerStatusFinished}></div>
+                                                    )}
+                                                    {item.status === 'INICIADO' && (
+                                                        <div className={styles.ContainerStatusProgress}></div>
+                                                    )}
+                                                    {item.status === 'AGUARDANDO' && (
+                                                        <div className={styles.ContainerStatusWaiting}></div>
+                                                    )}
+                                                </>
+                                            )}
+                                            <strong>{item.id}</strong>
+                                        </>
                                     )}         
                                     
                                     {address === 'brands' || address === 'groups' || address === 'positions' ? (
-                                        <>
+                                        <>                                         
                                         <strong>{item.label}</strong>
 
                                         <div className={styles.Buttons}>
-                                            <button type="submit" onClick={() => {handleNavigationEdit(item.value)}}>Editar</button>
-                                            <button type="submit" onClick={() => {handleDelete(item.value, item.label)}}>Excluir</button>
+                                        <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                                    </button>
+                                            <button type="submit" onClick={() => {handleNavigationEdit(item.value)}}>
+                                                <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
+                                            </button>
+                                            <button type="submit" onClick={() => {handleDelete(item.value, item.label)}}>
+                                                <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />
+                                            </button>
                                         </div> 
                                         
                                         </>
@@ -210,17 +318,31 @@ export default function ListData({ address }) {
                                                 <strong>{item.nickname}</strong>
 
                                                 <div className={styles.Buttons}>
-                                                    <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>Editar</button>
-                                                    <button type="submit" onClick={() => {handleDelete(item.id, item.nickname)}}>Excluir</button>
+                                                    <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                                    </button>
+                                                    <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
+                                                    </button>
+                                                    <button type="submit" onClick={() => {handleDelete(item.id, item.nickname)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />
+                                                    </button>
                                                 </div> 
                                             </>
                                         ) : (
-                                            <>
+                                            <>                                               
                                                 <strong>{item.description ? item.description : item.first_name}</strong>
 
                                                 <div className={styles.Buttons}>
-                                                    <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>Editar</button>
-                                                    <button type="submit" onClick={() => {handleDelete(item.id, item.description ? item.description : item.first_name)}}>Excluir</button>
+                                                    <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                                    </button>
+                                                    <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>
+                                                    <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
+                                                    </button>
+                                                    <button type="submit" onClick={() => {handleDelete(item.id, item.description ? item.description : item.first_name)}}>
+                                                    <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />
+                                                    </button>
                                                 </div> 
                                             </>
                                         )}
@@ -229,7 +351,12 @@ export default function ListData({ address }) {
                                             {address === 'orders' && (
                                                <>
                                                 <div className={styles.Buttons}>
-                                                    <button type="submit" onClick={() => {handlePrinter(item.id)}}>Imprimir</button>                                                    
+                                                    <button type="submit" onClick={() => {handlePrinter(item.id)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/3233/3233468.png" alt="printer" />                                                   
+                                                    </button>  
+                                                    <button type="submit" onClick={() => {handleFinished(item.id)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/190/190411.png" alt="finished" />                                                   
+                                                    </button>                                                   
                                                 </div>
                                                </> 
                                             )}
