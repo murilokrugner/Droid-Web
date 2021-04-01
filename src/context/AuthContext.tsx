@@ -12,6 +12,7 @@ interface AuthContextData {
     handleSubmit: (data: object) => void;
     handleExit: (data: object) => void;
     getCompany: (data: object) => void;
+    getUser: (data: object) => void;
     token: string;
     user: object;
     loading: boolean;
@@ -41,9 +42,26 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
     const [signed, setSigned] = useState(false);
     const [company, setCompany] = useState(0);
     const [company_name, setCompanyName] = useState('');
+    const [userNickname, setUserNickname] = useState('');
+    const [userId, setUserId] = useState();
     
     useEffect(() => {
         const response = Cookies.get('token');
+        const responseCompany = Cookies.get('company');
+        const responseUser = Cookies.get('name');
+        const responseCompanyName = Cookies.get('companyname');
+        const responseUserId = Cookies.get('userid');
+
+        if (!responseCompany) {
+            router.push({
+                pathname: '/',
+            });
+        } else {
+            setCompany(responseCompany);
+            setUserNickname(responseUser);
+            setCompanyName(responseCompanyName);
+            setUserId(responseUserId);
+        }
 
         if (response) {
             setToken(response);
@@ -54,19 +72,39 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
     async function handleExit() {
         setSigned(false);
 
-        const response = Cookies.remove('token');
+        Cookies.remove('token');
+        Cookies.remove('name');
+        Cookies.remove('company');
+        Cookies.remove('companyname');
+        Cookies.remove('userid');
 
         router.push({
             pathname: '/',
         });
     }
 
+    async function getCompany(id, name) {
+        setCompany(id);
+        setCompanyName(name)
+        Cookies.set('companyname', String(name));
+        
+    }
+
+    async function getUser(id, name) {
+        setUserNickname(name);
+        setUserId(id);
+
+        Cookies.set('userid', String(id));
+    }
+
+    
+
     async function handleSubmit(data) {
         try {
             setLoading(true);
 
             const response = await api.post('/sessions', {
-                nickname: data.email,
+                nickname: userNickname,
                 password: data.password,
             });
     
@@ -74,27 +112,23 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
     
             api.defaults.headers.Authorization = `Bearer ${token}`;
 
-            Cookies.set('name', String(user.name));
-            Cookies.set('email', String(user.email));
+            Cookies.set('name', String(user.nickname));
             Cookies.set('token', String(token));
+            Cookies.set('company', String(company));
 
             setToken(token);
             setUser(user);
+            setUserNickname(user.nickname);
             setLoading(false);
             setSigned(true);
 
-            router.push('/Dashboard');
+            router.push('/Orders/ListOrders');
 
         } catch (error) {
             toast.error('Falha na autenticação, verifique seus dados');
             setLoading(false);
             return;
         }
-    }
-
-    async function getCompany(id) {
-        setCompany(id[0].value);
-        setCompanyName(id[0].label)
     }
 
     return (
@@ -104,9 +138,11 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
                 handleExit, 
                 token,
                 user,
+                userNickname,
                 loading,   
                 signed,  
                 getCompany,
+                getUser,
                 company,  
                 company_name,                   
               }}

@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 import EditIcon from '../../assets/icons/edit.png';
 import PrinterIcon from '../../assets/icons/printer.png';
 import TrashIcon from '../../assets/icons/trash.png';
-
+import ReactSelect from 'react-select';
 
 export default function ListData({ address }) {
     const { token, company } = useContext(AuthContext);
@@ -26,6 +26,38 @@ export default function ListData({ address }) {
 
     const [loading, setLoading] = useState(true);
 
+    const [status, setStatus] = useState([
+        {
+            'value': 'TODOS',
+            'label': 'TODOS',
+        },
+        {
+            'value': 'AGUARDANDO',
+            'label': 'AGUARDANDO',
+        },
+        {
+            'value': 'NÃO INICIADO',
+            'label': 'NÃO INICIADO',
+        },
+        {
+            'value': 'INICIADO',
+            'label': 'INICIADO',
+        },
+        {
+            'value': 'FINALIZADO',
+            'label': 'FINALIZADO',
+        }
+    ]);
+
+    const [selectStatus, setSelectStatus] = useState(
+        {
+            'value': 'TODOS',
+            'label': 'TODOS',
+        },
+    );
+
+
+
     const [data, setData] = useState({});
 
     const [page, setPage] = useState(1);
@@ -33,27 +65,43 @@ export default function ListData({ address }) {
     async function loadData() {
         setLoading(true);
 
-        const response = await api.get(`${address}?company=${company}&page=${page}`, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
-
-        if (response.data.length === 0) {
-            setData('empty');
+        if (address === 'orders') {
+            const response = await api.get(`${address}-filters?company=${company}&page=${page}&status=${selectStatus.value}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+    
+            if (response.data.length === 0) {
+                setData('empty');
+            } else {
+                setData(response.data);
+            }
+    
+            setLoading(false);
         } else {
-            setData(response.data);
+            const response = await api.get(`${address}?company=${company}&page=${page}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+    
+            if (response.data.length === 0) {
+                setData('empty');
+            } else {
+                setData(response.data);
+            }
+    
+            setLoading(false);
         }
 
-        setLoading(false);
+        
     };
-
-    console.log(data);
 
     useEffect(() => {  
         if (token) {
             loadData();
         }
 
-    }, [token, page]);
+    }, [token, page, selectStatus]);
+
+    console.log(data);
 
     function handleNavigationEdit(id) {
         if (address === 'brands') {
@@ -257,6 +305,7 @@ export default function ListData({ address }) {
 
     return(
         <> 
+        
         { loading ? (
             <Loading loading={loading}/>
         ) : (
@@ -266,9 +315,24 @@ export default function ListData({ address }) {
                         <strong>Acabou :(</strong>
                     </>
                 ): (
-                    <>
+                    <>    
+                    <div className={styles.ContainerSelect}>
+                        {address === 'orders' && (
+                                <div className={styles.Select}>
+                                    <ReactSelect   
+                                        name={selectStatus} 
+                                        value={selectStatus}
+                                        onChange={value => setSelectStatus(value)}
+                                        placeholder={'Filtro'}                    
+                                        options={status}
+                                        isClearable={false}
+                                
+                                    />
+                                </div>
+                            )}
+                        </div>                                                            
                         {data.map(item => (
-                            <>
+                            <>                            
                                 <div className={styles.ContainerData}>   
                                     {address === 'brands' || address === 'groups' || address === 'positions' ? (
                                         <strong>{item.value}</strong>
@@ -330,9 +394,18 @@ export default function ListData({ address }) {
                                                 </div> 
                                             </>
                                         ) : (
-                                            <>                                               
-                                                <strong>{item.description ? item.description : item.first_name}</strong>
-
+                                            <> 
+                                                {address === 'orders' && (
+                                                    <div className={styles.ContainerInfo}>
+                                                        <strong>Data: {item.entry_date.slice(8, 10) + '/' + item.entry_date.slice(5, 7) + '/' + item.entry_date.slice(0, 4)}</strong> 
+                                                        <strong>Cliente: {item.client.first_name}</strong>
+                                                        <strong>Aparelho: {item.device.description}</strong>
+                                                        <strong>Serviço: {item.defect_problem}</strong>                                                                                                      
+                                                    </div> 
+                                                )}      
+                                                 
+                                                <strong>{item.description ? '' : item.first_name}</strong>                                   
+                                               
                                                 <div className={styles.Buttons}>
                                                     <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
                                                         <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />

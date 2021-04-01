@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 import Head from 'next/head'
 import SignIn from './SignIn';
-import Dashboard from './Dashboard';
+import ListOrders from './Orders/ListOrders';
 import Registers from './Registers';
 
 import styles from '../styles/pages/Home.module.css';
@@ -40,7 +40,7 @@ export default function Home(props: HomeProps) {
           <SignIn />
         ) : (
           <>          
-            <Dashboard />
+            <ListOrders />
           </>
         )}
 

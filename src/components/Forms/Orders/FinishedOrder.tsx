@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useRef, useContext, useCallback } from 'react';
 
 import api from '../../../services/api';
 import apiZipcode from '../../../services/apiZipcode';
@@ -11,9 +11,19 @@ import ReactSelect from 'react-select';
 
 import { useRouter } from 'next/router';
 
+import InputMask from '../../../components/Input';
+
 import Loading from '../../../components/Loading';
 
 import { toast } from 'react-toastify';
+
+interface DataMask {
+    cep: string;
+    cpf: string;
+    price: number;
+    hour: string;
+    date: string;
+  }
 
 export default function FinishedOrder() {
     const router = useRouter();
@@ -32,6 +42,8 @@ export default function FinishedOrder() {
     const [loading, setLoading] = useState(true);
 
     const [loadingSave, setLoadingSave] = useState(false);
+
+    const testeData = '';
 
     const [code, setCode] = useState(0);
     const [description, setDescription] = useState('');
@@ -75,6 +87,18 @@ export default function FinishedOrder() {
     const [selectStatus, setSelectStatus] = useState();
 
     const [loadingCode, setLoadingCode] = useState(true);
+
+    const [dataMask, setDataMask] = useState<DataMask>({} as DataMask);
+
+    const handleChange = useCallback(
+        (e: React.FormEvent<HTMLInputElement>) => {
+            setDataMask({
+            ...dataMask,
+            [e.currentTarget.name]: e.currentTarget.value,
+          });
+        },
+        [dataMask]
+      );
 
     async function loadDevices() {
         const response = await api.get(`list-devices?company=${company}`, {
@@ -171,7 +195,8 @@ export default function FinishedOrder() {
     }, [token]);
 
     async function handleSubmit(data) { 
-        setLoadingSave(true);
+        console.log(dataMask);
+     /*   setLoadingSave(true);
 
         try {
             const response = await api.put(`${addressEdit}-finished?id=${code}`, {
@@ -194,9 +219,9 @@ export default function FinishedOrder() {
         } catch (error) {            
             toast.error('Erro ao finalizar O.S.');
             setLoadingSave(false);
-        }
+        }*/
         
-    }
+    } 
         
     return (
         <div className={styles.Container}>
@@ -312,30 +337,28 @@ export default function FinishedOrder() {
                         value={service_performed}
                         onChange={value => setServicePerformed(value[0])}
                     />
-                    <Input
-                        name="delivery_forecast"
-                        type="text"
-                        placeholder="Data de entrega"
-                        value={delivery_forecast}
-                        onChange={value => setDeliveryForecast(value[0])}
-                    />
-                    <Input
-                        name="delivery_forecast_hour"
-                        type="text"
-                        placeholder="Hora de entrega"
-                        value={delivery_forecast_hour}
-                        onChange={value => setDeliveryForecastHour(value[0])}
-                    />                  
-                    <Input
-                        name="value"
-                        type="text"
-                        placeholder="Valor"
-                        value={value}
-                        onChange={value => setValue(value[0])}
-                    />
- 
-                              
                     
+                    <InputMask
+                        name="date"
+                        mask="date"
+                        onChange={handleChange}
+                        placeholder="99/99/9999"
+                    />
+                    
+                    <InputMask
+                        name="hour"
+                        mask="hour"
+                        onChange={handleChange}
+                        placeholder="00:00"
+                    />
+
+                    <InputMask
+                        name="currency"
+                        mask="currency"
+                        onChange={handleChange}
+                        placeholder="R$ 00,00"
+                    />
+                             
                     <button type="submit">{loading ? 'Carregando...' : 'Finalizar'}</button>
 
                 </Form> 

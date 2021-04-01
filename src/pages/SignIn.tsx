@@ -9,15 +9,17 @@ import ReactSelect from 'react-select';
 import api from '../services/api';
 
 const schema = Yup.object().shape({
-    email: Yup.string()
-    .required('O e-mail é obrigatório'),
     password: Yup.string().required('A senha é obrigatória'),
   });
 
 export default function SignIn() {
-    const { loading, handleSubmit, getCompany } = useContext(AuthContext);
+    const { loading, handleSubmit, getCompany, getUser } = useContext(AuthContext);
 
     const [company, setCompany] = useState();
+    const [selectCompany, setSelectCompany] = useState();
+
+    const [users, setUsers] = useState();
+    const [selectUser, setSelectUser] = useState();
 
 
     useEffect(() => {
@@ -27,15 +29,32 @@ export default function SignIn() {
         setCompany(response.data);
       }
 
+      async function loadUsers() {
+        const response = await api.get('/users-signin');
+
+        setUsers(response.data);
+      } 
+
       loadCompanies();
+      loadUsers();
     }, []); 
 
     async function handleLoading(data) {
-      console.log(company);
-      getCompany(company);
-      handleSubmit(data);
+      if (selectCompany === undefined) {
+        alert('Selecione a empresa');
+        return;
+      }
 
-      console.log(company);
+      if (selectUser === undefined) {
+        alert('Selecione um usuário');
+        return;
+      }
+
+      getCompany(selectCompany.value, selectCompany.label);
+      getUser(selectUser.value, selectUser.label);
+
+      handleSubmit(data);
+     
     }
   
     return (
@@ -47,8 +66,8 @@ export default function SignIn() {
             <div className={styles.ContainerSelect}>
               <ReactSelect   
                 name={company} 
-                value={company}
-                placeholder={'Empresa'}                    
+                placeholder={'Empresa'}  
+                onChange={value => setSelectCompany(value)}                  
                 ref={company}
                 options={company}
                 isClearable={false}
@@ -56,7 +75,17 @@ export default function SignIn() {
               />
             </div>
 
-            <Input name="email" type="text" placeholder="Seu usuário" />
+            <div className={styles.ContainerSelect}>
+              <ReactSelect   
+                name={users} 
+                placeholder={'Usuário'}  
+                onChange={value => setSelectUser(value)}                  
+                ref={users}
+                options={users}
+                isClearable={false}
+                              
+              />
+            </div>
             <Input
                 name="password"
                 type="password"
