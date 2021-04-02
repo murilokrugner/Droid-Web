@@ -11,11 +11,13 @@
     "@react-pdf/renderer": "^1.6.14",
     "@rocketseat/unform": "^1.6.2",
     "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
     "cpf-cnpj-validator": "^1.0.3",
     "date-fns": "^2.19.0",
     "js-cookie": "^2.2.1",
     "next": "10.0.7",
     "react": "17.0.1",
+    "react-bootstrap": "^1.5.2",
     "react-confirm-alert": "^2.7.0",
     "react-dom": "17.0.1",
     "react-radio-buttons": "^1.2.2",
@@ -23,6 +25,8 @@
     "react-spinners": "^0.10.6",
     "react-toastify": "^5.3.2",
     "reactstrap": "^8.9.0",
+    "styled-components": "^5.2.3",
+    "vanilla-masker": "^1.2.0",
     "yup": "^0.32.9"
   },
   "devDependencies": {

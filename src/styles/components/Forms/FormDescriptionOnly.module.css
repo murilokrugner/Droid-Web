@@ -52,6 +52,7 @@
     border-radius: 4px;
     font-size: 16px;
     transition: filter 0.2s;
+    width: 400px;
 }
 
 .ContainerSelect {
@@ -70,7 +71,7 @@
     flex-direction: column;
 
     justify-content: space-around;
-
+    width: 400px;
 
     height: 100px;
 
@@ -112,5 +113,17 @@
 
 .ContainerClient span {
     color: #000;
+    font-size: 18px;
+}
+
+.ContainerValue {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.ContainerValue strong {
+    margin-left: 10px;
     font-size: 18px;
 }

@@ -293,7 +293,13 @@ export default function ListData({ address }) {
         } 
     }
 
-    async function handleFinished(id) {
+    async function handleFinished(id, status) {
+        if (status !== 'INICIADO') {
+            alert('Você não pode finalizar esse serviço');
+            return;
+        }
+
+
         router.push({
             pathname: 'FinishedOrder',
             query: {
@@ -363,9 +369,11 @@ export default function ListData({ address }) {
                                         <strong>{item.label}</strong>
 
                                         <div className={styles.Buttons}>
-                                        <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
-                                                        <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
-                                                    </button>
+                                        {address === 'orders' && (
+                                                        <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                                            <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                                        </button>
+                                                    )}
                                             <button type="submit" onClick={() => {handleNavigationEdit(item.value)}}>
                                                 <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
                                             </button>
@@ -382,9 +390,11 @@ export default function ListData({ address }) {
                                                 <strong>{item.nickname}</strong>
 
                                                 <div className={styles.Buttons}>
-                                                    <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
-                                                        <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
-                                                    </button>
+                                                    {address === 'orders' && (
+                                                        <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                                            <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                                        </button>
+                                                    )}
                                                     <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>
                                                         <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
                                                     </button>
@@ -404,12 +414,14 @@ export default function ListData({ address }) {
                                                     </div> 
                                                 )}      
                                                  
-                                                <strong>{item.description ? '' : item.first_name}</strong>                                   
+                                                <strong>{item.description && address === 'devices' ? item.description : item.first_name}</strong>                                   
                                                
                                                 <div className={styles.Buttons}>
-                                                    <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
-                                                        <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
-                                                    </button>
+                                                    {address === 'orders' && (
+                                                        <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                                            <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                                        </button>
+                                                    )}
                                                     <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>
                                                     <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
                                                     </button>
@@ -427,7 +439,7 @@ export default function ListData({ address }) {
                                                     <button type="submit" onClick={() => {handlePrinter(item.id)}}>
                                                         <img src="https://image.flaticon.com/icons/png/128/3233/3233468.png" alt="printer" />                                                   
                                                     </button>  
-                                                    <button type="submit" onClick={() => {handleFinished(item.id)}}>
+                                                    <button type="submit" onClick={() => {handleFinished(item.id, item.status)}}>
                                                         <img src="https://image.flaticon.com/icons/png/128/190/190411.png" alt="finished" />                                                   
                                                     </button>                                                   
                                                 </div>

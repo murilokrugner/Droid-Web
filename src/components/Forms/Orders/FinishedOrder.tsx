@@ -17,13 +17,23 @@ import Loading from '../../../components/Loading';
 
 import { toast } from 'react-toastify';
 
+import { InputGroup, FormControl } from 'react-bootstrap';
+
+
 interface DataMask {
     cep: string;
     cpf: string;
-    price: number;
+    currency: number;
     hour: string;
     date: string;
   }
+
+
+const schema = Yup.object().shape({
+   service_performed: Yup.string().required('obrigatorio'),
+   value: Yup.string().required('obrigatorio'),
+  });
+
 
 export default function FinishedOrder() {
     const router = useRouter();
@@ -195,15 +205,29 @@ export default function FinishedOrder() {
     }, [token]);
 
     async function handleSubmit(data) { 
-        console.log(dataMask);
-     /*   setLoadingSave(true);
+        setLoadingSave(true);
+
+        if (dataMask.date === undefined) {
+            alert('Informe a data de entrega');
+            return;
+        }
+
+
+        if (dataMask.hour === undefined) {
+            alert('Informe a hora de entrega');
+            return;
+        }
+
+        const dateSave = dataMask.date.slice(6, 10) + '-' 
+                            +  dataMask.date.slice(3, 5) + '-' 
+                                + dataMask.date.slice(0, 2); 
 
         try {
             const response = await api.put(`${addressEdit}-finished?id=${code}`, {
                 service_performed: data.service_performed,
-                delivery_forecast: data.delivery_forecast,
-                delivery_forecast_hour: data.delivery_forecast_hour,                
-                value: data.value,
+                delivery_forecast: dateSave,
+                delivery_forecast_hour: dataMask.hour,                
+                value: data.value + '.00',
                 status: 'FINALIZADO',
                                            
             }, {
@@ -219,7 +243,7 @@ export default function FinishedOrder() {
         } catch (error) {            
             toast.error('Erro ao finalizar O.S.');
             setLoadingSave(false);
-        }*/
+        }
         
     } 
         
@@ -231,7 +255,7 @@ export default function FinishedOrder() {
                 </>
             ) : (
         <div className={styles.containerForm}>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} schema={schema}>
                 <Input name="code" type="text" placeholder="Código" value={code} disabled />
                     <Input
                         name="description"
@@ -352,12 +376,16 @@ export default function FinishedOrder() {
                         placeholder="00:00"
                     />
 
-                    <InputMask
-                        name="currency"
-                        mask="currency"
-                        onChange={handleChange}
-                        placeholder="R$ 00,00"
-                    />
+                    <div className={styles.ContainerValue}>
+                        <Input
+                            name="value"
+                            type="text"
+                            placeholder="Valor"
+                            value={value}
+                            onChange={value => setValue(value[0])}
+                        /> 
+                        <strong>.00</strong>
+                    </div>
                              
                     <button type="submit">{loading ? 'Carregando...' : 'Finalizar'}</button>
 
