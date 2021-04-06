@@ -40,7 +40,7 @@ export default function FormOrder({ address }) {
 
     const idClient = router.query.id;
 
-    const { token, company } = useContext(AuthContext);
+    const { token, company, userId } = useContext(AuthContext);
 
     const typeDeviceRef = useRef(null);
     const typeEmployeeRef = useRef(null);
@@ -172,6 +172,7 @@ export default function FormOrder({ address }) {
                 value: data.value,*/
                 status: selectStatus.value,
                 company_id: company,
+                clerk_id: userId,
                                            
             }, {
                 headers: { Authorization: `Bearer ${token}` }  

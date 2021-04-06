@@ -139,6 +139,7 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
                 token,
                 user,
                 userNickname,
+                userId,
                 loading,   
                 signed,  
                 getCompany,
