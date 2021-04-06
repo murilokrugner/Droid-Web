@@ -11,7 +11,7 @@ import ReactSelect from 'react-select';
 
 import { useRouter } from 'next/router';
 
-import InputMask from '../../../components/Input';
+import InputMask2 from '../../../components/Input';
 
 import Loading from '../../../components/Loading';
 
@@ -19,6 +19,8 @@ import { toast } from 'react-toastify';
 
 import { InputGroup, FormControl } from 'react-bootstrap';
 
+import InputMask from "react-input-mask";
+import IntlCurrencyInput from "react-intl-currency-input"
 
 interface DataMask {
     cep: string;
@@ -36,6 +38,7 @@ const schema = Yup.object().shape({
 
 
 export default function FinishedOrder() {
+    
     const router = useRouter();
 
     const addressEdit = router.query.address;
@@ -97,6 +100,21 @@ export default function FinishedOrder() {
     const [selectStatus, setSelectStatus] = useState();
 
     const [loadingCode, setLoadingCode] = useState(true);
+
+    const currencyConfig = {
+        locale: "pt-BR",
+        formats: {
+          number: {
+            BRL: {
+              style: "currency",
+              currency: "BRL",
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            },
+          },
+        },
+      };
+      
 
     const [dataMask, setDataMask] = useState<DataMask>({} as DataMask);
 
@@ -227,7 +245,7 @@ export default function FinishedOrder() {
                 service_performed: data.service_performed,
                 delivery_forecast: dateSave,
                 delivery_forecast_hour: dataMask.hour,                
-                value: data.value + '.00',
+                value: value,
                 status: 'FINALIZADO',
                                            
             }, {
@@ -238,14 +256,33 @@ export default function FinishedOrder() {
 
             setLoadingSave(false);
 
-            router.back();
+            router.push({
+                pathname: 'PrinterOrder',
+                query: {
+                    id: id,
+                    address: addressEdit,
+                }
+            });
 
         } catch (error) {            
             toast.error('Erro ao finalizar O.S.');
             setLoadingSave(false);
         }
+
+        console.log(value);
         
     } 
+
+   /* function handleChangeMask(e) {
+        setValue(e.target.value);
+      }*/
+
+    function handleChangeMask(event, value, maskedValue) {
+        event.preventDefault();
+    
+        setValue(value); // value without mask (ex: 1234.56)
+       // console.log(maskedValue); // masked value (ex: R$1234,56)
+      }
         
     return (
         <div className={styles.Container}>
@@ -255,7 +292,7 @@ export default function FinishedOrder() {
                 </>
             ) : (
         <div className={styles.containerForm}>
-            <Form onSubmit={handleSubmit} schema={schema}>
+            <Form onSubmit={handleSubmit} > {/**schema={schema} */}
                 <Input name="code" type="text" placeholder="Código" value={code} disabled />
                     <Input
                         name="description"
@@ -362,21 +399,21 @@ export default function FinishedOrder() {
                         onChange={value => setServicePerformed(value[0])}
                     />
                     
-                    <InputMask
+                    <InputMask2
                         name="date"
                         mask="date"
                         onChange={handleChange}
                         placeholder="99/99/9999"
                     />
                     
-                    <InputMask
+                    <InputMask2
                         name="hour"
                         mask="hour"
                         onChange={handleChange}
                         placeholder="00:00"
                     />
 
-                    <div className={styles.ContainerValue}>
+                 {/**   <div className={styles.ContainerValue}>
                         <Input
                             name="value"
                             type="text"
@@ -385,7 +422,10 @@ export default function FinishedOrder() {
                             onChange={value => setValue(value[0])}
                         /> 
                         <strong>.00</strong>
-                    </div>
+            </div> */}
+
+                    <IntlCurrencyInput currency="BRL" config={currencyConfig}
+                        onChange={handleChangeMask} value={value}/>
                              
                     <button type="submit">{loading ? 'Carregando...' : 'Finalizar'}</button>
 

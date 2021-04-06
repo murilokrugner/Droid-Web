@@ -1,18 +1,49 @@
+import { useEffect, useState, useContext } from 'react';
+
 import styles from '../../styles/pages/Devices/ListDevices.module.css'
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { PDFViewer } from '@react-pdf/renderer';
 
 import Header from '../../components/Header';
+import Loading from '../../components/Loading';
+
+import { AuthContext } from '../../context/AuthContext';
 
 import { useRouter } from 'next/router';
+import api from '../../services/api';
 
 export default function PrinterOrder() {
     const router = useRouter();
 
+    const id = router.query.id;
+
+    const { token, company } = useContext(AuthContext);
+
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState({});
+
+    useEffect(() => {
+        async function loadData() {
+            const response = await api.get(`get-orders-code?company=${company}&id=${id}}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            setData(response.data);
+
+            console.log(response.data);
+
+            setLoading(false);
+        }
+
+        loadData();
+    }, []);
+
+    
+
     function MyDocument() {
         return (
             <Document>
-                <Page size={{width: 200, height: 200}} style={stylesS.page}>
+                <Page size={{width: 200, height: 360}} style={stylesS.page}>
                     <View style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: 'auto'}}>
                         <Text style={{fontSize: 8, fontWeight: 'bold'}}>
                             DROID ASSISTÊNCIA TÉCNICA                                                                                
@@ -32,6 +63,48 @@ export default function PrinterOrder() {
                             <Text style={{fontSize: 7}}>ORDEM DE SERVIÇO --- OS: 903</Text>
                             <Text style={{fontSize: 7}}>------------------------------------------------------------------------------------</Text>
                         </View>
+
+                        <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                            <Text style={{fontSize: 7}}>Atendente: {data.employee.first_name}</Text>
+                            <Text style={{fontSize: 7}}>Técnico: {data.employee.first_name}</Text>
+                            <Text style={{fontSize: 7}}>Nome: {data.client.first_name}</Text>
+                            <Text style={{fontSize: 7}}>Endereço: {data.client.address}</Text>
+                            <Text style={{fontSize: 7}}>Bairro: {data.client.neighborhood_address}</Text>
+                            <Text style={{fontSize: 7}}>CNPJ/CPF: {data.client.document}</Text>
+                            <Text style={{fontSize: 7}}>IE/RG: {data.client.rg}</Text>
+                            <Text style={{fontSize: 7}}>Equipamento: {data.device.group.description}</Text>
+                            <Text style={{fontSize: 7}}>Marca: {data.device.brand.description}</Text>
+                            <Text style={{fontSize: 7}}>Modelo: {data.device.description}</Text>
+                            <Text style={{fontSize: 7}}>N° Série: {data.imei}</Text>
+                            <Text style={{fontSize: 7}}>Senha: {data.password_device}</Text>
+                            <Text style={{fontSize: 7}}>Acessórios: {data.accessories}</Text>
+                            <Text style={{fontSize: 7}}>Danificado: {data.defect_problem}</Text>
+                        </View>
+
+                        <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: 10}}>
+                            <Text style={{fontSize: 7}}>Defeito: {data.defect_problem}</Text>
+                            <Text style={{fontSize: 7}}>Obs: {data.comments}</Text>
+                        </View>
+
+                        <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: 10}}>
+                            <Text style={{fontSize: 7}}>Tel/Cel: {data.client.mobile_phone}</Text>
+                            <Text style={{fontSize: 7}}>Data Entrega: {data.delivery_forecast}</Text>
+                            <Text style={{fontSize: 7}}>Valor/Conserto: {data.value}</Text>
+                        </View>
+
+                        <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10}}>
+                            <Text style={{fontSize: 7}}>Estou ciente de que o equipamento que deixei não da para testar e que caso seja encontrado 
+                                algum defeito diferente do informado imunizo esta Assistência de qualquer responsabilidades sobre defeitos adicionais 
+                                encontrados 
+                            </Text>
+                            <Text style={{fontSize: 7, textAlign: 'justify'}}>..................................................................................................................................</Text>
+                        </View>
+
+                        <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 30}}>
+                        <Text style={{fontSize: 7, textAlign: 'justify'}}>_______________________________________________________________________________________________________________________________________</Text>
+                            <Text style={{fontSize: 7}}>*** Obrigado e volte sempre ***</Text>                            
+                        </View>
+                        
                     </View>
                 </Page>
             </Document>
@@ -43,14 +116,16 @@ export default function PrinterOrder() {
             <Header />
 
             <h2>Imprimir ordem de serviço</h2>   
-
             
-
-            <div className={styles.containerPrinter}>
-                <PDFViewer height={800} width={500}>
-                    <MyDocument />
-                </PDFViewer>
-            </div>
+            {loading ? (
+                <Loading />
+            ) : (
+                <div className={styles.containerPrinter}>
+                    <PDFViewer height={800} width={500}>
+                        <MyDocument />
+                    </PDFViewer>
+                </div>
+            )}
             
         </div>
     );
