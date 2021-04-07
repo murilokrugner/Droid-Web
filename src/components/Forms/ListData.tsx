@@ -16,8 +16,8 @@ import { toast } from 'react-toastify';
 import ReactSelect from 'react-select';
 
 interface Data {
-    map: Array<object> | object,
-    item: Array<object> | object,
+    map: (data: object) => void;
+    item: Array<object>,
 }
 
 export default function ListData({ address }) {
@@ -57,7 +57,7 @@ export default function ListData({ address }) {
         },
     );
 
-    const [data, setData] = useState<Data | Array<object>>([]);
+    const [data, setData] = useState<Data>(null);
 
     const [page, setPage] = useState(1);
 
@@ -70,7 +70,7 @@ export default function ListData({ address }) {
             });
     
             if (response.data.length === 0) {
-                setData([]);
+                setData(null);
             } else {
                 setData(response.data);
             }
@@ -82,7 +82,7 @@ export default function ListData({ address }) {
             });
     
             if (response.data.length === 0) {
-                setData([]);
+                setData(null);
             } else {
                 setData(response.data);
             }
@@ -315,7 +315,7 @@ export default function ListData({ address }) {
             <Loading loading={loading}/>
         ) : (
             <>
-                {data === []? (
+                {data === null? (
                     <>
                         <strong>Acabou :(</strong>
                     </>
