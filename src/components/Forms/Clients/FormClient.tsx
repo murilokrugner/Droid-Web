@@ -201,7 +201,7 @@ export default function FormClient({ address }) {
                             
                         />
                     </div>
-                    {selectTypeDocument.value === 'CPF' || selectTypeDocument === 'CPF' ? (
+                    {selectTypeDocument.value === 'CPF' ? (
                         <>
                             <Input
                                 name="document"
