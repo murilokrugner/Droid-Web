@@ -6,7 +6,7 @@ import styles from '../../../styles/components/Forms/FormDescriptionOnly.module.
 import { Form, Input } from '@rocketseat/unform';
 
 
-import stylesLoading from '../styles/components/Loading.module.css';
+import stylesLoading from '../../../styles/components/Loading.module.css';
 
 import HashLoader from "react-spinners/HashLoader";
 

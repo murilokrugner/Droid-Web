@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 
 import InputMask2 from '../../../components/Input';
 
-import stylesLoading from '../styles/components/Loading.module.css';
+import stylesLoading from '../../../styles/components/Loading.module.css';
 
 import HashLoader from "react-spinners/HashLoader";                   
 

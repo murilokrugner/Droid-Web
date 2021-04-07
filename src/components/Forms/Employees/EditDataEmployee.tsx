@@ -15,7 +15,7 @@ import { useRouter } from 'next/router';
 
 import { toast } from 'react-toastify';
 
-import stylesLoading from '../styles/components/Loading.module.css';
+import stylesLoading from '../../../styles/components/Loading.module.css';
 
 import HashLoader from "react-spinners/HashLoader";                   
 
