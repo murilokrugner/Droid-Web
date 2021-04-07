@@ -13,10 +13,6 @@ import styles from '../../styles/components/Forms/ListData.module.css';
 import Loading from '../Loading';
 
 import { toast } from 'react-toastify';
-
-import EditIcon from '../../assets/icons/edit.png';
-import PrinterIcon from '../../assets/icons/printer.png';
-import TrashIcon from '../../assets/icons/trash.png';
 import ReactSelect from 'react-select';
 
 export default function ListData({ address }) {
