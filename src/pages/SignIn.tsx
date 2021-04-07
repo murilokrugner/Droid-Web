@@ -16,10 +16,10 @@ export default function SignIn() {
     const { loading, handleSubmit, getCompany, getUser } = useContext(AuthContext);
 
     const [company, setCompany] = useState();
-    const [selectCompany, setSelectCompany] = useState();
+    const [selectCompany, setSelectCompany] = useState(null);
 
     const [users, setUsers] = useState();
-    const [selectUser, setSelectUser] = useState();
+    const [selectUser, setSelectUser] = useState(null);
 
 
     useEffect(() => {

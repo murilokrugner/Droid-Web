@@ -19,7 +19,7 @@ import Loading from '../../../components/Loading';
 
 import { toast } from 'react-toastify';
 
-export default function EditDataOrder() {
+export default function EditDataOrder({address}) {
     const router = useRouter();
 
     const addressEdit = router.query.address;

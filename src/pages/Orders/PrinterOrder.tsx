@@ -15,6 +15,22 @@ import { AuthContext } from '../../context/AuthContext';
 
 import { useRouter } from 'next/router';
 import api from '../../services/api';
+import { string } from 'yup/lib/locale';
+
+interface Data {
+    imei: string,
+    password_device: string,
+    accessories: string,
+    defect_problem: string,
+    comments: string,
+    delivery_forecast: string, 
+    value: string,
+    password_printer: string,
+    employee: {first_name: string},
+    clerk: {first_name: string},
+    client: {first_name: string, address: string, neighborhood_address: string, document: string, rg: string, mobile_phone: string},
+    device: {group: {description: string}, description: string, brand: {description: string}},
+}
 
 export default function PrinterOrder() {
     const router = useRouter();
@@ -24,7 +40,7 @@ export default function PrinterOrder() {
     const { token, company } = useContext(AuthContext);
 
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState({});
+    const [data, setData] = useState<Data>(null);
 
     useEffect(() => {
         async function loadData() {
@@ -98,17 +114,17 @@ export default function PrinterOrder() {
 
                         {data.password_printer && (
                             <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10, marginLeft: 60 }}>
-                                <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'space-between', marginTop: 10}}>
+                                <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
                                     <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
                                     <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
                                     <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
                                 </View>
-                                <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'space-between', marginTop: 10}}>
+                                <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
                                     <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
                                     <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
                                     <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
                                 </View>
-                                <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'space-between', marginTop: 10}}>
+                                <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
                                     <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
                                     <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
                                     <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>

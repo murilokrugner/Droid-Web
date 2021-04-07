@@ -17,7 +17,7 @@ interface Data {
     item: Array<object>,
 }
 
-export default function FormSearchClient() {
+export default function FormSearchClient({address}) {
     const router = useRouter();
 
     const { token, company } = useContext(AuthContext);

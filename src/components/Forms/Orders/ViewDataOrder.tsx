@@ -21,7 +21,7 @@ import Loading from '../../../components/Loading';
 
 import { toast } from 'react-toastify';
 
-export default function ViewDataOrder() {
+export default function ViewDataOrder({address}) {
     const router = useRouter();
 
     const addressEdit = router.query.address;

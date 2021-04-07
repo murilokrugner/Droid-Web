@@ -41,7 +41,7 @@ const schema = Yup.object().shape({
   });
 
 
-export default function FinishedOrder() {
+export default function FinishedOrder({address}) {
     
     const router = useRouter();
 

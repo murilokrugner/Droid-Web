@@ -35,7 +35,7 @@ const schema = Yup.object().shape({
     city: Yup.string().required('A cidade é obrigatória'),
   });
 
-export default function EditDataClient() {
+export default function EditDataClient({address}) {
     const router = useRouter();
 
     const addressEdit = router.query.address;
