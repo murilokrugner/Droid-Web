@@ -22,9 +22,6 @@ const schema = Yup.object().shape({
     description: Yup.string().required('A descrição é obrigatória'),
   });
 
-interface ComboBoxValue {
-    [index: string]: { label: string; value: string };
-}
 
 export default function EditData() {
     const router = useRouter();
@@ -45,8 +42,8 @@ export default function EditData() {
 
     const [code, setCode] = useState(0);
     const [description, setDescription] = useState('');
-    const [brand, setBrand] = useState();
-    const [group, setGroup] = useState();
+    const [brand, setBrand] = useState(null);
+    const [group, setGroup] = useState(null);
 
     const [brands, setBrands] = useState();
     const [groups, setGroups] = useState();
@@ -83,14 +80,14 @@ export default function EditData() {
         setDescription(response.data.description);
 
         if (addressEdit === 'devices') {
-            setGroup<ComboBoxValue>([
+            setGroup([
                 {
                     'value': response.data.group.id,
                     'label': response.data.group.description
                 }
             ]);
     
-            setBrand<ComboBoxValue>([
+            setBrand([
                 {
                     'value': response.data.id,
                     'label': response.data.brand.description
@@ -99,8 +96,6 @@ export default function EditData() {
         }
 
         setLoadingCode(false);
-
-        
     };
 
     useEffect(() => {      
