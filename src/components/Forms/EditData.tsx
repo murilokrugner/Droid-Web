@@ -16,11 +16,15 @@ import HashLoader from "react-spinners/HashLoader";
 import Loading from '../Loading';
 
 import { toast } from 'react-toastify';
+import { string } from 'yup/lib/locale';
 
 const schema = Yup.object().shape({
     description: Yup.string().required('A descrição é obrigatória'),
   });
 
+interface ComboBoxValue {
+    [index: string]: { label: string; value: string };
+}
 
 export default function EditData() {
     const router = useRouter();
@@ -44,8 +48,8 @@ export default function EditData() {
     const [brand, setBrand] = useState();
     const [group, setGroup] = useState();
 
-    const [brands, setBrands] = useState([]);
-    const [groups, setGroups] = useState([]);
+    const [brands, setBrands] = useState();
+    const [groups, setGroups] = useState();
     
 
     async function loadBrands() {
@@ -79,14 +83,14 @@ export default function EditData() {
         setDescription(response.data.description);
 
         if (addressEdit === 'devices') {
-            setGroup([
+            setGroup<ComboBoxValue>([
                 {
                     'value': response.data.group.id,
                     'label': response.data.group.description
                 }
             ]);
     
-            setBrand([
+            setBrand<ComboBoxValue>([
                 {
                     'value': response.data.id,
                     'label': response.data.brand.description
