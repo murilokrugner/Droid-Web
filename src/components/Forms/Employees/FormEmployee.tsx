@@ -13,6 +13,10 @@ import { cnpj as validateCnpj, cpf as validateCpf } from 'cpf-cnpj-validator';
 
 import { useRouter } from 'next/router';
 
+import stylesLoading from '../styles/components/Loading.module.css';
+
+import HashLoader from "react-spinners/HashLoader";                   
+
 import Loading from '../../Loading';
 
 import { toast } from 'react-toastify';
@@ -188,7 +192,9 @@ export default function FormEmployee({ address }) {
         <div className={styles.Container}>
             {loading && loadingCode ? (
                 <>
-                    <Loading />
+                    <div className={stylesLoading.Container}>
+                        <HashLoader color='#fff' loading={loading} size={60} />
+                    </div>
                 </>
             ) : (
                 <div className={styles.containerForm}>

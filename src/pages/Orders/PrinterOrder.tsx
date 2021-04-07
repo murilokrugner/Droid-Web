@@ -7,6 +7,10 @@ import { PDFViewer } from '@react-pdf/renderer';
 import Header from '../../components/Header';
 import Loading from '../../components/Loading';
 
+import stylesLoading from '../styles/components/Loading.module.css';
+
+import HashLoader from "react-spinners/HashLoader"; 
+
 import { AuthContext } from '../../context/AuthContext';
 
 import { useRouter } from 'next/router';
@@ -138,7 +142,9 @@ export default function PrinterOrder() {
             <h2>Imprimir ordem de serviço</h2>   
             
             {loading ? (
-                <Loading />
+                <div className={stylesLoading.Container}>
+                    <HashLoader color='#fff' loading={loading} size={60} />
+                </div>
             ) : (
                 <div className={styles.containerPrinter}>
                     <PDFViewer height={800} width={500}>

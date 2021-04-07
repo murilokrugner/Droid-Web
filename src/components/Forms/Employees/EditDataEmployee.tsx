@@ -15,6 +15,10 @@ import Loading from '../../Loading';
 
 import { toast } from 'react-toastify';
 
+import stylesLoading from '../styles/components/Loading.module.css';
+
+import HashLoader from "react-spinners/HashLoader";                   
+
 const schema = Yup.object().shape({
     first_name: Yup.string().required('O primeiro nome é obrigatório'),
     last_name: Yup.string().required('O ultimo nome é obrigatório'),
@@ -164,7 +168,9 @@ export default function EditDataEmployee() {
         <div className={styles.Container}>
             {loading && loadingCode ? (
                 <>
-                    <Loading />
+                    <div className={stylesLoading.Container}>
+                        <HashLoader color='#fff' loading={loading} size={60} />
+                    </div>
                 </>
             ) : (
                 <div className={styles.containerForm}>

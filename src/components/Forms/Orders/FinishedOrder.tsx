@@ -15,6 +15,10 @@ import InputMask2 from '../../../components/Input';
 
 import Loading from '../../../components/Loading';
 
+import stylesLoading from '../styles/components/Loading.module.css';
+
+import HashLoader from "react-spinners/HashLoader";                   
+
 import { toast } from 'react-toastify';
 
 import { InputGroup, FormControl } from 'react-bootstrap';
@@ -284,7 +288,9 @@ export default function FinishedOrder() {
         <div className={styles.Container}>
             {loading && loadingCode ? (
                 <>
-                    <Loading />
+                    <div className={stylesLoading.Container}>
+                        <HashLoader color='#fff' loading={loading} size={60} />
+                    </div>
                 </>
             ) : (
         <div className={styles.containerForm}>

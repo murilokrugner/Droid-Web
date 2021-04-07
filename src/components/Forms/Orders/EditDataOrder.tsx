@@ -9,6 +9,10 @@ import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 import ReactSelect from 'react-select';
 
+import stylesLoading from '../styles/components/Loading.module.css';
+
+import HashLoader from "react-spinners/HashLoader"; 
+
 import { useRouter } from 'next/router';
 
 import Loading from '../../../components/Loading';
@@ -216,7 +220,10 @@ export default function EditDataOrder() {
         <div className={styles.Container}>
             {loading && loadingCode ? (
                 <>
-                    <Loading />
+                    <div className={stylesLoading.Container}>
+                        <HashLoader color='#fff' loading={loading} size={60} />
+                    </div>
+                    
                 </>
             ) : (
         <div className={styles.containerForm}>

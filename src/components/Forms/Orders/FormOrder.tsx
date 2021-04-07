@@ -11,6 +11,10 @@ import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 import ReactSelect from 'react-select';
 
+import stylesLoading from '../styles/components/Loading.module.css';
+
+import HashLoader from "react-spinners/HashLoader";       
+
 import { cnpj as validateCnpj, cpf as validateCpf } from 'cpf-cnpj-validator';
 
 import { useRouter } from 'next/router';
@@ -210,7 +214,9 @@ export default function FormOrder({ address }) {
         <div className={styles.Container}>
             {loading && loadingCode ? (
                 <>
-                    <Loading />
+                    <div className={stylesLoading.Container}>
+                        <HashLoader color='#fff' loading={loading} size={60} />
+                    </div>
                 </>
             ) : (
                 <div className={styles.containerForm}>

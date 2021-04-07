@@ -13,6 +13,10 @@ import ReactSelect from 'react-select';
 
 import { useRouter } from 'next/router';
 
+import stylesLoading from '../styles/components/Loading.module.css';
+
+import HashLoader from "react-spinners/HashLoader"; 
+
 import Loading from '../../../components/Loading';
 
 import { toast } from 'react-toastify';
@@ -177,7 +181,9 @@ export default function ViewDataOrder() {
         <div className={styles.Container}>
             {loading && loadingCode ? (
                 <>
-                    <Loading />
+                    <div className={stylesLoading.Container}>
+                        <HashLoader color='#fff' loading={loading} size={60} />
+                    </div>
                 </>
             ) : (
         <div className={styles.containerForm}>

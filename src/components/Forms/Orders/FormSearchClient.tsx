@@ -6,6 +6,10 @@ import styles from '../../../styles/components/Forms/FormDescriptionOnly.module.
 import { Form, Input } from '@rocketseat/unform';
 import Loading from '../../Loading';
 
+import stylesLoading from '../styles/components/Loading.module.css';
+
+import HashLoader from "react-spinners/HashLoader";
+
 import { RadioGroup, RadioButton } from 'react-radio-buttons';
 
 export default function FormSearchClient() {
@@ -84,7 +88,9 @@ export default function FormSearchClient() {
                 </Form>
 
                 { loading ? (
-                    <Loading />
+                    <div className={stylesLoading.Container}>
+                        <HashLoader color='#fff' loading={loading} size={60} />
+                    </div>
                 ) : (
                     <>
                         {data === 'empty' ? (
