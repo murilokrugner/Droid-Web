@@ -222,7 +222,7 @@ export default function EditDataClient() {
                         value={mobile_phone}
                         onChange={value => setMobilePhone(value[0])}
                     />                     
-                    {selectTypeDocument.value === 'CPF' || selectTypeDocument === 'CPF' ? (
+                    {selectTypeDocument.value === 'CPF' ? (
                         <>
                             <Input
                                 name="document"
