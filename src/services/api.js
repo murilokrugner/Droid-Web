@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://knowledgesoftware.kinghost.net:21039/',
+    baseURL: 'https://knowledgesoftware.kinghost.net/apps_nodejs/droid/dist/',
 });
 
 export default api;
