@@ -43,8 +43,8 @@ export default function PrinterOrder() {
     function MyDocument() {
         return (
             <Document>
-                <Page size={{width: 200, height: 360}} style={stylesS.page}>
-                    <View style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: 'auto'}}>
+                <Page size={data.password_printer ? {width: 200, height: 420} : {width: 200, height: 370}} style={stylesS.page}>
+                    <View style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: 'auto', width: 200}}>
                         <Text style={{fontSize: 8, fontWeight: 'bold'}}>
                             DROID ASSISTÊNCIA TÉCNICA                                                                                
                         </Text>
@@ -65,7 +65,7 @@ export default function PrinterOrder() {
                         </View>
 
                         <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
-                            <Text style={{fontSize: 7}}>Atendente: {data.employee.first_name}</Text>
+                            <Text style={{fontSize: 7}}>Atendente: {data.clerk.first_name}</Text>
                             <Text style={{fontSize: 7}}>Técnico: {data.employee.first_name}</Text>
                             <Text style={{fontSize: 7}}>Nome: {data.client.first_name}</Text>
                             <Text style={{fontSize: 7}}>Endereço: {data.client.address}</Text>
@@ -91,6 +91,26 @@ export default function PrinterOrder() {
                             <Text style={{fontSize: 7}}>Data Entrega: {data.delivery_forecast}</Text>
                             <Text style={{fontSize: 7}}>Valor/Conserto: {data.value}</Text>
                         </View>
+
+                        {data.password_printer && (
+                            <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10, marginLeft: 60 }}>
+                                <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'space-between', marginTop: 10}}>
+                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
+                                </View>
+                                <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'space-between', marginTop: 10}}>
+                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
+                                </View>
+                                <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'space-between', marginTop: 10}}>
+                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
+                                </View>
+                            </View>
+                        )}
 
                         <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10}}>
                             <Text style={{fontSize: 7}}>Estou ciente de que o equipamento que deixei não da para testar e que caso seja encontrado 

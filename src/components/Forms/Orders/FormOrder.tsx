@@ -84,6 +84,10 @@ export default function FormOrder({ address }) {
     const [selectDevice, setSelectDevice] = useState();
     const [selectStatus, setSelectStatus] = useState();
 
+    const [checking, setCheking] = useState(false);
+
+    console.log(checking);
+
     const [typeDocument, setTypeDocument] = useState([
         {
             'value': 'CPF',
@@ -150,6 +154,18 @@ export default function FormOrder({ address }) {
 
     }, [token, selectTypeDocument]);
 
+     function handleChangeCheck(e) {
+         if (checking === false) {
+             setCheking(true);
+         } 
+
+         if (checking === true) {
+            setCheking(false);
+        } 
+
+
+      }
+
     async function handleSubmit(data) { 
         setLoadingSave(true);
 
@@ -166,13 +182,11 @@ export default function FormOrder({ address }) {
                 accessories: data.accessories,
                 defect_problem: data.defect_problem,
                 comments: data.service_performed,
-            /*    service_performed: data.service_performed,
-                delivery_forecast: data.delivery_forecast,
-                delivery_forecast_hour: data.delivery_forecast_hour,                
-                value: data.value,*/
+
                 status: selectStatus.value,
                 company_id: company,
                 clerk_id: userId,
+                password_printer: checking,
                                            
             }, {
                 headers: { Authorization: `Bearer ${token}` }  
@@ -228,19 +242,6 @@ export default function FormOrder({ address }) {
                         value={currentDate}
                         disabled
                     /> 
-                   {/** <div className={styles.ContainerSelect2}>
-                        <ReactSelect   
-                            name={selectClient} 
-                            value={selectClient}
-                            onChange={value => setSelectClient(value)}
-                            placeholder={'Cliente'}                    
-                            ref={typeClientRef}
-                            options={clients}
-                            isClearable={false}
-                            isLoading={loading}
-                            
-                        />
-                    </div> */}
                     <Input
                         name="entry_date"
                         type="text"
@@ -281,26 +282,13 @@ export default function FormOrder({ address }) {
                         type="text"
                         placeholder="Defeito/ Problema apresentado"
                     />
-                   {/**  <Input
-                        name="service_performed"
-                        type="text"
-                        placeholder="Serviço realizado"
-                    />
-                    <Input
-                        name="delivery_forecast"
-                        type="text"
-                        placeholder="Data de entrega"
-                    />
-                    <Input
-                        name="delivery_forecast_hour"
-                        type="text"
-                        placeholder="Horario de entrega"
-                    />                   
-                    <Input
-                        name="value"
-                        type="text"
-                        placeholder="Valor"
-                    /> */}
+
+                    <div className={styles.ContainerCheck}>
+                        <label>Imprimir Senha</label>
+                        <Input name="checkbox" type="checkbox" defaultChecked={checking} onChange={handleChangeCheck}/>
+                        
+                    </div>
+                   
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectStatus} 

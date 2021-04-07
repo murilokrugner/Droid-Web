@@ -273,10 +273,6 @@ export default function FinishedOrder() {
         
     } 
 
-   /* function handleChangeMask(e) {
-        setValue(e.target.value);
-      }*/
-
     function handleChangeMask(event, value, maskedValue) {
         event.preventDefault();
     

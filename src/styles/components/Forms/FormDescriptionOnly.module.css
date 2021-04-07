@@ -127,3 +127,17 @@
     margin-left: 10px;
     font-size: 18px;
 }
+
+.ContainerCheck {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    margin: 10px;
+}
+
+.ContainerCheck label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+}
