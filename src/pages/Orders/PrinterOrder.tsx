@@ -6,7 +6,7 @@ import { PDFViewer } from '@react-pdf/renderer';
 
 import Header from '../../components/Header';
 
-import stylesLoading from '../styles/components/Loading.module.css';
+import stylesLoading from '../../styles/components/Loading.module.css';
 
 import HashLoader from "react-spinners/HashLoader"; 
 
