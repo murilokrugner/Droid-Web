@@ -254,17 +254,7 @@ export default function FormClient({ address }) {
                         type="text"
                         placeholder="CEP"
                     /> 
-                  {/* <Input
-                        name="state_address"
-                        type="text"
-                        placeholder="Estado"
-                    /> 
-                    <Input
-                        name="city"
-                        type="text"
-                        placeholder="Cidade"
-                  /> */}                    
-                    
+                                
                     <button type="submit">{loading ? 'Carregando...' : 'Gravar'}</button>
 
                     </Form>

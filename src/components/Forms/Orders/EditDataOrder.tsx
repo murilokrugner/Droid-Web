@@ -39,12 +39,12 @@ export default function EditDataOrder() {
 
     const [code, setCode] = useState(0);
     const [description, setDescription] = useState('');
-    const [employees, setEmployees] = useState('');
+    const [employees, setEmployees] = useState(null);
     const [made_by, setMadeBy] = useState('');
-    const [clients, setClients] = useState('');
+    const [clients, setClients] = useState(null);
     const [entry_date, setEntryDate] = useState('');
     const [password_device, setPasswordDevice] = useState('');
-    const [devices, setDevices] = useState('');
+    const [devices, setDevices] = useState(null);
     const [imei, setImei] = useState('');
     const [damaged, setDamaged] = useState('');
     const [accessroes, setAcessories] = useState('');
@@ -73,10 +73,10 @@ export default function EditDataOrder() {
         },    
     ]);    
 
-    const [selectEmployye, setSelectEmployye] = useState();
-    const [selectClient, setSelectClient] = useState();
-    const [selectDevice, setSelectDevice] = useState();
-    const [selectStatus, setSelectStatus] = useState();
+    const [selectEmployye, setSelectEmployye] = useState(null);
+    const [selectClient, setSelectClient] = useState(null);
+    const [selectDevice, setSelectDevice] = useState(null);
+    const [selectStatus, setSelectStatus] = useState(null);
 
     const [loadingCode, setLoadingCode] = useState(true);
 
@@ -192,10 +192,6 @@ export default function EditDataOrder() {
                 accessories: data.accessories,
                 defect_problem: data.defect_problem,
                 comments: data.service_performed,
-               /* service_performed: data.service_performed,
-                delivery_forecast: data.delivery_forecast,
-                delivery_forecast_hour: data.delivery_forecast_hour,                
-                value: data.value,*/
                 status: selectStatus.value,
                 company: company,
                                            
@@ -317,41 +313,6 @@ export default function EditDataOrder() {
                         value={defect_problem}
                         onChange={value => setDefectProblem(value[0])}
                     />
-                  {/**  <Input
-                        name="service_performed"
-                        type="text"
-                        placeholder="Service Performed"
-                        value={service_performed}
-                        onChange={value => setServicePerformed(value[0])}
-                    />
-                    <Input
-                        name="delivery_forecast"
-                        type="text"
-                        placeholder="Delivery"
-                        value={delivery_forecast}
-                        onChange={value => setDeliveryForecast(value[0])}
-                    />
-                    <Input
-                        name="delivery_forecast_hour"
-                        type="text"
-                        placeholder="Delivery Hour"
-                        value={delivery_forecast_hour}
-                        onChange={value => setDeliveryForecastHour(value[0])}
-                    />
-                    <Input
-                        name="service_performed"
-                        type="text"
-                        placeholder="service_performed"
-                        value={service_performed}
-                        onChange={value => setServicePerformed(value[0])}
-                    />                    
-                    <Input
-                        name="value"
-                        type="text"
-                        placeholder="Valor"
-                        value={value}
-                        onChange={value => setValue(value[0])}
-                    />*/} 
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectStatus} 

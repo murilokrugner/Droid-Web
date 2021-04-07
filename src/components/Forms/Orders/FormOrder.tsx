@@ -83,10 +83,10 @@ export default function FormOrder({ address }) {
         },    
     ]);
 
-    const [selectEmployye, setSelectEmployye] = useState();
-    const [selectClient, setSelectClient] = useState();
-    const [selectDevice, setSelectDevice] = useState();
-    const [selectStatus, setSelectStatus] = useState();
+    const [selectEmployye, setSelectEmployye] = useState(null);
+    const [selectClient, setSelectClient] = useState(null);
+    const [selectDevice, setSelectDevice] = useState(null);
+    const [selectStatus, setSelectStatus] = useState(null);
 
     const [checking, setCheking] = useState(false);
 

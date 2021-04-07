@@ -51,11 +51,11 @@ export default function FormEmployee({ address }) {
     const [code, setCode] = useState(0);
     const [loadingCode, setLoadingCode] = useState(false);
 
-    const [selectPosition, setSelectPosition] = useState();
+    const [selectPosition, setSelectPosition] = useState(null);
     const [position, setPosition] = useState([]);
 
     const [user, setUser] = useState([]);
-    const [selectUser, setSelectUser] = useState();
+    const [selectUser, setSelectUser] = useState(null);
 
     const [typeDocument, setTypeDocument] = useState([
         {
@@ -265,7 +265,7 @@ export default function FormEmployee({ address }) {
                             
                         />
                     </div>
-                    {selectTypeDocument.value === 'CPF' || selectTypeDocument === 'CPF' ? (
+                    {selectTypeDocument.value === 'CPF'  ? (
                         <>
                             <Input
                                 name="document"
@@ -318,17 +318,7 @@ export default function FormEmployee({ address }) {
                         type="text"
                         placeholder="CEP"
                     /> 
-                  {/* <Input
-                        name="state_address"
-                        type="text"
-                        placeholder="Estado"
-                    /> 
-                    <Input
-                        name="city"
-                        type="text"
-                        placeholder="Cidade"
-                  /> */}                    
-                    
+                                
                     <button type="submit">{loading ? 'Carregando...' : 'Gravar'}</button>
 
                     </Form>

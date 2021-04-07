@@ -7,10 +7,11 @@ import Cookies from 'js-cookie';
 import api from '../services/api';
 
 import { useRouter } from 'next/router';
+import { string } from 'yup';
 
 interface AuthContextData {
     handleSubmit: (data: object) => void;
-    handleExit: (data: object) => void;
+    handleExit: () => void;
     getCompany: (data: object) => void;
     getUser: (data: object) => void;
     token: string;
@@ -19,6 +20,8 @@ interface AuthContextData {
     signed: boolean;
     company: number;
     company_name: string;
+    userId: number;
+    userNickname: string;
 }
 
 interface AuthProviderProps {
@@ -29,6 +32,8 @@ interface AuthProviderProps {
     signed: boolean;
     company: number;
     company_name: string;
+    userId: number;
+    userNickname: string;
 }
 
 export const AuthContext = createContext({} as AuthContextData);

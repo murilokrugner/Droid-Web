@@ -98,10 +98,10 @@ export default function FinishedOrder() {
         },    
     ]);    
 
-    const [selectEmployye, setSelectEmployye] = useState();
-    const [selectClient, setSelectClient] = useState();
-    const [selectDevice, setSelectDevice] = useState();
-    const [selectStatus, setSelectStatus] = useState();
+    const [selectEmployye, setSelectEmployye] = useState(null);
+    const [selectClient, setSelectClient] = useState(null);
+    const [selectDevice, setSelectDevice] = useState(null);
+    const [selectStatus, setSelectStatus] = useState(null);
 
     const [loadingCode, setLoadingCode] = useState(true);
 
@@ -414,17 +414,6 @@ export default function FinishedOrder() {
                         onChange={handleChange}
                         placeholder="00:00"
                     />
-
-                 {/**   <div className={styles.ContainerValue}>
-                        <Input
-                            name="value"
-                            type="text"
-                            placeholder="Valor"
-                            value={value}
-                            onChange={value => setValue(value[0])}
-                        /> 
-                        <strong>.00</strong>
-            </div> */}
 
                     <IntlCurrencyInput currency="BRL" config={currencyConfig}
                         onChange={handleChangeMask} value={value}/>

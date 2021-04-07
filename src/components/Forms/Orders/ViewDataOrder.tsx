@@ -75,10 +75,10 @@ export default function ViewDataOrder() {
         },    
     ]);    
 
-    const [selectEmployye, setSelectEmployye] = useState();
-    const [selectClient, setSelectClient] = useState();
-    const [selectDevice, setSelectDevice] = useState();
-    const [selectStatus, setSelectStatus] = useState();
+    const [selectEmployye, setSelectEmployye] = useState(null);
+    const [selectClient, setSelectClient] = useState(null);
+    const [selectDevice, setSelectDevice] = useState(null);
+    const [selectStatus, setSelectStatus] = useState(null);
 
     const [loadingCode, setLoadingCode] = useState(true);
 
@@ -187,7 +187,7 @@ export default function ViewDataOrder() {
                 </>
             ) : (
         <div className={styles.containerForm}>
-            <Form>
+            <Form onSubmit={() => {}}>
             <Input name="code" type="text" placeholder="Código" value={code} disabled />
                     <Input
                         name="description"
@@ -327,8 +327,6 @@ export default function ViewDataOrder() {
                             
                         />
                     </div>                 
-
-
                 </Form> 
                 </div>               
              )}

@@ -38,10 +38,10 @@ export default function FormDescriptionOnly({ address }) {
     const [loadingBrandGroup, setLoadingBrandGroup] = useState(true);
 
     const [brands, setBrands] = useState([]);
-    const [brand, setBrand] = useState();
+    const [brand, setBrand] = useState(null);
 
     const [groups, setGroups] = useState([]);
-    const [group, setGroup] = useState();
+    const [group, setGroup] = useState(null);
 
     async function loadBrands() {
         const response = await api.get(`brands?company=${company}`, {
