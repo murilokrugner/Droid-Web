@@ -54,7 +54,7 @@ export default function ListData({ address }) {
 
 
 
-    const [data, setData] = useState({});
+    const [data, setData] = useState<string | object>();
 
     const [page, setPage] = useState(1);
 
