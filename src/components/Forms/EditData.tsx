@@ -22,8 +22,7 @@ const schema = Yup.object().shape({
     description: Yup.string().required('A descrição é obrigatória'),
   });
 
-
-export default function EditData() {
+export default function EditData({address}) {
     const router = useRouter();
 
     const id = router.query.id;
