@@ -12,6 +12,11 @@ import HashLoader from "react-spinners/HashLoader";
 
 import { RadioGroup, RadioButton } from 'react-radio-buttons';
 
+interface Data {
+    map: Array<object> | object,
+    item: Array<object> | object,
+}
+
 export default function FormSearchClient() {
     const router = useRouter();
 
@@ -19,7 +24,7 @@ export default function FormSearchClient() {
 
     const [loading, setLoading] = useState(false);
 
-    const [data, setData] = useState('empty');
+    const [data, setData] = useState<Data | Array<object>>([]);
 
     const [search, setSearch] = useState('');
 
@@ -93,7 +98,7 @@ export default function FormSearchClient() {
                     </div>
                 ) : (
                     <>
-                        {data === 'empty' ? (
+                        {data === [] ? (
                             <span>Nenhum cliente encontrado</span>
                         ) : (
                             <>

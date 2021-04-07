@@ -15,6 +15,11 @@ import Loading from '../Loading';
 import { toast } from 'react-toastify';
 import ReactSelect from 'react-select';
 
+interface Data {
+    map: Array<object> | object,
+    item: Array<object> | object,
+}
+
 export default function ListData({ address }) {
     const { token, company } = useContext(AuthContext);
 
@@ -52,9 +57,7 @@ export default function ListData({ address }) {
         },
     );
 
-
-
-    const [data, setData] = useState<string | object>();
+    const [data, setData] = useState<Data | Array<object>>([]);
 
     const [page, setPage] = useState(1);
 
@@ -67,7 +70,7 @@ export default function ListData({ address }) {
             });
     
             if (response.data.length === 0) {
-                setData('empty');
+                setData([]);
             } else {
                 setData(response.data);
             }
@@ -79,7 +82,7 @@ export default function ListData({ address }) {
             });
     
             if (response.data.length === 0) {
-                setData('empty');
+                setData([]);
             } else {
                 setData(response.data);
             }
@@ -312,7 +315,7 @@ export default function ListData({ address }) {
             <Loading loading={loading}/>
         ) : (
             <>
-                {data === 'empty' ? (
+                {data === []? (
                     <>
                         <strong>Acabou :(</strong>
                     </>
