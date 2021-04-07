@@ -10,8 +10,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import styles from '../../styles/components/Forms/ListData.module.css';
 
-
-
+import HashLoader from "react-spinners/HashLoader"; 
+import stylesLoading from '../../styles/components/Loading.module.css';
 import { toast } from 'react-toastify';
 import ReactSelect from 'react-select';
 
@@ -312,7 +312,9 @@ export default function ListData({ address }) {
         <> 
         
         { loading ? (
-            <Loading loading={loading}/>
+            <div className={stylesLoading.Container}>
+            <HashLoader color='#fff' loading={loading} size={60} />
+            </div>
         ) : (
             <>
                 {data === null? (
