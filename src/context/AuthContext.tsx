@@ -12,15 +12,15 @@ import { string } from 'yup';
 interface AuthContextData {
     handleSubmit: (data: object) => void;
     handleExit: () => void;
-    getCompany: (data: object) => void;
-    getUser: (data: object) => void;
+    getCompany: (data: string, data2: string) => void;
+    getUser: (data: string, data2: string) => void;
     token: string;
     user: object;
     loading: boolean;
     signed: boolean;
-    company: number;
+    company: string;
     company_name: string;
-    userId: number;
+    userId: string;
     userNickname: string;
 }
 
@@ -30,9 +30,9 @@ interface AuthProviderProps {
     token: string;
     loading: boolean;
     signed: boolean;
-    company: number;
+    company: string;
     company_name: string;
-    userId: number;
+    userId: string;
     userNickname: string;
 }
 
@@ -45,10 +45,10 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
     const [user, setUser] = useState({});
     const [token, setToken] = useState('');
     const [signed, setSigned] = useState(false);
-    const [company, setCompany] = useState(0);
+    const [company, setCompany] = useState<string>(0);
     const [company_name, setCompanyName] = useState('');
     const [userNickname, setUserNickname] = useState('');
-    const [userId, setUserId] = useState();
+    const [userId, setUserId] = useState<string>();
     
     useEffect(() => {
         const response = Cookies.get('token');
