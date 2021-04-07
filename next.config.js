@@ -3,7 +3,7 @@ module.exports = {
     async rewrites() {
         return [
           {
-            source: '/api/:path*',
+            source: 'https://knowledgesoftware.kinghost.net/apps_nodejs/droid/dist/',
             destination: 'https://knowledgesoftware.kinghost.net/apps_nodejs/droid/dist/',
           },
         ]
