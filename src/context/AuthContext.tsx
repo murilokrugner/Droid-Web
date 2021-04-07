@@ -26,14 +26,14 @@ interface AuthContextData {
 
 interface AuthProviderProps {
     children: ReactNode;
-    user: object;
+    /*user: object;
     token: string;
     loading: boolean;
     signed: boolean;
     company: string;
     company_name: string;
     userId: string;
-    userNickname: string;
+    userNickname: string;*/
 }
 
 export const AuthContext = createContext({} as AuthContextData);
