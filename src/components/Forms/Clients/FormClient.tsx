@@ -17,7 +17,7 @@ import { cnpj as validateCnpj, cpf as validateCpf } from 'cpf-cnpj-validator';
 
 import { useRouter } from 'next/router';
 
-import Loading from '../../Loading';
+
 
 import { toast } from 'react-toastify';
 

@@ -5,7 +5,6 @@ import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { PDFViewer } from '@react-pdf/renderer';
 
 import Header from '../../components/Header';
-import Loading from '../../components/Loading';
 
 import stylesLoading from '../styles/components/Loading.module.css';
 

@@ -15,7 +15,7 @@ import HashLoader from "react-spinners/HashLoader";
 
 import { useRouter } from 'next/router';
 
-import Loading from '../../../components/Loading';
+';
 
 import { toast } from 'react-toastify';
 

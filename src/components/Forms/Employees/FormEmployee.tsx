@@ -17,7 +17,7 @@ import stylesLoading from '../styles/components/Loading.module.css';
 
 import HashLoader from "react-spinners/HashLoader";                   
 
-import Loading from '../../Loading';
+
 
 import { toast } from 'react-toastify';
 

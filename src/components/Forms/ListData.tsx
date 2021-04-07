@@ -10,7 +10,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import styles from '../../styles/components/Forms/ListData.module.css';
 
-import Loading from '../Loading';
+
 
 import { toast } from 'react-toastify';
 import ReactSelect from 'react-select';

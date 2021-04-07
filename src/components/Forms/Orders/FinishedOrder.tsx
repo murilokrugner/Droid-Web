@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 
 import InputMask2 from '../../../components/Input';
 
-import Loading from '../../../components/Loading';
+';
 
 import stylesLoading from '../styles/components/Loading.module.css';
 
