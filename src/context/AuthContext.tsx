@@ -45,7 +45,7 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
     const [user, setUser] = useState({});
     const [token, setToken] = useState('');
     const [signed, setSigned] = useState(false);
-    const [company, setCompany] = useState<string>(0);
+    const [company, setCompany] = useState<string>('');
     const [company_name, setCompanyName] = useState('');
     const [userNickname, setUserNickname] = useState('');
     const [userId, setUserId] = useState<string>();
