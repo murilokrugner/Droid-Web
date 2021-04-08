@@ -39,9 +39,11 @@ export default function FormSearchClient({address}) {
                 headers: { Authorization: `Bearer ${token}` }  
             });
 
-            console.log(response.data);
-
-            setData(response.data);
+            if (response.data === 'empty') {
+                setData(null);
+            } else {
+                setData(response.data);
+            }
 
             setLoading(false);
         } 
@@ -54,7 +56,11 @@ export default function FormSearchClient({address}) {
                 headers: { Authorization: `Bearer ${token}` }  
             });
 
-            setData(response.data);
+            if (response.data === 'empty') {
+                setData(null);
+            } else {
+                setData(response.data);
+            }
 
             setLoading(false);
         }
