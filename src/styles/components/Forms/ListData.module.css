@@ -1,146 +1,149 @@
-.ContainerData {
-    display: flex;
-    flex-direction: row;
+.Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    justify-content: space-around;
-    align-items: center;
-
-    width: 800px;
-    height: 130px;
-
-    background-color: #fff;
-    border-radius: 10px;
-
-    margin-top: 50px;
+  height: 250px;
 }
 
+.ContainerData {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  justify-content: space-around;
+  align-items: center;
+
+  width: 420px;
+  height: 250px;
+
+  background-color: #fff;
+  border-radius: 10px;
+
+  margin-top: 50px;
+}
 
 .ContainerData button {
-    margin: 5px 0 0;
-    height: 44px;
-    width: 80px;
-    background: #fff;
-    font-weight: bold;
-    color: #fff;
-    border: 0;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: background 0.2s
-    
+  margin: 5px 0 0;
+  height: 44px;
+  width: 80px;
+  background: #fff;
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background 0.2s;
 }
 
 .Buttons {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    justify-content: space-around;
+  justify-content: space-around;
 
-    width: 200px;
+  width: 200px;
 
-    align-items: center;
-
-    
+  align-items: center;
 }
 
 .Buttons img {
-    width: 25px;
-    height: 25px;
-
+  width: 25px;
+  height: 25px;
 }
 
 .Line {
-    margin-top: 30px;
+  margin-top: 30px;
 
-    width: 800px;
-    height: 1px;
+  width: 800px;
+  height: 1px;
 
-    background: #fff;
+  background: #fff;
 }
 
 .ContainerNavigation {
-    display: flex;
+  display: flex;
 
-    margin-top: 50px;
-    margin-bottom: 20px;
+  margin-top: 50px;
+  margin-bottom: 20px;
 
-    width: 750px;
+  width: 400px;
 
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .ContainerNavigation button {
-    margin: 5px 0 0;
-    height: 40px;
-    width: 100px;
-    background: #2E30C5;
-    font-weight: bold;
-    color: #fff;
-    border: 0;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: background 0.2s
+  margin: 5px 0 0;
+  height: 40px;
+  width: 100px;
+  background: #2e30c5;
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background 0.2s;
 }
 
 .ContainerStatus {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 
-    border-radius: 50px;
+  border-radius: 50px;
 
-    background-color: #3FE04E;
+  background-color: #3fe04e;
 }
 
 .ContainerStatusFinished {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 
-    border-radius: 50px;
+  border-radius: 50px;
 
-    background-color: #E00905;
+  background-color: #e00905;
 }
 
-
 .ContainerStatusProgress {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 
-    border-radius: 50px;
+  border-radius: 50px;
 
-    background-color: #0000A1;
+  background-color: #0000a1;
 }
 
 .ContainerStatusWaiting {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 
-    border-radius: 50px;
+  border-radius: 50px;
 
-    background-color: #FFF15F;
+  background-color: #fff15f;
 }
 
 .ContainerSelect {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    width: 800px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 400px;
 }
 
 .Select {
-    width: 200px;
+  width: 200px;
 }
 
 .ContainerInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-around;
-    height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  height: 80px;
 }
 
-
 .ContainerInfo strong {
-    font-size: 13px;
+  font-size: 13px;
 
-    color: #000;
+  color: #000;
 }

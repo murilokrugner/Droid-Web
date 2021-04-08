@@ -1,52 +1,52 @@
 .Container {
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
-    align-items: center;
+  flex-direction: column;
+  align-items: center;
 
-    justify-content: center;
-
-    
+  justify-content: center;
 }
 
 .Container h2 {
-    font-size: 35px;
+  font-size: 35px;
 
-    color: #fff;
+  color: #fff;
 
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
 .buttonAdd {
-    display: flex;
-    margin-top: 40px;
+  display: flex;
+  margin-top: 40px;
 
-    width: 700px;
+  width: 400px;
+  height: 60px;
 
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .buttonAdd button {
-    margin: 5px 0 0;
-    height: 40px;
-    width: 100px;
-    background: #2E30C5;
-    font-weight: bold;
-    color: #fff;
-    border: 0;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: background 0.2s
+  margin: 5px 0 0;
+  height: 40px;
+  width: 100px;
+  background: #2e30c5;
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background 0.2s;
+  margin-top: 57px;
 }
 
 .containerPrinter {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top: 40px;
-    height: 1500px;
-    width: 1000px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 40px;
+  height: 1500px;
+  width: 1000px;
 
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }

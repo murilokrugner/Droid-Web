@@ -188,7 +188,12 @@ export default function ViewDataOrder({address}) {
             ) : (
         <div className={styles.containerForm}>
             <Form onSubmit={() => {}}>
+            <div className={styles.ContainerTitle}>
+                        <strong>Código</strong>
             <Input name="code" type="text" placeholder="Código" value={code} disabled />
+            </div>
+            <div className={styles.ContainerTitle}>
+                        <strong>Descrição</strong>
                     <Input
                         name="description"
                         type="text"
@@ -196,6 +201,9 @@ export default function ViewDataOrder({address}) {
                         value={description}
                         onChange={value => setDescription(value[0])}
                     /> 
+            </div>
+            <div className={styles.ContainerTitle}>
+                        <strong>Técnico</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectEmployye} 
@@ -210,6 +218,9 @@ export default function ViewDataOrder({address}) {
                             
                         />
                     </div>
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Criado em</strong>
                     <Input
                         name="madeBy"
                         type="text"
@@ -217,6 +228,9 @@ export default function ViewDataOrder({address}) {
                         value={made_by}
                         onChange={value => setMadeBy(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Cliente</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectClient} 
@@ -230,6 +244,9 @@ export default function ViewDataOrder({address}) {
                             
                         />
                     </div>
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Data de entrada</strong>
                     <Input
                         name="entry_date"
                         type="text"
@@ -237,6 +254,9 @@ export default function ViewDataOrder({address}) {
                         value={entry_date}
                         onChange={value => setEntryDate(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Senha do aparelho</strong>
                     <Input
                         name="password_device"
                         type="text"
@@ -244,6 +264,9 @@ export default function ViewDataOrder({address}) {
                         value={password_device}
                         onChange={value => setPasswordDevice(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Aparelho</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectDevice} 
@@ -257,6 +280,9 @@ export default function ViewDataOrder({address}) {
                             
                         />
                     </div>
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>IMEI</strong>
                     <Input
                         name="imei"
                         type="text"
@@ -264,6 +290,9 @@ export default function ViewDataOrder({address}) {
                         value={imei}
                         onChange={value => setImei(value[0])}
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Acessorios</strong>
                     <Input
                         name="accessories"
                         type="text"
@@ -271,6 +300,9 @@ export default function ViewDataOrder({address}) {
                         value={accessroes}
                         onChange={value => setAcessories(value[0])}
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Defeito/Problema apresentado</strong>
                     <Input
                         name="defect_problem"
                         type="text"
@@ -278,16 +310,22 @@ export default function ViewDataOrder({address}) {
                         value={defect_problem}
                         onChange={value => setDefectProblem(value[0])}
                     />
+                    </div>
                     <>
                     {selectStatus[0].value === 'FINALIZADO' && (
                         <>
-                            <Input
+                        <div className={styles.ContainerTitle}>
+                        <strong>Serviço realizado</strong>
+                        <Input
                         name="service_performed"
                         type="text"
                         placeholder="Serviço realizado"
                         value={service_performed}
                         onChange={value => setServicePerformed(value[0])}
                         />
+                        </div>
+                        <div className={styles.ContainerTitle}>
+                        <strong>Data de entrega</strong>
                         <Input
                             name="delivery_forecast"
                             type="text"
@@ -295,6 +333,9 @@ export default function ViewDataOrder({address}) {
                             value={delivery_forecast}
                             onChange={value => setDeliveryForecast(value[0])}
                         />
+                        </div>
+                        <div className={styles.ContainerTitle}>
+                        <strong>Hora de entrega</strong>
                         <Input
                             name="delivery_forecast_hour"
                             type="text"
@@ -302,7 +343,9 @@ export default function ViewDataOrder({address}) {
                             value={delivery_forecast_hour}
                             onChange={value => setDeliveryForecastHour(value[0])}
                         />
-                  
+                        </div>
+                        <div className={styles.ContainerTitle}>
+                        <strong>Valor</strong>
                         <Input
                             name="value"
                             type="text"
@@ -310,10 +353,12 @@ export default function ViewDataOrder({address}) {
                             value={value}
                             onChange={value => setValue(value[0])}
                         />
-                   
+                    </div>
                         </>
                     )}
                   </>
+                  <div className={styles.ContainerTitle}>
+                        <strong>Status</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectStatus} 
@@ -326,7 +371,8 @@ export default function ViewDataOrder({address}) {
                             isLoading={loading}
                             
                         />
-                    </div>                 
+                    </div>   
+                    </div>              
                 </Form> 
                 </div>               
              )}

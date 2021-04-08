@@ -108,8 +108,6 @@ export default function EditDataOrder({address}) {
             headers: { Authorization: `Bearer ${token}` }
         });
 
-        console.log(response.data);
-
         setCode(response.data.id);
         setDescription(response.data.description);
         setSelectEmployye([
@@ -222,7 +220,12 @@ export default function EditDataOrder({address}) {
             ) : (
         <div className={styles.containerForm}>
             <Form onSubmit={handleSubmit}>
+            <div className={styles.ContainerTitle}>
+                        <strong>Código</strong>
                 <Input name="code" type="text" placeholder="Código" value={code} disabled />
+            </div>
+            <div className={styles.ContainerTitle}>
+                        <strong>Descrição</strong>
                     <Input
                         name="description"
                         type="text"
@@ -230,6 +233,9 @@ export default function EditDataOrder({address}) {
                         value={description}
                         onChange={value => setDescription(value[0])}
                     /> 
+                </div>
+                <div className={styles.ContainerTitle}>
+                        <strong>Técnico</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectEmployye} 
@@ -239,10 +245,12 @@ export default function EditDataOrder({address}) {
                             ref={typeEmployeeRef}
                             options={employees}
                             isClearable={false}
-                            isLoading={loading}
-                            
+                            isLoading={loading}                            
                         />
                     </div>
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Criado em</strong>
                     <Input
                         name="madeBy"
                         type="text"
@@ -250,6 +258,9 @@ export default function EditDataOrder({address}) {
                         value={made_by}
                         onChange={value => setMadeBy(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Cliente</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectClient} 
@@ -263,6 +274,9 @@ export default function EditDataOrder({address}) {
                             
                         />
                     </div>
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Data de entrada</strong>
                     <Input
                         name="entry_date"
                         type="text"
@@ -270,6 +284,9 @@ export default function EditDataOrder({address}) {
                         value={entry_date}
                         onChange={value => setEntryDate(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Senha do aparelho</strong>
                     <Input
                         name="password_device"
                         type="text"
@@ -277,6 +294,9 @@ export default function EditDataOrder({address}) {
                         value={password_device}
                         onChange={value => setPasswordDevice(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Aparelho</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectDevice} 
@@ -290,6 +310,9 @@ export default function EditDataOrder({address}) {
                             
                         />
                     </div>
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>IMEI</strong>
                     <Input
                         name="imei"
                         type="text"
@@ -297,6 +320,9 @@ export default function EditDataOrder({address}) {
                         value={imei}
                         onChange={value => setImei(value[0])}
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Acessorios</strong>
                     <Input
                         name="accessories"
                         type="text"
@@ -304,6 +330,9 @@ export default function EditDataOrder({address}) {
                         value={accessroes}
                         onChange={value => setAcessories(value[0])}
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Defeito/Problema apresentado</strong>
                     <Input
                         name="defect_problem"
                         type="text"
@@ -311,6 +340,9 @@ export default function EditDataOrder({address}) {
                         value={defect_problem}
                         onChange={value => setDefectProblem(value[0])}
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Status</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectStatus} 
@@ -323,6 +355,7 @@ export default function EditDataOrder({address}) {
                             isLoading={loading}
                             
                         />
+                    </div>
                     </div>                 
                     
                     <button type="submit">{loading ? 'Carregando...' : 'Gravar'}</button>

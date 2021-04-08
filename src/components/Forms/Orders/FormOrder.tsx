@@ -222,12 +222,20 @@ export default function FormOrder({ address }) {
                 <div className={styles.containerForm}>
     
                     <Form onSubmit={handleSubmit}>
-                    <Input name="code" type="text" placeholder="Código" value={code} disabled />
+                    <div className={styles.ContainerTitle}>
+                        <strong>Código</strong>
+                        <Input name="code" type="text" placeholder="Código" value={code} disabled />
+                    </div>     
+                    <div className={styles.ContainerTitle}>
+                        <strong>Descrição</strong>               
                     <Input
                         name="description"
                         type="text"
                         placeholder="Descrição"
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Técnico</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectEmployye} 
@@ -241,6 +249,9 @@ export default function FormOrder({ address }) {
                             
                         />
                     </div>
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Criado em</strong>
                     <Input
                         name="madeBy"
                         type="text"
@@ -248,6 +259,9 @@ export default function FormOrder({ address }) {
                         value={currentDate}
                         disabled
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Data de entrada</strong>
                     <Input
                         name="entry_date"
                         type="text"
@@ -255,11 +269,17 @@ export default function FormOrder({ address }) {
                         value={currentDate}
                         disabled
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Senha do aparelho</strong>
                     <Input
                         name="password_device"
                         type="text"
                         placeholder="Senha do aparelho"
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Aparelho</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectDevice} 
@@ -273,28 +293,39 @@ export default function FormOrder({ address }) {
                             
                         />
                     </div>
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>IMEI</strong>
                     <Input
                         name="imei"
                         type="text"
                         placeholder="IMEI"
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Acessorios</strong>
                     <Input
                         name="accessories"
                         type="text"
                         placeholder="Acessorios"
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Defeito/Problema apresentado</strong>
                     <Input
                         name="defect_problem"
                         type="text"
                         placeholder="Defeito/ Problema apresentado"
                     />
+                    </div>
 
                     <div className={styles.ContainerCheck}>
                         <label>Imprimir Senha</label>
                         <Input name="checkbox" type="checkbox" defaultChecked={checking} onChange={handleChangeCheck}/>
                         
                     </div>
-                   
+                    <div className={styles.ContainerTitle}>
+                        <strong>Status</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectStatus} 
@@ -307,6 +338,7 @@ export default function FormOrder({ address }) {
                             isLoading={loading}
                             
                         />
+                    </div>
                     </div>
                                                          
                     <button type="submit">{loadingSave ? 'Carregando...' : 'Gravar'}</button>

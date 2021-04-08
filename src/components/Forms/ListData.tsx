@@ -311,14 +311,13 @@ export default function ListData({ address }) {
     }
 
     return(
-        <> 
-        
+        <>         
         { loading ? (
             <div className={stylesLoading.Container}>
             <HashLoader color='#fff' loading={loading} size={60} />
             </div>
         ) : (
-            <>
+            <div className={styles.Container}>
                 {data === null? (
                     <>
                         <strong>Acabou :(</strong>
@@ -464,7 +463,7 @@ export default function ListData({ address }) {
                     <button type="submit" onClick={backPage}>Voltar</button>
                     <button type="submit" onClick={nextPage}>Avançar</button>
                 </div>                
-            </>
+            </div>
         )}                          
         </>
     );

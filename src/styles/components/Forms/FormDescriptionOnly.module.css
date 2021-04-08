@@ -1,143 +1,158 @@
 .Container {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    align-items: center;
+  align-items: center;
+  justify-content: center;
 
-    margin: 15px;
+  margin: 15px;
 }
 
 .containerForm {
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    background: var(--blue-twitter);     
+  background: var(--blue-twitter);
 }
 
-
 .containerForm form {
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  justify-content: center;
+  align-items: center;
 }
 
 .containerForm form input {
-    background: var(--title);
-    border: 0;
-    border-radius: 4px;
-    height: 44px;
-    padding: 0 15px;
-    color: #fff;
-    margin: 0 0 10px;
-    width: 400px;
+  background: var(--title);
+  border: 0;
+  border-radius: 4px;
+  height: 44px;
+  padding: 0 15px;
+  color: #fff;
+  margin: 0 0 10px;
+  width: 400px;
 }
 
 .containerForm form span {
-    color: var(--red);
-    align-self: flex-start;
-    margin: 0 0 10px;
-    font-weight: bold;
+  color: var(--red);
+  align-self: flex-start;
+  margin: 0 0 10px;
+  font-weight: bold;
 }
 
 .containerForm form button {
-    margin: 5px 0 0;
-    height: 44px;
-    background: var(--green);
-    font-weight: bold;
-    color: #fff;
-    border: 0;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: filter 0.2s;
-    width: 400px;
+  margin: 5px 0 0;
+  height: 44px;
+  background: var(--green);
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: filter 0.2s;
+  width: 400px;
 }
 
 .ContainerSelect {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    justify-content: space-around;
+  justify-content: space-around;
 
-
-    height: 180px;
-
+  height: 180px;
 }
 
 .ContainerSelect2 {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    justify-content: space-around;
-    width: 400px;
+  justify-content: space-around;
+  width: 400px;
 
-    height: 100px;
-
+  height: 100px;
 }
 .ContainerSelected {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    justify-content: space-around;
+  justify-content: space-around;
 
-    width: auto;
+  width: auto;
 
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .ContainerClient {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    justify-content: center;
+  justify-content: center;
 
-    height: auto;
+  height: auto;
 
-    width: 400px;
+  width: 400px;
 
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 .ContainerClient button {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-    justify-content: space-around;
-    align-items: center;;
+  justify-content: space-around;
+  align-items: center;
 
-    width: 400px;
-    height: 40px; 
+  width: 400px;
+  height: 40px;
 }
 
 .ContainerClient span {
-    color: #000;
-    font-size: 18px;
+  color: #000;
+  font-size: 18px;
 }
 
 .ContainerValue {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .ContainerValue strong {
-    margin-left: 10px;
-    font-size: 18px;
+  margin-left: 10px;
+  font-size: 18px;
 }
 
 .ContainerCheck {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    
-    margin: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 600px;
+  margin-left: 180px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .ContainerCheck label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+}
+
+.ContainerTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.ContainerTitle strong {
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 16px;
 }
