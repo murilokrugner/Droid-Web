@@ -68,8 +68,10 @@ export default function ListData({ address }) {
             const response = await api.get(`${address}-filters?company=${company}&page=${page}&status=${selectStatus.value}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
+
+            console.log('aqui' + response.data.lenght);
     
-            if (response.data.length === 0) {
+            if (response.data.length === 0 || response.data === 'empty') {
                 setData(null);
             } else {
                 setData(response.data);
