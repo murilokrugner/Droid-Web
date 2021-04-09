@@ -112,8 +112,7 @@ export default function FormSearchClient({address}) {
                                     <div className={styles.ContainerClient}>  
                                         <button type="button" onClick={() => {handleNext(item.id)}}>
                                             <span>{item.id}</span>
-                                            <span>{item.first_name}</span>
-                                            <span>{item.last_name}</span>
+                                            <span>{item.first_name} {item.last_name}</span>
                                         </button>
                                     </div>
                                 ))}

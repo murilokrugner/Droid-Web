@@ -15,9 +15,7 @@ export default function ListPositions() {
 
             <h2>Cargos</h2>   
 
-            <div className={styles.buttonAdd}>
-                <button type="button" onClick={() => {router.push('CreatePositions')}}>Novo Cargo</button>
-            </div>
+            
 
             <ListData address={'positions'}/>
 

@@ -338,7 +338,30 @@ export default function ListData({ address }) {
                                     />
                                 </div>
                             )}
-                            <button type="button" onClick={() => {router.push('CreateOrder')}}>Nova O.S.</button>
+                            {address === 'orders' && (
+                                <button type="button" onClick={() => {router.push('CreateOrder')}}>Nova O.S.</button>
+                            )}
+                            {address === 'brands' && (
+                                 <button type="button" onClick={() => {router.push('CreateBrand')}}>Nova Marca</button>
+                            )}
+                            {address === 'groups' && (
+                                 <button type="button" onClick={() => {router.push('CreateGroup')}}>Novo Grupo</button>
+                            )}
+                            {address === 'employees' && (
+                                 <button type="button" onClick={() => {router.push('CreateEmployee')}}>Novo Funcionario</button>
+                            )}
+                           {address === 'devices' && (
+                                 <button type="button" onClick={() => {router.push('CreateDevice')}}>Novo Aparelho</button>
+                            )}
+                            {address === 'users' && (
+                                 <button type="button" onClick={() => {router.push('CreateUser')}}>Novo Usuário</button>
+                            )}
+                           {address === 'positions' && (
+                                 <button type="button" onClick={() => {router.push('CreatePosition')}}>Novo Cargo</button>
+                            )} 
+                            {address === 'clients' && (
+                                 <button type="button" onClick={() => {router.push('CreateClient')}}>Novo Cliente</button>
+                            )}
                         </div>  
                         
                         </>                                                                              
@@ -420,7 +443,7 @@ export default function ListData({ address }) {
                                                     </div> 
                                                 )}      
                                                  
-                                                <strong>{item.description && address === 'devices' ? item.description : item.first_name}</strong>                                   
+                                                <strong>{item.description && address === 'devices' ? item.description : item.first_name} {item.last_name}</strong>                                   
                                                
                                                 <div className={styles.Buttons}>
                                                     {address === 'orders' && (

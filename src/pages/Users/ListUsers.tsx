@@ -15,9 +15,7 @@ export default function ListUsers() {
 
             <h2>Usuários</h2>   
 
-            <div className={styles.buttonAdd}>
-                <button type="button" onClick={() => {router.push('CreateUser')}}>Novo Usuário</button>
-            </div>
+           
 
             <ListData address={'users'}/>
 

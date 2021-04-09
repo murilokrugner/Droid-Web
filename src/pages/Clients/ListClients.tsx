@@ -15,9 +15,7 @@ export default function ListClients() {
 
             <h2>Clientes</h2>   
 
-            <div className={styles.buttonAdd}>
-                <button type="button" onClick={() => {router.push('CreateClient')}}>Novo Cliente</button>
-            </div>
+        
 
             <ListData address={'clients'}/>
 

@@ -15,9 +15,7 @@ export default function ListDevices() {
 
             <h2>Aparelhos</h2>   
 
-            <div className={styles.buttonAdd}>
-                <button type="button" onClick={() => {router.push('CreateDevice')}}>Novo Aparelho</button>
-            </div>
+           
 
             <ListData address={'devices'}/>
 

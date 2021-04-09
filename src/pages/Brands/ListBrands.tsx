@@ -15,10 +15,6 @@ export default function ListBrands() {
 
             <h2>Marcas</h2>   
 
-            <div className={styles.buttonAdd}>
-                <button type="button" onClick={() => {router.push('CreateBrand')}}>Nova Marca</button>
-            </div>
-
             <ListData address={'brands'}/>
 
         </div>

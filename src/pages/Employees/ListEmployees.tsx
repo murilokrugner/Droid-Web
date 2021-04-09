@@ -15,9 +15,7 @@ export default function ListEmployees() {
 
             <h2>Funcionarios</h2>   
 
-            <div className={styles.buttonAdd}>
-                <button type="button" onClick={() => {router.push('CreateEmployee')}}>Novo funcionario</button>
-            </div>
+           
 
             <ListData address={'employees'}/>
 
