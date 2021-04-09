@@ -323,7 +323,8 @@ export default function ListData({ address }) {
                         <strong>Acabou :(</strong>
                     </>
                 ): (
-                    <>    
+                    <> 
+                    <>   
                     <div className={styles.ContainerSelect}>
                         {address === 'orders' && (
                                 <div className={styles.Select}>
@@ -333,12 +334,14 @@ export default function ListData({ address }) {
                                         onChange={value => setSelectStatus(value)}
                                         placeholder={'Filtro'}                    
                                         options={status}
-                                        isClearable={false}
-                                
+                                        isClearable={false}                                
                                     />
                                 </div>
                             )}
-                        </div>                                                            
+                            <button type="button" onClick={() => {router.push('CreateOrder')}}>Nova O.S.</button>
+                        </div>  
+                        
+                        </>                                                                              
                         {data.map(item => (
                             <>                            
                                 <div className={styles.ContainerData}>   
@@ -360,8 +363,9 @@ export default function ListData({ address }) {
                                                     {item.status === 'AGUARDANDO' && (
                                                         <div className={styles.ContainerStatusWaiting}></div>
                                                     )}
+                                                
                                                 </>
-                                            )}
+                                            )}                                            
                                             <strong>{item.id}</strong>
                                         </>
                                     )}         

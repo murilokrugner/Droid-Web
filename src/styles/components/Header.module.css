@@ -1,8 +1,9 @@
 .HeaderContainer {
   background: var(--white);
-  width: 1150px;
-  max-width: 1950px;
+  width: 900px;
   height: auto;
+
+  flex-wrap: wrap;
 }
 
 .HeaderContainer > div {
