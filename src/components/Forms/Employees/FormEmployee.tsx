@@ -200,32 +200,52 @@ export default function FormEmployee({ address }) {
                 <div className={styles.containerForm}>
     
                     <Form onSubmit={handleSubmit} >
+                    <div className={styles.ContainerTitle}>
+                        <strong>Código</strong>
                     <Input name="code" type="text" placeholder="Código" value={code} disabled />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Primeiro Nome</strong>
                     <Input
                         name="first_name"
                         type="text"
                         placeholder="Primeiro Nome"
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Ultimo Nome</strong>/
                     <Input
                         name="last_name"
                         type="text"
                         placeholder="Último Nome"
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>E-mail</strong>
                     <Input
                         name="email"
                         type="text"
                         placeholder="E-mail"
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Telefone</strong>
                     <Input
                         name="phone"
                         type="text"
                         placeholder="Telefone"
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Celular</strong>
                     <Input
                         name="mobile_phone"
                         type="text"
                         placeholder="Celular"
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Tipo do documento</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectTypeDocument} 
@@ -239,6 +259,9 @@ export default function FormEmployee({ address }) {
                             
                         />
                     </div>
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Cargo</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectPosition} 
@@ -252,6 +275,9 @@ export default function FormEmployee({ address }) {
                             
                         />
                     </div>
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Usuário</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectUser} 
@@ -265,59 +291,86 @@ export default function FormEmployee({ address }) {
                             
                         />
                     </div>
+                    </div>
                     {selectTypeDocument.value === 'CPF'  ? (
                         <>
+                            <div className={styles.ContainerTitle}>
+                                <strong>CPF</strong>
                             <Input
                                 name="document"
                                 type="text"
                                 placeholder="CPF"
                             /> 
+                            </div>
+                            <div className={styles.ContainerTitle}>
+                                <strong>RG</strong>
                             <Input
                                 name="document2"
                                 type="text"
                                 placeholder="RG"
                             /> 
-
+                            </div>
                         </>
                     ) : (
                         <>
+                        <div className={styles.ContainerTitle}>
+                            <strong>CNPJ</strong>
                             <Input
                                 name="document"
                                 type="text"
                                 placeholder="CNPJ"
                             /> 
+                            </div>
+                            <div className={styles.ContainerTitle}>
+                                <strong>IE</strong>
                             <Input
                                 name="document2"
                                 type="text"
                                 placeholder="IE"
                             /> 
+                            </div>
                         </>
-                    )}                    
+                    )}           
+                    <div className={styles.ContainerTitle}>
+                        <strong>Endereço</strong>         
                     <Input
                         name="address"
                         type="text"
                         placeholder="Endereço"
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Número</strong>
                     <Input
                         name="number_address"
                         type="text"
                         placeholder="Número"
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Bairro</strong>
                     <Input
                         name="neighborhood_address"
                         type="text"
                         placeholder="Bairro"
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Ponto de referencia</strong>
                     <Input
                         name="point_address"
                         type="text"
                         placeholder="Ponto de Referencia"
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>CEP</strong>
                     <Input
                         name="cep_address"
                         type="text"
                         placeholder="CEP"
                     /> 
+                    </div>
                                 
                     <button type="submit">{loading ? 'Carregando...' : 'Gravar'}</button>
 

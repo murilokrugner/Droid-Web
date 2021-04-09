@@ -86,8 +86,6 @@ export default function FormOrder({ address }) {
 
     const [checking, setCheking] = useState(false);
 
-    console.log(checking);
-
     const [typeDocument, setTypeDocument] = useState([
         {
             'value': 'CPF',
@@ -196,8 +194,13 @@ export default function FormOrder({ address }) {
 
             setLoadingSave(false);
 
-            router.back();
-            router.back();
+            router.push({
+                pathname: 'PrinterOrder',
+                query: {
+                    id: response.data.id,
+                    address: address,
+                }
+            });
 
         } catch (error) {            
             toast.error('Erro ao realizar o cadastro');

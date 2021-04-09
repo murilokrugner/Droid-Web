@@ -3,7 +3,10 @@ import { useEffect, useState, useContext } from 'react';
 import styles from '../../styles/pages/Devices/ListDevices.module.css'
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { PDFViewer } from '@react-pdf/renderer';
-
+import { format } from 'date-fns'
+import getHours from 'date-fns/getHours'
+import getMinutes from 'date-fns/getMinutes'
+import getSeconds from 'date-fns/getSeconds'
 import Header from '../../components/Header';
 
 import stylesLoading from '../../styles/components/Loading.module.css';
@@ -17,6 +20,7 @@ import api from '../../services/api';
 import { string } from 'yup/lib/locale';
 
 interface Data {
+    id: string,
     imei: string,
     password_device: string,
     accessories: string,
@@ -49,7 +53,7 @@ export default function PrinterOrder() {
 
             setData(response.data);
 
-            console.log(response.data);
+            (response.data);
 
             setLoading(false);
         }
@@ -57,9 +61,15 @@ export default function PrinterOrder() {
         loadData();
     }, []);
 
-    
-
     function MyDocument() {
+        const date = format(new Date(), 'dd/MM/yyyy');
+
+        const hour = getHours(new Date());
+        const minutes = getMinutes(new Date());
+        const seconds = getSeconds(new Date());
+
+        const currentHour = hour + ':' + minutes + ':' + seconds;
+
         return (
             <Document>
                 <Page size={data.password_printer ? {width: 200, height: 420} : {width: 200, height: 370}} style={stylesS.page}>
@@ -73,13 +83,13 @@ export default function PrinterOrder() {
                         <Text style={{fontSize: 8}}>WhatsApp: (14)98110-5545</Text>
 
                         <View style={{width: '100%',  marginTop: 20, flex: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <Text style={{fontSize: 7}}>Data: 25/03/2020</Text>
-                            <Text style={{fontSize: 7}}>Hora: 14:00:00</Text>
+                            <Text style={{fontSize: 7}}>Data: {date}</Text>
+                            <Text style={{fontSize: 7}}>Hora: {currentHour}</Text>
                         </View>
 
                         <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                             <Text style={{fontSize: 7}}>------------------------------------------------------------------------------------</Text>
-                            <Text style={{fontSize: 7}}>ORDEM DE SERVIÇO --- OS: 903</Text>
+                            <Text style={{fontSize: 7}}>ORDEM DE SERVIÇO --- OS: {data.id}</Text>
                             <Text style={{fontSize: 7}}>------------------------------------------------------------------------------------</Text>
                         </View>
 
@@ -107,8 +117,10 @@ export default function PrinterOrder() {
 
                         <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: 10}}>
                             <Text style={{fontSize: 7}}>Tel/Cel: {data.client.mobile_phone}</Text>
-                            <Text style={{fontSize: 7}}>Data Entrega: {data.delivery_forecast}</Text>
-                            <Text style={{fontSize: 7}}>Valor/Conserto: {data.value}</Text>
+                            <Text style={{fontSize: 7}}>Data Entrega: {data.delivery_forecast !== null && data.delivery_forecast.slice(8, 10) + '/' 
+                                        +  data.delivery_forecast.slice(5, 7) + '/' 
+                                            + data.delivery_forecast.slice(0, 4) }</Text>
+                            <Text style={{fontSize: 7}}>Valor/Conserto: {data.value !== null && data.value}</Text>
                         </View>
 
                         {data.password_printer && (

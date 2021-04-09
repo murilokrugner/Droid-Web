@@ -201,7 +201,12 @@ export default function EditData({address}) {
                 <div className={styles.containerForm}>
     
                     <Form onSubmit={handleSubmit}>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Código</strong>
                     <Input name="code" type="text" placeholder="Código" value={code}  disabled />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Descrição</strong>
                     <Input
                         name="description"
                         type="text"
@@ -211,9 +216,13 @@ export default function EditData({address}) {
                         placeholder="Descrição"
                         ref={descriptionRef}
                     />
+                    </div>
 
                     {addressEdit === 'devices' && (
+                        
                         <div className={styles.ContainerSelect}>
+                            <div className={styles.ContainerTitle}>
+                            <strong>Marca</strong>
                             <ReactSelect    
                                 name={brand}
                                 value={brand}
@@ -225,7 +234,10 @@ export default function EditData({address}) {
                                 isClearable={true}
                                 isLoading={loading}
                             />
+                            </div>
 
+                            <div className={styles.ContainerTitle}>
+                                <strong>Grupo</strong>
                             <ReactSelect   
                                 name={group} 
                                 value={group}
@@ -236,6 +248,7 @@ export default function EditData({address}) {
                                 isClearable={true}
                                 isLoading={loading}
                             />
+                            </div>
                         </div>
                     )}
                     

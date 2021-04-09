@@ -24,7 +24,7 @@ export default function EditDataOrder({address}) {
 
     const id = router.query.id;
 
-    const { token, company } = useContext(AuthContext);
+    const { token, company, userId } = useContext(AuthContext);
 
     const typeDeviceRef = useRef(null);
     const typeEmployeeRef = useRef(null);
@@ -77,6 +77,19 @@ export default function EditDataOrder({address}) {
     const [selectStatus, setSelectStatus] = useState(null);
 
     const [loadingCode, setLoadingCode] = useState(true);
+    const [checking, setCheking] = useState(false);
+
+    function handleChangeCheck(e) {
+        if (checking === false) {
+            setCheking(true);
+        } 
+
+        if (checking === true) {
+           setCheking(false);
+       } 
+
+
+     }
 
     async function loadDevices() {
         const response = await api.get(`list-devices?company=${company}`, {
@@ -147,12 +160,12 @@ export default function EditDataOrder({address}) {
         setDeliveryForecast(response.data.delivery_forecast)
         setDeliveryForecastHour(response.data.delivery_forecast_hour);
         setValue(response.data.value);
-        setSelectStatus([
+        setSelectStatus(
             {
                 'value': response.data.status,
                 'label': response.data.status,
             }
-        ]);
+        );
         
         setLoadingCode(false);
         setLoading(false);
@@ -171,25 +184,24 @@ export default function EditDataOrder({address}) {
     }, [token]);
 
     async function handleSubmit(data) { 
-        setLoadingSave(true);
+       setLoadingSave(true);
 
         try {
             const response = await api.put(`${addressEdit}`, {
                 id: code,
                 description: data.description,
-                employee_id: employees.value,
-                made_by: data.madeBy,
-                client_id: clients.value,
-                entry_date: data.entry_date,
+                employee_id: selectEmployye.value,
+                client_id: selectClient.value,
                 password_device: data.password_device,
-                device_id: devices.value,
+                device_id: selectDevice.value,
                 imei: data.imei,
-                damaged: data.damaged,
                 accessories: data.accessories,
                 defect_problem: data.defect_problem,
                 comments: data.service_performed,
+
                 status: selectStatus.value,
                 company: company,
+                password_printer: checking,
                                            
             }, {
                 headers: { Authorization: `Bearer ${token}` }  
@@ -204,8 +216,7 @@ export default function EditDataOrder({address}) {
         } catch (error) {            
             toast.error('Erro ao editar a O.S.');
             setLoadingSave(false);
-        }
-        
+        }        
     }
         
     return (
@@ -357,8 +368,12 @@ export default function EditDataOrder({address}) {
                         />
                     </div>
                     </div>                 
-                    
-                    <button type="submit">{loading ? 'Carregando...' : 'Gravar'}</button>
+                    <div className={styles.ContainerCheck}>
+                        <label>Imprimir Senha</label>
+                        <Input name="checkbox" type="checkbox" defaultChecked={checking} onChange={handleChangeCheck}/>
+                        
+                    </div>
+                    <button type="submit">{loadingSave ? 'Carregando...' : 'Gravar'}</button>
 
                 </Form> 
                 </div>               

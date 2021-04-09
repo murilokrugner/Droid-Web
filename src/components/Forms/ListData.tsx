@@ -69,7 +69,7 @@ export default function ListData({ address }) {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
-            console.log('aqui' + response.data.lenght);
+            ('aqui' + response.data.lenght);
     
             if (response.data.length === 0 || response.data === 'empty') {
                 setData(null);
@@ -102,7 +102,6 @@ export default function ListData({ address }) {
 
     }, [token, page, selectStatus]);
 
-    console.log(data);
 
     function handleNavigationEdit(id) {
         if (address === 'brands') {
@@ -179,7 +178,7 @@ export default function ListData({ address }) {
 
     function backPage() {        
         if (page !== 1) {
-            console.log('back');
+            ('back');
 
             setPage(page - 1);
 
@@ -188,6 +187,8 @@ export default function ListData({ address }) {
     }
 
     async function handleDelete(id, description) {
+        console.log(id);
+        console.log(description);
         confirmAlert({
               title: 'Excluir registro',
               message: `Deseja realmente excluir o item: ${description}`,
@@ -199,6 +200,8 @@ export default function ListData({ address }) {
                         const response = await api.delete(`${address}?company=${company}&id=${id}`, {
                             headers: { Authorization: `Bearer ${token}` }
                         });
+
+                        console.log(response.data);
 
                         toast.success('Registro excluido com sucesso!');
 

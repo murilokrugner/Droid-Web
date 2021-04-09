@@ -54,7 +54,7 @@ export default function FormDescriptionOnly({ address }) {
         
     }
 
-    console.log(address);
+    (address);
 
     async function loadGroups() {   
         const response = await api.get(`groups?company=${company}`, {
@@ -160,7 +160,7 @@ export default function FormDescriptionOnly({ address }) {
                 router.back();
     
             } catch (error) {
-                console.log(error);
+                (error);
                 toast.error('Erro ao realizar o cadastro');
                 setLoading(false);
             }
@@ -179,15 +179,24 @@ export default function FormDescriptionOnly({ address }) {
                 <div className={styles.containerForm}>
     
                     <Form onSubmit={handleSubmit}>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Código</strong>
                     <Input name="code" type="text" placeholder="Código" value={code} disabled />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Descrição</strong>
                     <Input
                         name="description"
                         type="text"
                         placeholder="Descrição"
                     />
+                    </div>
 
                     {address === 'devices' && (
+                        
                         <div className={styles.ContainerSelect}>
+                            <div className={styles.ContainerTitle}>
+                                <strong>Marca</strong>
                             <ReactSelect    
                                 name={brand}
                                 value={brand}
@@ -198,7 +207,10 @@ export default function FormDescriptionOnly({ address }) {
                                 isClearable={true}
                                 isLoading={loading}
                             />
+                            </div>
 
+                            <div className={styles.ContainerTitle}>
+                                <strong>Grupo</strong>
                             <ReactSelect   
                                 name={group} 
                                 value={group}
@@ -209,6 +221,7 @@ export default function FormDescriptionOnly({ address }) {
                                 isClearable={true}
                                 isLoading={loading}
                             />
+                            </div>
                         </div>
                     )}
                     

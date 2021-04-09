@@ -47,7 +47,7 @@ export default function FormUser({ address }) {
         setLoading(false); 
     };
 
-    console.log(code);
+    (code);
 
     useEffect(() => {      
         if (token) {
@@ -67,8 +67,6 @@ export default function FormUser({ address }) {
             toast.error('Senha muito curta, é necessario uma senha com no minimo 6 digitos');
             return;
         }
-
-        console.log(data);
 
         try {
             const response = await api.post(`${address}?company=${company}`, {

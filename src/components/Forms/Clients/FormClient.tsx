@@ -98,7 +98,7 @@ export default function FormClient({ address }) {
             }
         }
 
-        console.log('CEP ' + data.cep_address);
+        ('CEP ' + data.cep_address);
 
         try {
             const getAddress = await apiZipcode.get(`${data.cep_address}/json`);

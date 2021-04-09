@@ -176,7 +176,12 @@ export default function EditDataEmployee({address}) {
                 <div className={styles.containerForm}>
     
                     <Form onSubmit={handleSubmit} >
+                    <div className={styles.ContainerTitle}>
+                        <strong>Código</strong>
                     <Input name="code" type="text" placeholder="Código" value={code} disabled />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Tipo do documento</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectTypeDocument} 
@@ -189,7 +194,10 @@ export default function EditDataEmployee({address}) {
                             isLoading={loading}
                             
                         />
+                        </div>                    
                     </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Primeiro Nome</strong>
                     <Input
                         name="first_name"
                         type="text"
@@ -197,6 +205,9 @@ export default function EditDataEmployee({address}) {
                         value={first_name}
                         onChange={value => setFirstName(value[0])}
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Ultimo Nome</strong>
                     <Input
                         name="last_name"
                         type="text"
@@ -204,6 +215,9 @@ export default function EditDataEmployee({address}) {
                         value={last_name}
                         onChange={value => setLastName(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>E-mail</strong>
                     <Input
                         name="email"
                         type="text"
@@ -212,6 +226,9 @@ export default function EditDataEmployee({address}) {
                         onChange={value => setEmail(value[0])}
                         disabled
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Telefone</strong>
                     <Input
                         name="phone"
                         type="text"
@@ -219,15 +236,21 @@ export default function EditDataEmployee({address}) {
                         value={phone}
                         onChange={value => setPhone(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Celular</strong>
                     <Input
                         name="mobile_phone"
                         type="text"
                         placeholder="Celular"
                         value={mobile_phone}
                         onChange={value => setMobilePhone(value[0])}
-                    />                     
+                    />    
+                    </div>                 
                     {selectTypeDocument.value === 'CPF' ? (
                         <>
+                        <div className={styles.ContainerTitle}>
+                        <strong>CPF</strong>
                             <Input
                                 name="document"
                                 type="text"
@@ -236,6 +259,9 @@ export default function EditDataEmployee({address}) {
                                 onChange={value => setDocument(value[0])}
                                 disabled
                             /> 
+                            </div>
+                            <div className={styles.ContainerTitle}>
+                                <strong>RG</strong>
                             <Input
                                 name="document2"
                                 type="text"
@@ -243,10 +269,12 @@ export default function EditDataEmployee({address}) {
                                 value={rg}
                                 onChange={value => setRg(value[0])}
                             /> 
-
+                            </div>
                         </>
                     ) : (
                         <>
+                        <div className={styles.ContainerTitle}>
+                        <strong>CNPJ</strong>
                             <Input
                                 name="document"
                                 type="text"
@@ -255,6 +283,9 @@ export default function EditDataEmployee({address}) {
                                 onChange={value => setDocument(value[0])}
                                 disabled
                             /> 
+                            </div>
+                            <div className={styles.ContainerTitle}>
+                                <strong>IE</strong>
                             <Input
                                 name="document2"
                                 type="text"
@@ -262,8 +293,11 @@ export default function EditDataEmployee({address}) {
                                 value={rg}
                                 onChange={value => setRg(value[0])}
                             /> 
+                            </div>
                         </>
-                    )}                    
+                    )}          
+                    <div className={styles.ContainerTitle}>
+                        <strong>Endereço</strong>          
                     <Input
                         name="address"
                         type="text"
@@ -271,6 +305,9 @@ export default function EditDataEmployee({address}) {
                         value={addressDescription}
                         onChange={value => setAddressDescription(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Número</strong>
                     <Input
                         name="number_address"
                         type="text"
@@ -278,6 +315,9 @@ export default function EditDataEmployee({address}) {
                         value={number_address}
                         onChange={value => setNumberAddress(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Bairro</strong>
                     <Input
                         name="neighborhood_address"
                         type="text"
@@ -285,6 +325,9 @@ export default function EditDataEmployee({address}) {
                         value={neighborhood_address}
                         onChange={value => setNeighborhoodAddress(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Ponto de referencia</strong>
                     <Input
                         name="point_address"
                         type="text"
@@ -292,6 +335,9 @@ export default function EditDataEmployee({address}) {
                         value={point_address}
                         onChange={value => setPointAddress(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>CEP</strong>
                     <Input
                         name="cep_address"
                         type="text"
@@ -299,6 +345,9 @@ export default function EditDataEmployee({address}) {
                         value={cep_address}
                         onChange={value => setCepAddress(value[0])}
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Estado</strong>
                   <Input
                         name="state_address"
                         type="text"
@@ -307,6 +356,9 @@ export default function EditDataEmployee({address}) {
                         onChange={value => setStateAddress(value[0])}
                         disabled
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Cidade</strong>
                     <Input
                         name="city"
                         type="text"
@@ -315,7 +367,7 @@ export default function EditDataEmployee({address}) {
                         onChange={value => setCity(value[0])}
                         disabled
                   />                   
-                    
+                    </div>
                     <button type="submit">{loading ? 'Carregando...' : 'Gravar'}</button>
 
                     </Form>

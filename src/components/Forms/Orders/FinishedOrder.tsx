@@ -160,7 +160,7 @@ export default function FinishedOrder({address}) {
             headers: { Authorization: `Bearer ${token}` }
         });
 
-        console.log(response.data);
+        (response.data);
 
         setCode(response.data.id);
         setDescription(response.data.description);
@@ -271,7 +271,7 @@ export default function FinishedOrder({address}) {
             setLoadingSave(false);
         }
 
-        console.log(value);
+        (value);
         
     } 
 
@@ -279,7 +279,7 @@ export default function FinishedOrder({address}) {
         event.preventDefault();
     
         setValue(value); // value without mask (ex: 1234.56)
-       // console.log(maskedValue); // masked value (ex: R$1234,56)
+       // (maskedValue); // masked value (ex: R$1234,56)
       }
         
     return (
@@ -293,7 +293,12 @@ export default function FinishedOrder({address}) {
             ) : (
         <div className={styles.containerForm}>
             <Form onSubmit={handleSubmit} > {/**schema={schema} */}
+            <div className={styles.ContainerTitle}>
+                        <strong>Código</strong>
                 <Input name="code" type="text" placeholder="Código" value={code} disabled />
+            </div>
+            <div className={styles.ContainerTitle}>
+                        <strong>Descrição</strong>
                     <Input
                         name="description"
                         type="text"
@@ -302,6 +307,9 @@ export default function FinishedOrder({address}) {
                         onChange={value => setDescription(value[0])}
                         disabled
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Técnico</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectEmployye} 
@@ -315,7 +323,10 @@ export default function FinishedOrder({address}) {
                             disabled
                             
                         />
+                        </div>
                     </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Criado em</strong>
                     <Input
                         name="madeBy"
                         type="text"
@@ -324,6 +335,9 @@ export default function FinishedOrder({address}) {
                         onChange={value => setMadeBy(value[0])}
                         disabled
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Cliente</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectClient} 
@@ -336,7 +350,10 @@ export default function FinishedOrder({address}) {
                             isLoading={loading}
                             disabled
                         />
+                        </div>
                     </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Data de entrada</strong>
                     <Input
                         name="entry_date"
                         type="text"
@@ -345,6 +362,9 @@ export default function FinishedOrder({address}) {
                         onChange={value => setEntryDate(value[0])}
                         disabled
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Senha do aparelho</strong>
                     <Input
                         name="password_device"
                         type="text"
@@ -353,6 +373,9 @@ export default function FinishedOrder({address}) {
                         onChange={value => setPasswordDevice(value[0])}
                         disabled
                     /> 
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Aparelho</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
                             name={selectDevice} 
@@ -367,6 +390,9 @@ export default function FinishedOrder({address}) {
                             
                         />
                     </div>
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>IMEI</strong>
                     <Input
                         name="imei"
                         type="text"
@@ -375,6 +401,9 @@ export default function FinishedOrder({address}) {
                         onChange={value => setImei(value[0])}
                         disabled
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Acessorios</strong>
                     <Input
                         name="accessories"
                         type="text"
@@ -383,6 +412,9 @@ export default function FinishedOrder({address}) {
                         onChange={value => setAcessories(value[0])}
                         disabled
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Defeito/Problema apresentado</strong>
                     <Input
                         name="defect_problem"
                         type="text"
@@ -391,6 +423,9 @@ export default function FinishedOrder({address}) {
                         onChange={value => setDefectProblem(value[0])}
                         disabled
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Serviço realizado</strong>
                     <Input
                         name="service_performed"
                         type="text"
@@ -398,23 +433,31 @@ export default function FinishedOrder({address}) {
                         value={service_performed}
                         onChange={value => setServicePerformed(value[0])}
                     />
-                    
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Data de entrega</strong>
                     <InputMask2
                         name="date"
                         mask="date"
                         onChange={handleChange}
                         placeholder="99/99/9999"
                     />
-                    
+                    </div>                
+                    <div className={styles.ContainerTitle}>
+                        <strong>Hora de entrega</strong>
                     <InputMask2
                         name="hour"
                         mask="hour"
                         onChange={handleChange}
                         placeholder="00:00"
                     />
+                    </div>
 
+                    <div className={styles.ContainerTitle}>
+                        <strong>Valor</strong>
                     <IntlCurrencyInput currency="BRL" config={currencyConfig}
                         onChange={handleChangeMask} value={value}/>
+                    </div>
                              
                     <button type="submit">{loading ? 'Carregando...' : 'Finalizar'}</button>
 

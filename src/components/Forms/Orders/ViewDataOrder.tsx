@@ -112,7 +112,7 @@ export default function ViewDataOrder({address}) {
             headers: { Authorization: `Bearer ${token}` }
         });
 
-        console.log(response.data);
+        (response.data);
 
         setCode(response.data.id);
         setDescription(response.data.description);
