@@ -15,21 +15,23 @@ export default function NavBar() {
 
     return (      
         <div className={styles.HeaderContainer}>
-        <Navbar bg="light" variant="light">
-            <Navbar.Brand href="#home">{company_name} </Navbar.Brand>
-            <Nav className="mr-auto">
-            <div className={styles.Nav}>
+            <div>
+                <h1>
+                    {company_name}                   
+                </h1>
+
+                <div className={styles.Nav}>
                     <Link href="/Registers/"><a>Cadastros</a></Link> 
                     <Link href="/Clients/ListClients"><a>Clientes</a></Link>
                     <Link href="/Orders/ListOrders"><a>Ordem de serviço</a></Link>
                     <button type="submit" onClick={enterExit}>Sair</button>
                 </div>
-            </Nav>
-            <div className={styles.Profile}>
+
+                <div className={styles.Profile}>
                     <img src="/profile.png" alt="profile" />
                     <strong>{userNickname}</strong>
                 </div>
-        </Navbar>
+            </div>
         </div>
     );
 }
