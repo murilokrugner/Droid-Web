@@ -23,16 +23,12 @@ const schema = Yup.object().shape({
     first_name: Yup.string().required('O primeiro nome é obrigatório'),
     last_name: Yup.string().required('O ultimo nome é obrigatório'),
     email: Yup.string().email().required('O e-mail é obrigatorio'),
-    phone: Yup.string().required('O telefone é obrigatorio'),
     mobile_phone: Yup.string().required('O celular é obrigatorio'),
     document: Yup.string().required('O documento é obrigatorio'),
-    rg: Yup.string().required('O documento é obrigatorio'),
     address: Yup.string().required('O endereço é obrigatorio'),
     number_address: Yup.string().required('O número é obrigatorio'),
     neighborhood_address: Yup.string().required('O bairro é obrigatorio'),
     cep_address: Yup.string().required('O CEP é obrigatorio'),
-    state_address: Yup.string().required('O estado é obrigatorio'),
-    city: Yup.string().required('A cidade é obrigatória'),
   });
 
 export default function EditDataClient({address}) {
@@ -134,16 +130,18 @@ export default function EditDataClient({address}) {
             const response = await api.put(`${addressEdit}?company=${company}&id=${id}`, {
                 first_name: data.first_name, 
                 last_name: data.last_name, 
+                email: data.email,
                 phone: data.phone,
                 mobile_phone: data.mobile_phone,
+                document: data.document,
                 rg: data.document2,
                 address: data.address,
                 number_address: data.number_address,
                 point_address: data.point_address,
                 neighborhood_address: data.neighborhood_address,
-                cep_address: getAddress.data.cep,
-                state_address: getAddress.data.uf,
-                city: getAddress.data.localidade,
+                cep_address: data.cep_address === '' ? '0' : getAddress.data.cep,
+                state_address: data.cep_address === '' ? '' : getAddress.data.uf,
+                city: data.cep_address === '' ? '' : getAddress.data.localidade,
                 type_document: selectTypeDocument.value === 'CPF' ? 1 : 2,                             
             }, {
                 headers: { Authorization: `Bearer ${token}` }  
