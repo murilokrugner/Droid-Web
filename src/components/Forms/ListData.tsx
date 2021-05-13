@@ -313,6 +313,8 @@ export default function ListData({ address }) {
         });
     }
 
+    console.log(data);
+
     return(
         <>         
         { loading ? (
@@ -371,11 +373,63 @@ export default function ListData({ address }) {
                         {data.map(item => (
                             <>                            
                                 <div className={styles.ContainerData}>   
+                                          
+                                    
                                     {address === 'brands' || address === 'groups' || address === 'positions' ? (
-                                        <strong>{item.value}</strong>
+                                        <>    
+                                        <div className={styles.ContainerAll}>
+                                            <div className={styles.ContainerAll2}>
+                                                <strong>{item.value}</strong>
+                                                <strong>{item.label}</strong>
+                                            </div>  
+                                            <div className={styles.Buttons}>
+                                                        <button type="submit" onClick={() => {handleNavigationEdit(item.value)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
+                                                        </button>
+                                                        <button type="submit" onClick={() => {handleDelete(item.id, item.description ? item.description : item.first_name)}}>
+                                                            <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />                                                   
+                                                        </button>
+                                                    </div>                                          
+                                        </div>
+
+                                        
+
+                                        <div className={styles.Buttons}>
+                                        {address === 'orders' && (
+                                                        <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                                            <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                                        </button>
+                                                    )}
+                                            
+                                        </div> 
+                                        
+                                        </>
                                     ) : (
                                         <>
-                                            {address === 'orders' && (
+                                        {address === 'users' ? (
+                                            <div className={styles.ContainerAll}>
+                                                <div className={styles.ContainerAll2}>
+                                                <strong>{item.id}</strong>
+                                                <strong>{item.nickname}</strong>
+
+                                                <div className={styles.Buttons}>
+                                                                                                                                                               
+                                                    <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
+                                                    </button>
+                                                    <button type="submit" onClick={() => {handleDelete(item.id, item.nickname)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />
+                                                    </button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            
+                                        ) : (
+                                            <> 
+                                                {address === 'orders' && (
+                                                    <div className={styles.ContainerInfo}>
+                                                        <>
+                                           
                                                 <>
                                                     {item.status === 'NÃO INICIADO' && (
                                                         <div className={styles.ContainerStatus}></div>
@@ -390,94 +444,113 @@ export default function ListData({ address }) {
                                                         <div className={styles.ContainerStatusWaiting}></div>
                                                     )}
                                                 
+                                                    </>
+                                                                                     
+                                                    <strong>{item.id}</strong>
                                                 </>
-                                            )}                                            
-                                            <strong>{item.id}</strong>
-                                        </>
-                                    )}         
-                                    
-                                    {address === 'brands' || address === 'groups' || address === 'positions' ? (
-                                        <>                                         
-                                        <strong>{item.label}</strong>
+                                                        <div className={styles.ContainerInfo2}>
+                                                            <strong>Data</strong>
+                                                            <span>{item.entry_date.slice(8, 10) + '/' + item.entry_date.slice(5, 7) + '/' + item.entry_date.slice(0, 4)}</span> 
+                                                        </div>
+                                                        <div className={styles.ContainerInfo2}>
+                                                            <strong>Cliente</strong>
+                                                            <span>{item.client.first_name}</span> 
+                                                        </div>
+                                                        <div className={styles.ContainerInfo2}>
+                                                            <strong>Aparelho</strong>
+                                                            <span>{item.device.description}</span> 
+                                                        </div>
+                                                        <div className={styles.ContainerInfo2}>
+                                                            <strong>Serviço</strong>
+                                                            <span>{item.defect_problem}</span> 
+                                                        </div>                                                                                                   
+                                                    </div> 
+                                                )}     
 
-                                        <div className={styles.Buttons}>
-                                        {address === 'orders' && (
-                                                        <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
-                                                            <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                                {address === 'devices' && (
+                                                    <div className={styles.ContainerAll}>    
+                                                    <div className={styles.ContainerAll2}>                                                                                                  
+                                                        <strong>{item.id}</strong>
+                                                        <strong>{item.description && address === 'devices' ? item.description : item.first_name} {item.last_name}</strong>                                   
+                                                    </div> 
+                                                    <div className={styles.Buttons}>
+                                                        <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
                                                         </button>
-                                                    )}
-                                            <button type="submit" onClick={() => {handleNavigationEdit(item.value)}}>
-                                                <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
-                                            </button>
-                                            <button type="submit" onClick={() => {handleDelete(item.value, item.label)}}>
-                                                <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />
-                                            </button>
-                                        </div> 
-                                        
-                                        </>
-                                    ) : (
-                                        <>
-                                        {address === 'users' ? (
-                                            <>
-                                                <strong>{item.nickname}</strong>
+                                                        <button type="submit" onClick={() => {handleDelete(item.id, item.description ? item.description : item.first_name)}}>
+                                                            <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />                                                   
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                )}
 
+                                                {address === 'clients' && (
+                                                    <div className={styles.ContainerAll}>    
+                                                    <div className={styles.ContainerAll2}>                                                                                                  
+                                                        <strong>{item.id}</strong>
+                                                        <strong>{item.description && address === 'devices' ? item.description : item.first_name} {item.last_name}</strong>                                   
+                                                    </div> 
+                                                    <div className={styles.Buttons}>
+                                                        <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
+                                                        </button>
+                                                        <button type="submit" onClick={() => {handleDelete(item.id, item.description ? item.description : item.first_name)}}>
+                                                            <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />                                                   
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                )}
+
+                                             {address === 'employees' && (
+                                                    <div className={styles.ContainerAll}>    
+                                                    <div className={styles.ContainerAll2}>                                                                                                  
+                                                        <strong>{item.id}</strong>
+                                                        <strong>{item.description && address === 'devices' ? item.description : item.first_name} {item.last_name}</strong>                                   
+                                                    </div> 
+                                                    <div className={styles.Buttons}>
+                                                        <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
+                                                        </button>
+                                                        <button type="submit" onClick={() => {handleDelete(item.id, item.description ? item.description : item.first_name)}}>
+                                                            <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />                                                   
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                )}
+                                                
                                                 <div className={styles.Buttons}>
                                                     {address === 'orders' && (
-                                                        <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
-                                                            <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
-                                                        </button>
-                                                    )}
-                                                    <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>
+                                                        <>
+                                                        <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>
                                                         <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
                                                     </button>
-                                                    <button type="submit" onClick={() => {handleDelete(item.id, item.nickname)}}>
-                                                        <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />
-                                                    </button>
-                                                </div> 
-                                            </>
-                                        ) : (
-                                            <> 
-                                                {address === 'orders' && (
-                                                    <div className={styles.ContainerInfo}>
-                                                        <strong>Data: {item.entry_date.slice(8, 10) + '/' + item.entry_date.slice(5, 7) + '/' + item.entry_date.slice(0, 4)}</strong> 
-                                                        <strong>Cliente: {item.client.first_name}</strong>
-                                                        <strong>Aparelho: {item.device.description}</strong>
-                                                        <strong>Serviço: {item.defect_problem}</strong>                                                                                                      
-                                                    </div> 
-                                                )}      
-                                                 
-                                                <strong>{item.description && address === 'devices' ? item.description : item.first_name} {item.last_name}</strong>                                   
-                                               
-                                                <div className={styles.Buttons}>
-                                                    {address === 'orders' && (
                                                         <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
                                                             <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
                                                         </button>
-                                                    )}
-                                                    <button type="submit" onClick={() => {handleNavigationEdit(item.id)}}>
-                                                    <img src="https://image.flaticon.com/icons/png/128/1828/1828270.png" alt="edit" />
+                                                        <button type="submit" onClick={() => {handleDelete(item.id, item.description ? item.description : item.first_name)}}>
+                                                        <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />                                                   
                                                     </button>
-                                                    <button type="submit" onClick={() => {handleDelete(item.id, item.description ? item.description : item.first_name)}}>
-                                                    <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />
-                                                    </button>
+                                                    </>
+                                                    )}                                                    
+                                                    <>
+                                                        {address === 'orders' && (
+                                                        <>
+                                                            
+                                                                <button type="submit" onClick={() => {handlePrinter(item.id)}}>
+                                                                    <img src="https://image.flaticon.com/icons/png/128/3233/3233468.png" alt="printer" />                                                   
+                                                                </button>  
+                                                                <button type="submit" onClick={() => {handleFinished(item.id, item.status)}}>
+                                                                    <img src="https://image.flaticon.com/icons/png/128/190/190411.png" alt="finished" />                                                   
+                                                                </button>                                                   
+                                                          
+                                                        </> 
+                                                        )}
+                                                    </>
                                                 </div> 
                                             </>
                                         )}
 
-                                        <>
-                                            {address === 'orders' && (
-                                               <>
-                                                <div className={styles.Buttons}>
-                                                    <button type="submit" onClick={() => {handlePrinter(item.id)}}>
-                                                        <img src="https://image.flaticon.com/icons/png/128/3233/3233468.png" alt="printer" />                                                   
-                                                    </button>  
-                                                    <button type="submit" onClick={() => {handleFinished(item.id, item.status)}}>
-                                                        <img src="https://image.flaticon.com/icons/png/128/190/190411.png" alt="finished" />                                                   
-                                                    </button>                                                   
-                                                </div>
-                                               </> 
-                                            )}
-                                        </>
+                                        
 
                                         
                                         </>

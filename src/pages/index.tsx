@@ -40,7 +40,7 @@ export default function Home(props: HomeProps) {
           <SignIn />
         ) : (
           <>          
-            <ListOrders />
+            <Registers />
           </>
         )}
 

@@ -69,10 +69,13 @@ export default function EditData({address}) {
         setLoadingBrandGroup(false);
     }
 
+
     async function loadData() {
         const response = await api.get(`get-${addressEdit}-code?company=${company}&id=${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
+
+        
 
         setCode(response.data.id);
 
@@ -100,6 +103,7 @@ export default function EditData({address}) {
     useEffect(() => {      
         if (token) {
             loadData();
+            console.log('aqui')
         }
 
         if (addressEdit === 'devices' && token) {            

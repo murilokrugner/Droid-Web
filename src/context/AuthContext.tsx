@@ -127,7 +127,7 @@ export function AuthProvider({ children, ...rest }: AuthProviderProps) {
             setLoading(false);
             setSigned(true);
 
-            router.push('/Orders/ListOrders');
+            router.push('/Registers');
 
         } catch (error) {
             toast.error('Falha na autenticação, verifique seus dados');
