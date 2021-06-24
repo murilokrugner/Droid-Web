@@ -8,7 +8,7 @@ export default function EditOrder() {
     return(
         <div className={styles.Container}>
             <Header />
-            <h2>Finalizar O.S.</h2>
+            <h2>Entregar O.S.</h2>
             <FinishedOrder address={'orders'} />
         </div>
     );

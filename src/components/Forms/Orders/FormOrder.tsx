@@ -74,8 +74,8 @@ export default function FormOrder({ address }) {
             'label': 'FINALIZADO',
         },
         {
-            'value': 'AGUARDANDO',
-            'label': 'AGUARDANDO',
+            'value': 'AGUARDANDO PEÇA',
+            'label': 'AGUARDANDO PEÇA',
         },    
     ]);
 
@@ -181,7 +181,7 @@ export default function FormOrder({ address }) {
                 defect_problem: data.defect_problem,
                 comments: data.service_performed,
 
-                status: selectStatus.value,
+                status: 'NÃO INICIADO',
                 company_id: company,
                 clerk_id: userId,
                 password_printer: checking,
@@ -207,6 +207,12 @@ export default function FormOrder({ address }) {
             setLoadingSave(false);
         }
         
+    }
+
+    function handleNavigateNewDevice() {
+        router.push({
+            pathname: '../Devices/CreateDevice'
+        });
     }
 
     return (
@@ -235,7 +241,7 @@ export default function FormOrder({ address }) {
                     </div>
                     <div className={styles.ContainerTitle}>
                         <strong>Técnico</strong>
-                    <div className={styles.ContainerSelect2}>
+                    <div className={styles.ContainerSelect3}>
                         <ReactSelect   
                             name={selectEmployye} 
                             value={selectEmployye}
@@ -291,6 +297,7 @@ export default function FormOrder({ address }) {
                             isLoading={loading}
                             
                         />
+                        <button type="button" onClick={handleNavigateNewDevice}>Novo Aparelho</button>
                     </div>
                     </div>
                     <div className={styles.ContainerTitle}>
@@ -323,7 +330,7 @@ export default function FormOrder({ address }) {
                         <Input name="checkbox" type="checkbox" defaultChecked={checking} onChange={handleChangeCheck}/>
                         
                     </div>
-                    <div className={styles.ContainerTitle}>
+                   {/**  <div className={styles.ContainerTitle}>
                         <strong>Status</strong>
                     <div className={styles.ContainerSelect2}>
                         <ReactSelect   
@@ -338,7 +345,7 @@ export default function FormOrder({ address }) {
                             
                         />
                     </div>
-                    </div>
+                    </div>*/}
                                                          
                     <button type="submit">{loadingSave ? 'Carregando...' : 'Gravar'}</button>
 

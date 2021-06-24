@@ -1,21 +1,16 @@
 import { useState, useEffect, useRef, useContext } from 'react';
-
 import api from '../../../services/api';
 import apiZipcode from '../../../services/apiZipcode';
-
 import { AuthContext } from '../../../context/AuthContext';
 import styles from '../../../styles/components/Forms/FormDescriptionOnly.module.css';
 import * as Yup from 'yup';
 import { Form, Input } from '@rocketseat/unform';
 import ReactSelect from 'react-select';
-
 import stylesLoading from '../../../styles/components/Loading.module.css';
-
 import HashLoader from "react-spinners/HashLoader"; 
-
 import { useRouter } from 'next/router';
-
 import { toast } from 'react-toastify';
+import { confirmAlert } from 'react-confirm-alert'; 
 
 export default function EditDataOrder({address}) {
     const router = useRouter();
@@ -66,8 +61,8 @@ export default function EditDataOrder({address}) {
             'label': 'FINALIZADO',
         },
         {
-            'value': 'AGUARDANDO',
-            'label': 'AGUARDANDO',
+            'value': 'AGUARDANDO PEÇA',
+            'label': 'AGUARDANDO PEÇA',
         },    
     ]);    
 
@@ -171,6 +166,35 @@ export default function EditDataOrder({address}) {
         setLoading(false);
         
     };
+
+    async function handleDelete() {
+        confirmAlert({
+              title: 'Excluir registro',
+              message: `Deseja realmente excluir o item: ${description}`,
+              buttons: [
+                {
+                  label: 'Sim',
+                  onClick: async () => {
+                    try {
+                        const response = await api.delete(`${address}?company=${company}&id=${code}`, {
+                            headers: { Authorization: `Bearer ${token}` }
+                        });
+
+                        toast.success('Registro excluido com sucesso!');
+
+                        router.back();                        
+                    } catch (error) {
+                        toast.error('Não foi possivel excluir o registro, tente novamente mais tarde');  
+                    }
+                  }
+                },
+                {
+                  label: 'Não',
+                  onClick: () => { return }
+                }
+              ]
+          });           
+        }
 
     useEffect(() => {      
         if (token) {
@@ -373,11 +397,15 @@ export default function EditDataOrder({address}) {
                         <Input name="checkbox" type="checkbox" defaultChecked={checking} onChange={handleChangeCheck}/>
                         
                     </div>
-                    <button type="submit">{loadingSave ? 'Carregando...' : 'Gravar'}</button>
+                    <button type="submit">{loadingSave ? 'Carregando...' : 'Gravar'}</button>                    
 
-                </Form> 
+                    </Form>                     
                 </div>               
              )}
+
+            <div className={styles.ButtonTrash}>
+                <button type="button" onClick={handleDelete}>Excluir</button>
+            </div>
         </div>
     );
 }

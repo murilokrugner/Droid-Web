@@ -70,8 +70,8 @@ export default function ViewDataOrder({address}) {
             'label': 'FINALIZADO',
         },
         {
-            'value': 'AGUARDANDO',
-            'label': 'AGUARDANDO',
+            'value': 'AGUARDANDO PEÇA',
+            'label': 'AGUARDANDO PEÇA',
         },    
     ]);    
 
@@ -200,6 +200,7 @@ export default function ViewDataOrder({address}) {
                         placeholder="Descrição"
                         value={description}
                         onChange={value => setDescription(value[0])}
+                        disabled
                     /> 
             </div>
             <div className={styles.ContainerTitle}>
@@ -214,7 +215,7 @@ export default function ViewDataOrder({address}) {
                             options={employees}
                             isClearable={false}
                             isLoading={loading}
-                            
+                            isDisabled={true}
                             
                         />
                     </div>
@@ -227,6 +228,7 @@ export default function ViewDataOrder({address}) {
                         placeholder="Data da O.S."
                         value={made_by}
                         onChange={value => setMadeBy(value[0])}
+                        disabled
                     /> 
                     </div>
                     <div className={styles.ContainerTitle}>
@@ -241,6 +243,7 @@ export default function ViewDataOrder({address}) {
                             options={clients}
                             isClearable={false}
                             isLoading={loading}
+                            isDisabled={true}
                             
                         />
                     </div>
@@ -253,6 +256,7 @@ export default function ViewDataOrder({address}) {
                         placeholder="Data de entrada"
                         value={entry_date}
                         onChange={value => setEntryDate(value[0])}
+                        disabled
                     /> 
                     </div>
                     <div className={styles.ContainerTitle}>
@@ -263,6 +267,7 @@ export default function ViewDataOrder({address}) {
                         placeholder="Senha do aparelho"
                         value={password_device}
                         onChange={value => setPasswordDevice(value[0])}
+                        disabled
                     /> 
                     </div>
                     <div className={styles.ContainerTitle}>
@@ -277,6 +282,7 @@ export default function ViewDataOrder({address}) {
                             options={devices}
                             isClearable={false}
                             isLoading={loading}
+                            isDisabled={true}
                             
                         />
                     </div>
@@ -289,6 +295,7 @@ export default function ViewDataOrder({address}) {
                         placeholder="IMEI"
                         value={imei}
                         onChange={value => setImei(value[0])}
+                        disabled
                     />
                     </div>
                     <div className={styles.ContainerTitle}>
@@ -299,6 +306,7 @@ export default function ViewDataOrder({address}) {
                         placeholder="Acessorios"
                         value={accessroes}
                         onChange={value => setAcessories(value[0])}
+                        disabled
                     />
                     </div>
                     <div className={styles.ContainerTitle}>
@@ -308,7 +316,8 @@ export default function ViewDataOrder({address}) {
                         type="text"
                         placeholder="Defeito/ Problema apresentado"
                         value={defect_problem}
-                        onChange={value => setDefectProblem(value[0])}
+                        onChange={value => setDefectProblem(value[0])} 
+                        disabled                       
                     />
                     </div>
                     <>
@@ -317,11 +326,12 @@ export default function ViewDataOrder({address}) {
                         <div className={styles.ContainerTitle}>
                         <strong>Serviço realizado</strong>
                         <Input
-                        name="service_performed"
-                        type="text"
-                        placeholder="Serviço realizado"
-                        value={service_performed}
-                        onChange={value => setServicePerformed(value[0])}
+                            name="service_performed"
+                            type="text"
+                            placeholder="Serviço realizado"
+                            value={service_performed}
+                            onChange={value => setServicePerformed(value[0])}
+                            disabled
                         />
                         </div>
                         <div className={styles.ContainerTitle}>
@@ -332,6 +342,7 @@ export default function ViewDataOrder({address}) {
                             placeholder="Data de entrega"
                             value={delivery_forecast}
                             onChange={value => setDeliveryForecast(value[0])}
+                            disabled
                         />
                         </div>
                         <div className={styles.ContainerTitle}>
@@ -342,6 +353,7 @@ export default function ViewDataOrder({address}) {
                             placeholder="Horario de entrega"
                             value={delivery_forecast_hour}
                             onChange={value => setDeliveryForecastHour(value[0])}
+                            disabled
                         />
                         </div>
                         <div className={styles.ContainerTitle}>
@@ -352,6 +364,7 @@ export default function ViewDataOrder({address}) {
                             placeholder="Valor"
                             value={value}
                             onChange={value => setValue(value[0])}
+                            disabled
                         />
                     </div>
                         </>
@@ -368,8 +381,8 @@ export default function ViewDataOrder({address}) {
                             ref={typeStatusRef}
                             options={status}
                             isClearable={false}
-                            isLoading={loading}
-                            
+                            isLoading={loading}  
+                            isDisabled={true}                      
                         />
                     </div>   
                     </div>              

@@ -33,8 +33,8 @@ export default function ListData({ address }) {
             'label': 'TODOS',
         },
         {
-            'value': 'AGUARDANDO',
-            'label': 'AGUARDANDO',
+            'value': 'AGUARDANDO PEÇA',
+            'label': 'AGUARDANDO PEÇA',
         },
         {
             'value': 'NÃO INICIADO',
@@ -187,8 +187,6 @@ export default function ListData({ address }) {
     }
 
     async function handleDelete(id, description) {
-        console.log(id);
-        console.log(description);
         confirmAlert({
               title: 'Excluir registro',
               message: `Deseja realmente excluir o item: ${description}`,
@@ -200,8 +198,6 @@ export default function ListData({ address }) {
                         const response = await api.delete(`${address}?company=${company}&id=${id}`, {
                             headers: { Authorization: `Bearer ${token}` }
                         });
-
-                        console.log(response.data);
 
                         toast.success('Registro excluido com sucesso!');
 
@@ -298,8 +294,8 @@ export default function ListData({ address }) {
     }
 
     async function handleFinished(id, status) {
-        if (status !== 'INICIADO') {
-            alert('Você não pode finalizar esse serviço');
+        if (status !== 'FINALIZADO') {
+            alert('Você não pode entregar esse serviço');
             return;
         }
 
@@ -313,7 +309,24 @@ export default function ListData({ address }) {
         });
     }
 
-    console.log(data);
+    async function handleNotRepair(id, description) {
+        confirmAlert({
+            title: 'Atualizar registro',
+            message: `Deseja realmente informar que o item: ${description} não tem concerto?`,
+            buttons: [
+              {
+                label: 'Sim',
+                onClick: async () => {
+                    await api.put(`status-order?id=${id}&status=${'SEM CONCERTO'}`)
+                }
+              },
+              {
+                label: 'Não',
+                onClick: () => { return }
+              }
+            ]
+        })                
+    }
 
     return(
         <>         
@@ -324,13 +337,7 @@ export default function ListData({ address }) {
         ) : (
             <div className={styles.Container}>
                 {data === null? (
-                    <>
-                        <strong>Acabou :(</strong>
-                    </>
-                ): (
-                    <> 
-                    <>   
-                    <div className={styles.ContainerSelect}>
+                     <div className={styles.ContainerSelect}>
                         {address === 'orders' && (
                                 <div className={styles.Select}>
                                     <ReactSelect   
@@ -346,6 +353,12 @@ export default function ListData({ address }) {
                             {address === 'orders' && (
                                 <button type="button" onClick={() => {router.push('CreateOrder')}}>Nova O.S.</button>
                             )}
+                    </div>
+                ): (
+                    <> 
+                    <>   
+                    <div className={styles.ContainerSelect}>
+                        
                             {address === 'brands' && (
                                  <button type="button" onClick={() => {router.push('CreateBrand')}}>Nova Marca</button>
                             )}
@@ -362,7 +375,7 @@ export default function ListData({ address }) {
                                  <button type="button" onClick={() => {router.push('CreateUser')}}>Novo Usuário</button>
                             )}
                            {address === 'positions' && (
-                                 <button type="button" onClick={() => {router.push('CreatePosition')}}>Novo Cargo</button>
+                                 <button type="button" onClick={() => {router.push('CreatePositions')}}>Novo Cargo</button>
                             )} 
                             {address === 'clients' && (
                                  <button type="button" onClick={() => {router.push('CreateClient')}}>Novo Cliente</button>
@@ -440,8 +453,20 @@ export default function ListData({ address }) {
                                                     {item.status === 'INICIADO' && (
                                                         <div className={styles.ContainerStatusProgress}></div>
                                                     )}
-                                                    {item.status === 'AGUARDANDO' && (
+                                                    {item.status === 'AGUARDANDO PEÇA' && (
                                                         <div className={styles.ContainerStatusWaiting}></div>
+                                                    )}
+                                                     {item.status === 'ENTREGUE' && (
+                                                        <div className={styles.ContainerStatusDelivered}></div>
+                                                    )}
+                                                    {item.status === 'ABANDONADO' && (
+                                                        <div className={styles.ContainerStatusAbandoned}></div>
+                                                    )}
+                                                    {item.status === 'SEM CONCERTO' && (
+                                                        <div className={styles.ContainerStatusConcert}></div>
+                                                    )}
+                                                    {item.status === 'GARANTIA' && (
+                                                        <div className={styles.ContainerStatusWarranty}></div>
                                                     )}
                                                 
                                                     </>
@@ -527,9 +552,9 @@ export default function ListData({ address }) {
                                                         <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
                                                             <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
                                                         </button>
-                                                        <button type="submit" onClick={() => {handleDelete(item.id, item.description ? item.description : item.first_name)}}>
-                                                        <img src="https://image.flaticon.com/icons/png/128/2603/2603105.png" alt="delete" />                                                   
-                                                    </button>
+                                                        <button type="submit" onClick={() => {handleNotRepair(item.id, item.description)}}>
+                                                            <img src="https://image.flaticon.com/icons/png/512/753/753345.png" alt="not repair" />                                                   
+                                                         </button>                                                         
                                                     </>
                                                     )}                                                    
                                                     <>

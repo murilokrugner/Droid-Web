@@ -91,8 +91,8 @@ export default function FinishedOrder({address}) {
             'label': 'FINALIZADO',
         },
         {
-            'value': 'AGUARDANDO',
-            'label': 'AGUARDANDO',
+            'value': 'AGUARDANDO PEÇA',
+            'label': 'AGUARDANDO PEÇA',
         },    
     ]);    
 
@@ -238,6 +238,11 @@ export default function FinishedOrder({address}) {
             return;
         }
 
+        if (value === undefined || value === '' || value === null) {
+            alert('Informe o valor');
+            return;
+        }
+
         const dateSave = dataMask.date.slice(6, 10) + '-' 
                             +  dataMask.date.slice(3, 5) + '-' 
                                 + dataMask.date.slice(0, 2); 
@@ -248,7 +253,7 @@ export default function FinishedOrder({address}) {
                 delivery_forecast: dateSave,
                 delivery_forecast_hour: dataMask.hour,                
                 value: value,
-                status: 'FINALIZADO',
+                status: 'ENTREGUE',
                                            
             }, {
                 headers: { Authorization: `Bearer ${token}` }  
@@ -320,7 +325,7 @@ export default function FinishedOrder({address}) {
                             options={employees}
                             isClearable={false}
                             isLoading={loading}
-                            disabled
+                            isDisabled={true}
                             
                         />
                         </div>
@@ -348,7 +353,7 @@ export default function FinishedOrder({address}) {
                             options={clients}
                             isClearable={false}
                             isLoading={loading}
-                            disabled
+                            isDisabled={true}
                         />
                         </div>
                     </div>
@@ -386,7 +391,7 @@ export default function FinishedOrder({address}) {
                             options={devices}
                             isClearable={false}
                             isLoading={loading}
-                            disabled
+                            isDisabled={true}
                             
                         />
                     </div>
@@ -459,7 +464,7 @@ export default function FinishedOrder({address}) {
                         onChange={handleChangeMask} value={value}/>
                     </div>
                              
-                    <button type="submit">{loading ? 'Carregando...' : 'Finalizar'}</button>
+                    <button type="submit">{loading ? 'Carregando...' : 'Entregar'}</button>
 
                 </Form> 
                 </div>               

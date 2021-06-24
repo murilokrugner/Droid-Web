@@ -15,8 +15,6 @@ export default function ListOrders() {
 
             <h2>Ordens de serviço</h2>   
 
-         
-
             <ListData address={'orders'}/>
 
         </div>

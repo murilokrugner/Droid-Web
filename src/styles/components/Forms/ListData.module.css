@@ -122,6 +122,42 @@
   background-color: #fff15f;
 }
 
+.ContainerStatusDelivered {
+  width: 16px;
+  height: 16px;
+
+  border-radius: 50px;
+
+  background-color: #000000;
+}
+
+.ContainerStatusAbandoned {
+  width: 16px;
+  height: 16px;
+
+  border-radius: 50px;
+
+  background-color: #FA8626;
+}
+
+.ContainerStatusConcert{
+  width: 16px;
+  height: 16px;
+
+  border-radius: 50px;
+
+  background-color: #71FFB2;
+}
+
+.ContainerStatusWarranty{
+  width: 16px;
+  height: 16px;
+
+  border-radius: 50px;
+
+  background-color: #CFEAFF;
+}
+
 .ContainerSelect {
   margin-top: 20px;
   display: flex;
