@@ -23,7 +23,7 @@ export default function NavBar() {
                 <div className={styles.Nav}>
                     <Link href="/Registers/"><a>Cadastros</a></Link> 
                     <Link href="/Clients/ListClients"><a>Clientes</a></Link>
-                    <Link href="/Orders/ListOrders"><a>Ordem de serviço</a></Link>
+                    <Link href="/MenuOrder"><a>Ordens de serviço</a></Link>
                     <button type="submit" onClick={enterExit}>Sair</button>
                 </div>
 

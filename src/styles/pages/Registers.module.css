@@ -10,6 +10,20 @@
     height: 100%;
 }
 
+
+.Container button {
+  margin: 15px 0 0;
+  height: 44px;
+  background: var(--white);
+  font-weight: bold;
+  color: #000;
+  border: 0;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: filter 0.2s;
+  width: 100px;
+}
+
 .ContainerBox {
     display: flex;
     flex-wrap: wrap;

@@ -13,7 +13,12 @@ import styles from '../../styles/components/Forms/ListData.module.css';
 import HashLoader from "react-spinners/HashLoader"; 
 import stylesLoading from '../../styles/components/Loading.module.css';
 import { toast } from 'react-toastify';
-import ReactSelect from 'react-select';
+//import ReactSelect from 'react-select';
+import isEqual from 'date-fns/isEqual'
+import { formatDistance } from 'date-fns';
+import { format } from 'date-fns';
+
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
 interface Data {
     map: (data: object) => void;
@@ -27,7 +32,9 @@ export default function ListData({ address }) {
 
     const [loading, setLoading] = useState(true);
 
-    const [status, setStatus] = useState([
+    const status = router.query.status;
+
+    /*const [status, setStatus] = useState([
         {
             'value': 'TODOS',
             'label': 'TODOS',
@@ -55,7 +62,7 @@ export default function ListData({ address }) {
             'value': 'TODOS',
             'label': 'TODOS',
         },
-    );
+    );*/
 
     const [data, setData] = useState<Data>(null);
 
@@ -65,7 +72,7 @@ export default function ListData({ address }) {
         setLoading(true);
 
         if (address === 'orders') {
-            const response = await api.get(`${address}-filters?company=${company}&page=${page}&status=${selectStatus.value}`, {
+            const response = await api.get(`${address}-filters?company=${company}&page=${page}&status=${status}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -100,7 +107,7 @@ export default function ListData({ address }) {
             loadData();
         }
 
-    }, [token, page, selectStatus]);
+    }, [token, page]);
 
 
     function handleNavigationEdit(id) {
@@ -309,6 +316,34 @@ export default function ListData({ address }) {
         });
     }
 
+    async function handleWarranty(id, description, delivery_forecast) {
+        var deliveryDate = delivery_forecast.slice(0, 4) + ',' + delivery_forecast.slice(5, 7) + ',' + delivery_forecast.slice(8, 10);
+
+        const distanceInWords = formatDistanceToNow(new Date(deliveryDate), { addSuffix: true });
+
+        if (parseInt(distanceInWords.slice(0,1)) >= 3) {
+            alert('Ordem com garantia vencida');
+            return;
+        }
+
+        confirmAlert({
+            title: 'Ativar Garantia',
+            message: `Deseja realmente informar que o item: ${description} irá ativar a garantia?`,
+            buttons: [
+              {
+                label: 'Sim',
+                onClick: async () => {
+                    await api.put(`status-order?id=${id}&status=${'GARANTIA'}`)
+                }
+              },
+              {
+                label: 'Não',
+                onClick: () => { return }
+              }
+            ]
+        }) 
+    }
+
     async function handleNotRepair(id, description) {
         confirmAlert({
             title: 'Atualizar registro',
@@ -338,7 +373,7 @@ export default function ListData({ address }) {
             <div className={styles.Container}>
                 {data === null? (
                      <div className={styles.ContainerSelect}>
-                        {address === 'orders' && (
+                       {/**  {address === 'orders' && (
                                 <div className={styles.Select}>
                                     <ReactSelect   
                                         name={selectStatus} 
@@ -349,7 +384,7 @@ export default function ListData({ address }) {
                                         isClearable={false}                                
                                     />
                                 </div>
-                            )}
+                            )}*/}
                             {address === 'orders' && (
                                 <button type="button" onClick={() => {router.push('CreateOrder')}}>Nova O.S.</button>
                             )}
@@ -552,9 +587,11 @@ export default function ListData({ address }) {
                                                         <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
                                                             <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
                                                         </button>
-                                                        <button type="submit" onClick={() => {handleNotRepair(item.id, item.description)}}>
-                                                            <img src="https://image.flaticon.com/icons/png/512/753/753345.png" alt="not repair" />                                                   
-                                                         </button>                                                         
+                                                        {status === 'NÃO INICIADO' || status === 'INICIADO' && (
+                                                            <button type="submit" onClick={() => {handleNotRepair(item.id, item.description)}}>
+                                                                <img src="https://image.flaticon.com/icons/png/512/753/753345.png" alt="not repair" />                                                   
+                                                            </button> 
+                                                        )}                                                        
                                                     </>
                                                     )}                                                    
                                                     <>
@@ -564,9 +601,16 @@ export default function ListData({ address }) {
                                                                 <button type="submit" onClick={() => {handlePrinter(item.id)}}>
                                                                     <img src="https://image.flaticon.com/icons/png/128/3233/3233468.png" alt="printer" />                                                   
                                                                 </button>  
-                                                                <button type="submit" onClick={() => {handleFinished(item.id, item.status)}}>
-                                                                    <img src="https://image.flaticon.com/icons/png/128/190/190411.png" alt="finished" />                                                   
-                                                                </button>                                                   
+                                                                {status === 'FINALIZADO' && (
+                                                                    <button type="submit" onClick={() => {handleFinished(item.id, item.status)}}>
+                                                                        <img src="https://image.flaticon.com/icons/png/128/190/190411.png" alt="finished" />                                                   
+                                                                    </button>  
+                                                                )}      
+                                                                {status === 'ENTREGUE' && (
+                                                                    <button type="submit" onClick={() => {handleWarranty(item.id, item.status, item.delivery_forecast)}}>
+                                                                        <img src="https://image.flaticon.com/icons/png/512/2039/2039079.png" alt="garantia" />                                                   
+                                                                    </button>  
+                                                                )}                                           
                                                           
                                                         </> 
                                                         )}

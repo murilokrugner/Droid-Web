@@ -1,9 +1,16 @@
 .HeaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   background: var(--white);
-  width: 900px;
+  width: 100%;
   height: auto;
 
   flex-wrap: wrap;
+}
+
+.HeaderContainer h1 {
+  margin-right: 60px;
 }
 
 .HeaderContainer > div {
@@ -26,8 +33,9 @@
   flex: wrap;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
   flex-wrap: wrap;
-  width: 450px;
+  width: 500px;
   height: auto;
 }
 

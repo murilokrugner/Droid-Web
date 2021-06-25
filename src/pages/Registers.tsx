@@ -1,7 +1,6 @@
 import styles from '../styles/pages/Registers.module.css'
 
 import Header from '../components/Header';
-import NavBar from '../components/NavBar';
 
 import { useRouter } from 'next/router';
 
