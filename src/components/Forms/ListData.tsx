@@ -25,6 +25,11 @@ interface Data {
     item: Array<object>,
 }
 
+interface Warranty {
+    map: (data: object) => void;
+    item: Array<object>,
+}
+
 export default function ListData({ address }) {
     const { token, company } = useContext(AuthContext);
 
@@ -34,38 +39,12 @@ export default function ListData({ address }) {
 
     const status = router.query.status;
 
-    /*const [status, setStatus] = useState([
-        {
-            'value': 'TODOS',
-            'label': 'TODOS',
-        },
-        {
-            'value': 'AGUARDANDO PEÇA',
-            'label': 'AGUARDANDO PEÇA',
-        },
-        {
-            'value': 'NÃO INICIADO',
-            'label': 'NÃO INICIADO',
-        },
-        {
-            'value': 'INICIADO',
-            'label': 'INICIADO',
-        },
-        {
-            'value': 'FINALIZADO',
-            'label': 'FINALIZADO',
-        }
-    ]);
-
-    const [selectStatus, setSelectStatus] = useState(
-        {
-            'value': 'TODOS',
-            'label': 'TODOS',
-        },
-    );*/
-
     const [data, setData] = useState<Data>(null);
-
+    const [warrantys, setWarrantys] = useState<Warranty>(null);
+    const [warrantysinitial, setWarrantysinitial] = useState<Warranty>(null);
+    const [warrantysfinished, setWarrantysfinished] = useState<Warranty>(null);
+    const [warrantysdelivery, setWarrantysDelivery] = useState<Warranty>(null);
+    
     const [page, setPage] = useState(1);
 
     async function loadData() {
@@ -74,14 +53,60 @@ export default function ListData({ address }) {
         if (address === 'orders') {
             const response = await api.get(`${address}-filters?company=${company}&page=${page}&status=${status}`, {
                 headers: { Authorization: `Bearer ${token}` }
-            });
-
-            ('aqui' + response.data.lenght);
+            });            
     
             if (response.data.length === 0 || response.data === 'empty') {
                 setData(null);
             } else {
                 setData(response.data);
+            }
+
+            if (status === 'NÃO INICIADO') {
+                const responseWarranty = await api.get(`warranty?company=${company}&type=0`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+    
+                if (responseWarranty.data.length === 0) {
+                    setWarrantys(null);
+                } else {
+                    setWarrantys(responseWarranty.data);
+                }
+            }
+
+            if (status === 'INICIADO') {
+                const responseWarranty = await api.get(`warranty?company=${company}&type=1`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+    
+                if (responseWarranty.data.length === 0) {
+                    setWarrantysinitial(null);
+                } else {
+                    setWarrantysinitial(responseWarranty.data);
+                }
+            }
+
+            if (status === 'FINALIZADO') {
+                const responseWarrantyfinished = await api.get(`warranty?company=${company}&type=2`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+    
+                if (responseWarrantyfinished.data.length === 0) {
+                    setWarrantysfinished(null);
+                } else {
+                    setWarrantysfinished(responseWarrantyfinished.data);
+                }
+            }
+
+            if (status === 'ENTREGUE') {
+                const responseWarrantydelivery = await api.get(`warranty?company=${company}&type=3`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+    
+                if (responseWarrantydelivery.data.length === 0) {
+                    setWarrantysDelivery(null);
+                } else {
+                    setWarrantysDelivery(responseWarrantydelivery.data);
+                }
             }
     
             setLoading(false);
@@ -334,6 +359,11 @@ export default function ListData({ address }) {
                 label: 'Sim',
                 onClick: async () => {
                     await api.put(`status-order?id=${id}&status=${'GARANTIA'}`)
+                    await api.post('warranty', {
+                        date: new Date(),
+                        company: 1,
+                        order: 1
+                    })
                 }
               },
               {
@@ -363,6 +393,35 @@ export default function ListData({ address }) {
         })                
     }
 
+    async function handleUpdateWarrant(type, order) {
+        confirmAlert({
+            title: 'Atualizar registro',
+            message: `Deseja realmente atualizar o status da garantia?`,
+            buttons: [
+              {
+                label: 'Sim',
+                onClick: async () => {
+                    await api.put(`warranty`, {                    
+                        date: new Date(),
+                        company: company,
+                        order: order,
+                        type: type,
+                    }, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    })
+
+                    loadData();
+                }
+              },
+              {
+                label: 'Não',
+                onClick: () => { return }
+              }
+            ]
+        })  
+        
+    }
+
     return(
         <>         
         { loading ? (
@@ -373,18 +432,6 @@ export default function ListData({ address }) {
             <div className={styles.Container}>
                 {data === null? (
                      <div className={styles.ContainerSelect}>
-                       {/**  {address === 'orders' && (
-                                <div className={styles.Select}>
-                                    <ReactSelect   
-                                        name={selectStatus} 
-                                        value={selectStatus}
-                                        onChange={value => setSelectStatus(value)}
-                                        placeholder={'Filtro'}                    
-                                        options={status}
-                                        isClearable={false}                                
-                                    />
-                                </div>
-                            )}*/}
                             {address === 'orders' && (
                                 <button type="button" onClick={() => {router.push('CreateOrder')}}>Nova O.S.</button>
                             )}
@@ -619,24 +666,183 @@ export default function ListData({ address }) {
                                             </>
                                         )}
 
-                                        
-
-                                        
                                         </>
                                     )}
                                                
                                     </div>                            
-                                <div className={styles.Line} />
+                                <div className={styles.Line} />                                
                             </>                    
-                        ))}    
+                        ))}                        
+                                                                                                       
                     </>
-                )}
-                <div className={styles.ContainerNavigation}>
-                    <button type="submit" onClick={backPage}>Voltar</button>
-                    <button type="submit" onClick={nextPage}>Avançar</button>
-                </div>                
+                )}        
+
+                 {status === 'NÃO INICIADO' && warrantys !== null &&  (
+                            <div className={styles.ContainerData}>
+                                {warrantys.map(item => (
+                                    <>
+                                <div className={styles.ContainerInfo}>
+                                    <div className={styles.ContainerWarranty}>
+                                        <p>Garantia</p>
+                                    </div>
+                                    <strong>{item.id}</strong>
+                                               
+                                    <div className={styles.ContainerInfo2}>
+                                        <strong>Data</strong>
+                                        <span>{item.entry_date.slice(8, 10) + '/' + item.entry_date.slice(5, 7) + '/' + item.entry_date.slice(0, 4)}</span>
+                                    </div>
+                                    <div className={styles.ContainerInfo2}>
+                                        <strong>Cliente</strong>
+                                        <span>{item.order_services.client.first_name}</span> 
+                                    </div>
+                                    <div className={styles.ContainerInfo2}>
+                                        <strong>Aparelho</strong>
+                                        <span>{item.order_services.device.description}</span> 
+                                    </div>
+                                    <div className={styles.ContainerInfo2}>
+                                        <strong>Serviço</strong>
+                                        <span>{item.order_services.defect_problem}</span> 
+                                    </div>                                                                                                   
+                                    </div> 
+                                    <div className={styles.Buttons}>
+                                        <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                            <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                        </button>
+                                        <button type="submit" onClick={() => {handleUpdateWarrant(1, item.id)}}>
+                                            <img src="https://image.flaticon.com/icons/png/128/190/190411.png" alt="finished" />                                                   
+                                        </button>                                                                     
+                                    </div>  
+                                    </>
+                                ))}                                                                      
+                            </div> 
+                        )}
+
+                        {status === 'INICIADO' && warrantysinitial !== null && (
+                            <div className={styles.ContainerData}>
+                            {warrantysinitial.map(item => (
+                                <>
+                            <div className={styles.ContainerInfo}>
+                                <div className={styles.ContainerWarranty}>
+                                    <p>Garantia</p>
+                                </div>
+                                <strong>{item.id}</strong>
+                                           
+                                <div className={styles.ContainerInfo2}>
+                                    <strong>Data Iniciado</strong>
+                                    <span>{item.initial_date.slice(8, 10) + '/' + item.initial_date.slice(5, 7) + '/' + item.initial_date.slice(0, 4)}</span>
+                                </div>
+                                <div className={styles.ContainerInfo2}>
+                                    <strong>Cliente</strong>
+                                    <span>{item.order_services.client.first_name}</span> 
+                                </div>
+                                <div className={styles.ContainerInfo2}>
+                                    <strong>Aparelho</strong>
+                                    <span>{item.order_services.device.description}</span> 
+                                </div>
+                                <div className={styles.ContainerInfo2}>
+                                    <strong>Serviço</strong>
+                                    <span>{item.order_services.defect_problem}</span> 
+                                </div>                                                                                                   
+                                </div> 
+                                <div className={styles.Buttons}>
+                                    <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                        <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                    </button>
+                                    <button type="submit" onClick={() => {handleUpdateWarrant(2, item.id)}}>
+                                        <img src="https://image.flaticon.com/icons/png/128/190/190411.png" alt="finished" />                                                   
+                                    </button>                                                                     
+                                </div>  
+                                </>
+                            ))}                                                                      
+                        </div>
+                        )} 
+
+                        {status === 'FINALIZADO' && warrantysfinished !== null && (
+                           <div className={styles.ContainerData}>
+                           {warrantysfinished.map(item => (
+                               <>
+                           <div className={styles.ContainerInfo}>
+                               <div className={styles.ContainerWarranty}>
+                                   <p>Garantia</p>
+                               </div>
+                               <strong>{item.id}</strong>
+                                          
+                               <div className={styles.ContainerInfo2}>
+                                   <strong>Data finalizado</strong>
+                                   <span>{item.finished_date.slice(8, 10) + '/' + item.finished_date.slice(5, 7) + '/' + item.finished_date.slice(0, 4)}</span>
+                               </div>
+                               <div className={styles.ContainerInfo2}>
+                                   <strong>Cliente</strong>
+                                   <span>{item.order_services.client.first_name}</span> 
+                               </div>
+                               <div className={styles.ContainerInfo2}>
+                                   <strong>Aparelho</strong>
+                                   <span>{item.order_services.device.description}</span> 
+                               </div>
+                               <div className={styles.ContainerInfo2}>
+                                   <strong>Serviço</strong>
+                                   <span>{item.order_services.defect_problem}</span> 
+                               </div>                                                                                                   
+                               </div> 
+                               <div className={styles.Buttons}>
+                                   <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                       <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                   </button>
+                                   <button type="submit" onClick={() => {handleUpdateWarrant(3, item.id)}}>
+                                       <img src="https://image.flaticon.com/icons/png/128/190/190411.png" alt="finished" />                                                   
+                                   </button>                                                                     
+                               </div>  
+                               </>
+                           ))}                                                                      
+                       </div> 
+                    )}    
+
+                        {status === 'ENTREGUE' && warrantysdelivery !== null &&  (
+                            <div className={styles.ContainerData}>
+                                {warrantysdelivery.map(item => (
+                                    <>
+                                <div className={styles.ContainerInfo}>
+                                    <div className={styles.ContainerWarranty}>
+                                        <p>Garantia</p>
+                                    </div>
+                                    <strong>{item.id}</strong>
+                                               
+                                    <div className={styles.ContainerInfo2}>
+                                        <strong>Data da entrega</strong>
+                                        <span>{item.delivery_date.slice(8, 10) + '/' + item.delivery_date.slice(5, 7) + '/' + item.delivery_date.slice(0, 4)}</span>
+                                    </div>
+                                    <div className={styles.ContainerInfo2}>
+                                        <strong>Cliente</strong>
+                                        <span>{item.order_services.client.first_name}</span> 
+                                    </div>
+                                    <div className={styles.ContainerInfo2}>
+                                        <strong>Aparelho</strong>
+                                        <span>{item.order_services.device.description}</span> 
+                                    </div>
+                                    <div className={styles.ContainerInfo2}>
+                                        <strong>Serviço</strong>
+                                        <span>{item.order_services.defect_problem}</span> 
+                                    </div>                                                                                                   
+                                    </div> 
+                                    <div className={styles.Buttons}>
+                                        <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                            <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                        </button>                                                                  
+                                    </div>  
+                                    </>
+                                ))}                                                                      
+                            </div> 
+                        )}      
+                 
+                 {data !== null && (
+                     <div className={styles.ContainerNavigation}>
+                        <button type="submit" onClick={backPage}>Voltar</button>
+                        <button type="submit" onClick={nextPage}>Avançar</button>
+                    </div>   
+                 )}
+                                            
             </div>
-        )}                          
+        )}                                     
         </>
     );
 }

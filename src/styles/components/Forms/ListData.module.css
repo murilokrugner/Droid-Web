@@ -67,6 +67,7 @@
   display: flex;
 
   margin-bottom: 50px;
+  margin-top: 50px;
 
   width: 400px;
 
@@ -84,6 +85,8 @@
   border-radius: 4px;
   font-size: 16px;
   transition: background 0.2s;
+  margin-bottom: 50px;
+  
 }
 
 .ContainerStatus {
@@ -93,6 +96,15 @@
   border-radius: 50px;
 
   background-color: #3fe04e;
+}
+
+.ContainerWarranty {
+  
+}
+
+.ContainerWarranty p {
+  color: #e00905;
+  font-weight: bold;
 }
 
 .ContainerStatusFinished {
