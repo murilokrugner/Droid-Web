@@ -44,7 +44,10 @@ export default function ListData({ address }) {
     const [warrantysinitial, setWarrantysinitial] = useState<Warranty>(null);
     const [warrantysfinished, setWarrantysfinished] = useState<Warranty>(null);
     const [warrantysdelivery, setWarrantysDelivery] = useState<Warranty>(null);
-    
+    const [warrantysW, SetWarrantysW] = useState<Warranty>(null);
+
+    const [warrantysAbandoned, SetWarrantysAbandoned] = useState<Warranty>(null);
+        
     const [page, setPage] = useState(1);
 
     async function loadData() {
@@ -106,6 +109,30 @@ export default function ListData({ address }) {
                     setWarrantysDelivery(null);
                 } else {
                     setWarrantysDelivery(responseWarrantydelivery.data);
+                }
+            }
+
+            if (status === 'GARANTIA') {
+                const responseWarrantydelivery = await api.get(`reporter-devices-warranty?page=${page}&company=${company}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+    
+                if (responseWarrantydelivery.data.length === 0) {
+                    SetWarrantysW(null);
+                } else {
+                    SetWarrantysW(responseWarrantydelivery.data);
+                }
+            }
+
+            if (status === 'ABANDONADOS') {
+                const responseWarrantydelivery = await api.get(`reporter-devices-abandoned?page=${page}&company=${company}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+    
+                if (responseWarrantydelivery.data.length === 0) {
+                    SetWarrantysAbandoned(null);
+                } else {
+                    SetWarrantysAbandoned(responseWarrantydelivery.data);
                 }
             }
     
@@ -832,14 +859,92 @@ export default function ListData({ address }) {
                                     </>
                                 ))}                                                                      
                             </div> 
-                        )}      
+                        )} 
+
+                    {status === 'GARANTIA' && warrantysW !== null && (
+                           <div className={styles.ContainerData}>
+                           {warrantysW.map(item => (
+                               <>
+                           <div className={styles.ContainerInfo}>
+                               <div className={styles.ContainerWarranty}>
+                                   <p></p>
+                               </div>
+                               <strong>{item.id}</strong>
+                                          
+                               <div className={styles.ContainerInfo2}>
+                                   <strong>Data da entrega</strong>
+                                   <span>{item.delivery_forecast.slice(8, 10) + '/' + item.delivery_forecast.slice(5, 7) + '/' + item.delivery_forecast.slice(0, 4)}</span>
+                               </div>
+                               <div className={styles.ContainerInfo2}>
+                                   <strong>Cliente</strong>
+                                   <span>{item.client.first_name}</span> 
+                               </div>
+                               <div className={styles.ContainerInfo2}>
+                                   <strong>Aparelho</strong>
+                                   <span>{item.device.description}</span> 
+                               </div>
+                               <div className={styles.ContainerInfo2}>
+                                   <strong>Serviço</strong>
+                                   <span>{item.defect_problem}</span> 
+                               </div>                                                                                                   
+                               </div> 
+                               <div className={styles.Buttons}>
+                                   <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                       <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                   </button>
+                                   <button type="submit" onClick={() => {handleUpdateWarrant(3, item.id)}}>
+                                       <img src="https://image.flaticon.com/icons/png/128/190/190411.png" alt="finished" />                                                   
+                                   </button>                                                                     
+                               </div>  
+                               </>
+                           ))}                                                                      
+                       </div> 
+                    )}    
+
+                    {status === 'ABANDONADOS' && warrantysAbandoned !== null && (
+                           <div className={styles.ContainerData}>
+                           {warrantysAbandoned.map(item => (
+                               <>
+                           <div className={styles.ContainerInfo}>
+                               <div className={styles.ContainerWarranty}>
+                                   <p></p>
+                               </div>
+                               <strong>{item.id}</strong>
+                                          
+                               <div className={styles.ContainerInfo2}>
+                                   <strong>Data da entrega</strong>
+                                   <span>{item.delivery_forecast.slice(8, 10) + '/' + item.delivery_forecast.slice(5, 7) + '/' + item.delivery_forecast.slice(0, 4)}</span>
+                               </div>
+                               <div className={styles.ContainerInfo2}>
+                                   <strong>Cliente</strong>
+                                   <span>{item.client.first_name}</span> 
+                               </div>
+                               <div className={styles.ContainerInfo2}>
+                                   <strong>Aparelho</strong>
+                                   <span>{item.device.description}</span> 
+                               </div>
+                               <div className={styles.ContainerInfo2}>
+                                   <strong>Serviço</strong>
+                                   <span>{item.defect_problem}</span> 
+                               </div>                                                                                                   
+                               </div> 
+                               <div className={styles.Buttons}>
+                                   <button type="submit" onClick={() => {handleNavigationView(item.id)}}>
+                                       <img src="https://image.flaticon.com/icons/png/128/2235/2235419.png" alt="view" />
+                                   </button>
+                                   <button type="submit" onClick={() => {handleUpdateWarrant(3, item.id)}}>
+                                       <img src="https://image.flaticon.com/icons/png/128/190/190411.png" alt="finished" />                                                   
+                                   </button>                                                                     
+                               </div>  
+                               </>
+                           ))}                                                                      
+                       </div> 
+                    )}   
                  
-                 {data !== null && (
-                     <div className={styles.ContainerNavigation}>
+                 <div className={styles.ContainerNavigation}>
                         <button type="submit" onClick={backPage}>Voltar</button>
                         <button type="submit" onClick={nextPage}>Avançar</button>
-                    </div>   
-                 )}
+                    </div>  
                                             
             </div>
         )}                                     

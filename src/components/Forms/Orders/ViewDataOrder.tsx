@@ -17,9 +17,23 @@ import stylesLoading from '../../../styles/components/Loading.module.css';
 
 import HashLoader from "react-spinners/HashLoader"; 
 
-
-
 import { toast } from 'react-toastify';
+
+import IntlCurrencyInput from "react-intl-currency-input"
+
+const currencyConfig = {
+    locale: "pt-BR",
+    formats: {
+      number: {
+        BRL: {
+          style: "currency",
+          currency: "BRL",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        },
+      },
+    },
+  };
 
 export default function ViewDataOrder({address}) {
     const router = useRouter();
@@ -319,6 +333,11 @@ export default function ViewDataOrder({address}) {
                         onChange={value => setDefectProblem(value[0])} 
                         disabled                       
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Valor</strong>
+                    <IntlCurrencyInput currency="BRL" config={currencyConfig}
+                        value={value} disabled/>
                     </div>
                     <>
                     {selectStatus[0].value === 'FINALIZADO' && (

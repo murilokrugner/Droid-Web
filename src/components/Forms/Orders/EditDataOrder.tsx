@@ -12,7 +12,23 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { confirmAlert } from 'react-confirm-alert'; 
 
+import IntlCurrencyInput from "react-intl-currency-input"
+
 export default function EditDataOrder({address}) {
+    const currencyConfig = {
+        locale: "pt-BR",
+        formats: {
+          number: {
+            BRL: {
+              style: "currency",
+              currency: "BRL",
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            },
+          },
+        },
+      };
+      
     const router = useRouter();
 
     const addressEdit = router.query.address;
@@ -375,6 +391,11 @@ export default function EditDataOrder({address}) {
                         value={defect_problem}
                         onChange={value => setDefectProblem(value[0])}
                     />
+                    </div>
+                    <div className={styles.ContainerTitle}>
+                        <strong>Valor</strong>
+                    <IntlCurrencyInput currency="BRL" config={currencyConfig}
+                        value={value} disabled/>
                     </div>
                     <div className={styles.ContainerTitle}>
                         <strong>Status</strong>

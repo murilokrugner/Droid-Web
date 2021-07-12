@@ -74,86 +74,86 @@ export default function PrinterOrder() {
             <Document>
                 <Page size={data.password_printer ? {width: 200, height: 420} : {width: 200, height: 370}} style={stylesS.page}>
                     <View style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: 'auto', width: 200}}>
-                        <Text style={{fontSize: 8, fontWeight: 'bold'}}>
+                        <Text style={{fontSize: 9, fontWeight: 'bold'}}>
                             DROID ASSISTÊNCIA TÉCNICA                                                                                
                         </Text>
-                        <Text style={{fontSize: 8}}>AV. BARRA BONITA, 15 BELA VISTA</Text>
-                        <Text style={{fontSize: 8}}>DOIS CÓRREGOS-SP</Text>
-                        <Text style={{fontSize: 8}}>CNPJ:32.674.575/0001-86</Text>
-                        <Text style={{fontSize: 8}}>WhatsApp: (14)98110-5545</Text>
+                        <Text style={{fontSize: 9}}>AV. BARRA BONITA, 15 BELA VISTA</Text>
+                        <Text style={{fontSize: 9}}>DOIS CÓRREGOS-SP</Text>
+                        <Text style={{fontSize: 9}}>CNPJ:32.674.575/0001-86</Text>
+                        <Text style={{fontSize: 9}}>WhatsApp: (14)98110-5545</Text>
 
                         <View style={{width: '100%',  marginTop: 20, flex: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <Text style={{fontSize: 7}}>Data: {date}</Text>
-                            <Text style={{fontSize: 7}}>Hora: {currentHour}</Text>
+                            <Text style={{fontSize: 8}}>Data: {date}</Text>
+                            <Text style={{fontSize: 8}}>Hora: {currentHour}</Text>
                         </View>
 
                         <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                            <Text style={{fontSize: 7}}>------------------------------------------------------------------------------------</Text>
-                            <Text style={{fontSize: 7}}>ORDEM DE SERVIÇO --- OS: {data.id}</Text>
-                            <Text style={{fontSize: 7}}>------------------------------------------------------------------------------------</Text>
+                            <Text style={{fontSize: 8}}>------------------------------------------------------------------------------------</Text>
+                            <Text style={{fontSize: 8}}>ORDEM DE SERVIÇO --- OS: {data.id}</Text>
+                            <Text style={{fontSize: 8}}>------------------------------------------------------------------------------------</Text>
                         </View>
 
                         <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
-                            <Text style={{fontSize: 7}}>Atendente: {data.clerk.first_name}</Text>
-                            <Text style={{fontSize: 7}}>Técnico: {data.employee.first_name}</Text>
-                            <Text style={{fontSize: 7}}>Nome: {data.client.first_name}</Text>
-                            <Text style={{fontSize: 7}}>Endereço: {data.client.address}</Text>
-                            <Text style={{fontSize: 7}}>Bairro: {data.client.neighborhood_address}</Text>
-                            <Text style={{fontSize: 7}}>CNPJ/CPF: {data.client.document}</Text>
-                            <Text style={{fontSize: 7}}>IE/RG: {data.client.rg}</Text>
-                            <Text style={{fontSize: 7}}>Equipamento: {data.device.group.description}</Text>
-                            <Text style={{fontSize: 7}}>Marca: {data.device.brand.description}</Text>
-                            <Text style={{fontSize: 7}}>Modelo: {data.device.description}</Text>
-                            <Text style={{fontSize: 7}}>N° Série: {data.imei}</Text>
-                            <Text style={{fontSize: 7}}>Senha: {data.password_device}</Text>
-                            <Text style={{fontSize: 7}}>Acessórios: {data.accessories}</Text>
-                            <Text style={{fontSize: 7}}>Danificado: {data.defect_problem}</Text>
+                            <Text style={{fontSize: 8}}>Atendente: {data.clerk.first_name}</Text>
+                            <Text style={{fontSize: 8}}>Técnico: {data.employee.first_name}</Text>
+                            <Text style={{fontSize: 8}}>Nome: {data.client.first_name}</Text>
+                            <Text style={{fontSize: 8}}>Endereço: {data.client.address}</Text>
+                            <Text style={{fontSize: 8}}>Bairro: {data.client.neighborhood_address}</Text>
+                            <Text style={{fontSize: 8}}>CNPJ/CPF: {data.client.document}</Text>
+                            <Text style={{fontSize: 8}}>IE/RG: {data.client.rg}</Text>
+                            <Text style={{fontSize: 8}}>Equipamento: {data.device.group.description}</Text>
+                            <Text style={{fontSize: 8}}>Marca: {data.device.brand.description}</Text>
+                            <Text style={{fontSize: 8}}>Modelo: {data.device.description}</Text>
+                            <Text style={{fontSize: 8}}>N° Série: {data.imei}</Text>
+                            <Text style={{fontSize: 8}}>Senha: {data.password_device}</Text>
+                            <Text style={{fontSize: 8}}>Acessórios: {data.accessories}</Text>
+                            <Text style={{fontSize: 8}}>Danificado: {data.defect_problem}</Text>
                         </View>
 
                         <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: 10}}>
-                            <Text style={{fontSize: 7}}>Defeito: {data.defect_problem}</Text>
-                            <Text style={{fontSize: 7}}>Obs: {data.comments}</Text>
+                            <Text style={{fontSize: 8}}>Defeito: {data.defect_problem}</Text>
+                            <Text style={{fontSize: 8}}>Obs: {data.comments}</Text>
                         </View>
 
                         <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: 10}}>
-                            <Text style={{fontSize: 7}}>Tel/Cel: {data.client.mobile_phone}</Text>
-                            <Text style={{fontSize: 7}}>Data Entrega: {data.delivery_forecast !== null && data.delivery_forecast.slice(8, 10) + '/' 
+                            <Text style={{fontSize: 8}}>Tel/Cel: {data.client.mobile_phone}</Text>
+                            <Text style={{fontSize: 8}}>Data Entrega: {data.delivery_forecast !== null && data.delivery_forecast.slice(8, 10) + '/' 
                                         +  data.delivery_forecast.slice(5, 7) + '/' 
                                             + data.delivery_forecast.slice(0, 4) }</Text>
-                            <Text style={{fontSize: 7}}>Valor/Conserto: {data.value !== null && data.value}</Text>
+                            <Text style={{fontSize: 8}}>Valor/Conserto: {data.value !== null && data.value}</Text>
                         </View>
 
                         {data.password_printer && (
                             <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10, marginLeft: 60 }}>
                                 <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
-                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
-                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
-                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 8, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 8, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 8, textAlign: 'justify'}}>0     </Text>
                                 </View>
                                 <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
-                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
-                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
-                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 8, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 8, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 8, textAlign: 'justify'}}>0     </Text>
                                 </View>
                                 <View style={{width: 100, flex: 1, display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
-                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
-                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
-                                    <Text style={{fontSize: 7, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 8, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 8, textAlign: 'justify'}}>0     </Text>
+                                    <Text style={{fontSize: 8, textAlign: 'justify'}}>0     </Text>
                                 </View>
                             </View>
                         )}
 
                         <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10}}>
-                            <Text style={{fontSize: 7}}>Estou ciente de que o equipamento que deixei não da para testar e que caso seja encontrado 
+                            <Text style={{fontSize: 8}}>Estou ciente de que o equipamento que deixei não da para testar e que caso seja encontrado 
                                 algum defeito diferente do informado imunizo esta Assistência de qualquer responsabilidades sobre defeitos adicionais 
                                 encontrados 
                             </Text>
-                            <Text style={{fontSize: 7, textAlign: 'justify'}}>..................................................................................................................................</Text>
+                            <Text style={{fontSize: 8, textAlign: 'justify'}}>..................................................................................................................................</Text>
                         </View>
 
                         <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 30}}>
-                        <Text style={{fontSize: 7, textAlign: 'justify'}}>_______________________________________________________________________________________________________________________________________</Text>
-                            <Text style={{fontSize: 7}}>*** Obrigado e volte sempre ***</Text>                            
+                        <Text style={{fontSize: 8, textAlign: 'justify'}}>_______________________________________________________________________________________________________________________________________</Text>
+                            <Text style={{fontSize: 8}}>*** Obrigado e volte sempre ***</Text>                            
                         </View>
                         
                     </View>

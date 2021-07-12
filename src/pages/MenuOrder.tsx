@@ -41,6 +41,9 @@ export default function MenuOrder() {
                 <button type="submit" onClick={() => {routing('Orders/ListOrders', 'GARANTIA')}}>                                                
                     <strong>Na Garantia</strong>  
                 </button>
+                <button type="submit" onClick={() => {routing('Orders/ListOrders', 'ABANDONADOS')}}>                                                
+                    <strong>Abandonados</strong>  
+                </button>
             </div>            
         </div>
     );

@@ -254,6 +254,7 @@ export default function FinishedOrder({address}) {
                 delivery_forecast_hour: dataMask.hour,                
                 value: value,
                 status: 'ENTREGUE',
+                finished_date: new Date(),
                                            
             }, {
                 headers: { Authorization: `Bearer ${token}` }  
