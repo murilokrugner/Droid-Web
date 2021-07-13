@@ -26,8 +26,8 @@ interface Data {
 }
 
 interface Warranty {
-    map: (data: object) => void;
-    item: Array<object>,
+    map: (data: object) => [];
+    item: Array<object>;
 }
 
 export default function ListData({ address }) {
@@ -900,7 +900,7 @@ export default function ListData({ address }) {
                            ))}                                                                      
                        </div> 
                     )}    
-
+                
                     {status === 'ABANDONADOS' && warrantysAbandoned !== null && (
                            <div className={styles.ContainerData}>
                            {warrantysAbandoned.map(item => (
