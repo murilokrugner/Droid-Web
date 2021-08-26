@@ -224,7 +224,7 @@ export default function FinishedOrder({address}) {
 
     }, [token]);
 
-    async function handleSubmit(data) { 
+    async function handleSubmit(data) {     
         setLoadingSave(true);
 
         if (dataMask.date === undefined) {
@@ -265,12 +265,12 @@ export default function FinishedOrder({address}) {
             setLoadingSave(false);
 
             router.push({
-                pathname: 'PrinterOrder',
+                pathname: 'PrinterOrderFinished',
                 query: {
                     id: id,
                     address: addressEdit,
                 }
-            });
+            });    
 
         } catch (error) {            
             toast.error('Erro ao finalizar O.S.');

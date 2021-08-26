@@ -60,7 +60,7 @@ export default function SignIn() {
     return (
       <div className={styles.containerSignIn}>      
         <div className={styles.containerForm}>
-            <img src='./logo.png' alt="logobela" height="500px" />
+            <img src='./logo.png' alt="logo" height="500px" />
     
             <Form schema={schema} onSubmit={handleLoading}>
             <div className={styles.ContainerSelect}>
