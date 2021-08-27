@@ -46,8 +46,6 @@ export default function PrinterOrderFinished() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<Data>(null);
 
-    console.log(data);
-
     useEffect(() => {
         async function loadData() {
             const response = await api.get(`get-orders-code?company=${company}&id=${id}}`, {
@@ -75,8 +73,8 @@ export default function PrinterOrderFinished() {
 
         return (
             <Document>
-                <Page size={{width: 2480, height: 3508}} style={stylesS.page}>
-                    <View style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: 3250, width: '100%'}}>
+                <Page size={{width: 2480, height: 3350}} style={stylesS.page}>
+                    <View style={{backgroundColor: '#fff', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: 3350, width: '100%'}}>
 
                         <View style={{flex: 1, display: 'flex',  flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
 
@@ -91,8 +89,11 @@ export default function PrinterOrderFinished() {
                                     DROID ASSISTÊNCIA TÉCNICA                                                                                
                                 </Text>
                                 <Text style={{fontSize: 50, marginTop: 40}}>
-                                    AV. BARRA BONITA, 15 BELA VISTA - DOIS CÓRREGOS-SP                                                                             
+                                    AV. PIRACICABA, 895B - CHACARAS CALIFORNIA                                                                           
                                 </Text>
+                                <Text style={{fontSize: 50, marginTop: 40}}>
+                                    DOIS CÓRREGOS - SP                                                                            
+                                </Text>                                
                                 <Text style={{fontSize: 50, marginTop: 40}}>
                                     TELEFONE/WHATSAPP: (14) 98110-5545                                                                           
                                 </Text>
@@ -288,7 +289,7 @@ export default function PrinterOrderFinished() {
                             </View>
 
                             <View style={{display: 'flex',  flexDirection: 'row', justifyContent: 'space-around', width: '100%', marginTop: 130}}>
-                                <View style={{display: 'flex',  flexDirection: 'column', alignItems: 'center'}}>
+                                <View style={{display: 'flex',  flexDirection: 'column', alignItems: 'center', marginBottom: 40}}>
                                     <Text style={{fontSize: 55, fontWeight: 'bold'}}>
                                         ________________________________
                                     </Text> 
@@ -296,7 +297,7 @@ export default function PrinterOrderFinished() {
                                         Assinatura do Cliente
                                     </Text> 
                                 </View>
-                                <View style={{display: 'flex',  flexDirection: 'column', alignItems: 'center'}}>
+                                <View style={{display: 'flex',  flexDirection: 'column', alignItems: 'center', marginBottom: 40}}>
                                     <Text style={{fontSize: 55, fontWeight: 'bold'}}>
                                         _____________________________
                                     </Text> 

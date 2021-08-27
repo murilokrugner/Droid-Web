@@ -211,8 +211,9 @@ export default function FormOrder({ address }) {
 
     function handleNavigateNewDevice() {
         router.push({
-            pathname: '../Devices/CreateDevice'
-        });
+            pathname: '../Devices/CreateDevice',
+
+            });
     }
 
     return (
@@ -230,7 +231,24 @@ export default function FormOrder({ address }) {
                     <div className={styles.ContainerTitle}>
                         <strong>Código</strong>
                         <Input name="code" type="text" placeholder="Código" value={code} disabled />
-                    </div>     
+                    </div> 
+                    <div className={styles.ContainerTitle}>
+                        <strong>Aparelho</strong>
+                    <div className={styles.ContainerSelect2}>
+                        <ReactSelect   
+                            name={selectDevice} 
+                            value={selectDevice}
+                            onChange={value => setSelectDevice(value)}
+                            placeholder={'Aparelho'}                    
+                            ref={typeDeviceRef}
+                            options={devices}
+                            isClearable={false}
+                            isLoading={loading}
+                            
+                        />
+                        <button type="button" onClick={handleNavigateNewDevice}>Novo Aparelho</button>
+                    </div>
+                    </div>    
                     <div className={styles.ContainerTitle}>
                         <strong>Descrição</strong>               
                     <Input
@@ -282,24 +300,7 @@ export default function FormOrder({ address }) {
                         type="text"
                         placeholder="Senha do aparelho"
                     /> 
-                    </div>
-                    <div className={styles.ContainerTitle}>
-                        <strong>Aparelho</strong>
-                    <div className={styles.ContainerSelect2}>
-                        <ReactSelect   
-                            name={selectDevice} 
-                            value={selectDevice}
-                            onChange={value => setSelectDevice(value)}
-                            placeholder={'Aparelho'}                    
-                            ref={typeDeviceRef}
-                            options={devices}
-                            isClearable={false}
-                            isLoading={loading}
-                            
-                        />
-                        <button type="button" onClick={handleNavigateNewDevice}>Novo Aparelho</button>
-                    </div>
-                    </div>
+                    </div>                    
                     <div className={styles.ContainerTitle}>
                         <strong>IMEI</strong>
                     <Input

@@ -72,15 +72,16 @@ export default function PrinterOrder() {
 
         return (
             <Document>
-                <Page size={data.password_printer ? {width: 200, height: 420} : {width: 200, height: 370}} style={stylesS.page}>
-                    <View style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: 'auto', width: 200}}>
+                <Page size={{width: 200, height: 500}} style={stylesS.page}>
+                    <View style={{flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', height: 'auto', width: 200, padding: 5}}>
                         <Text style={{fontSize: 9, fontWeight: 'bold'}}>
                             DROID ASSISTÊNCIA TÉCNICA                                                                                
                         </Text>
-                        <Text style={{fontSize: 9}}>AV. BARRA BONITA, 15 BELA VISTA</Text>
+                        <Text style={{fontSize: 9}}>AV. PIRACICABA, 895B</Text>
+                        <Text style={{fontSize: 9}}>CHACARAS CALIFORNIA</Text>
                         <Text style={{fontSize: 9}}>DOIS CÓRREGOS-SP</Text>
                         <Text style={{fontSize: 9}}>CNPJ:32.674.575/0001-86</Text>
-                        <Text style={{fontSize: 9}}>WhatsApp: (14)98110-5545</Text>
+                        <Text style={{fontSize: 9}}>WhatsApp: (14) 98110-5545</Text>
 
                         <View style={{width: '100%',  marginTop: 20, flex: 1, display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                             <Text style={{fontSize: 8}}>Data: {date}</Text>
@@ -144,7 +145,7 @@ export default function PrinterOrder() {
                         )}
 
                         <View style={{width: '100%', flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 10}}>
-                            <Text style={{fontSize: 8}}>Estou ciente de que o equipamento que deixei não da para testar e que caso seja encontrado 
+                            <Text style={{fontSize: 8, textAlign: 'justify'}}>Estou ciente de que o equipamento que deixei não da para testar e que caso seja encontrado 
                                 algum defeito diferente do informado imunizo esta Assistência de qualquer responsabilidades sobre defeitos adicionais 
                                 encontrados 
                             </Text>
