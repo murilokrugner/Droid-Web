@@ -52,6 +52,7 @@
     padding: 0 15px;
     color: #000;
     margin: 0 0 10px;
+    width: 400px;
 }
 
 .containerForm form span {
@@ -75,4 +76,18 @@
 
 .ContainerSelect {
     margin-bottom: 20px;
+}
+
+.containerDate {
+    display: column;
+    flex-direction: row;
+}
+
+.containerStrong {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+   
 }
